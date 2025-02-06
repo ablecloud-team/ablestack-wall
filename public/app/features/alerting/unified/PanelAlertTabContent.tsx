@@ -3,6 +3,7 @@ import { css } from '@emotion/css';
 import { GrafanaTheme2 } from '@grafana/data';
 import { selectors } from '@grafana/e2e-selectors';
 import { Alert, CustomScrollbar, LoadingPlaceholder, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { contextSrv } from 'app/core/services/context_srv';
 import { DashboardModel, PanelModel } from 'app/features/dashboard/state';
 
@@ -63,13 +64,13 @@ export const PanelAlertTabContent = ({ dashboard, panel }: Props) => {
       {alert}
       {!!dashboard.uid && (
         <>
-          <p>There are no alert rules linked to this panel.</p>
+          <p>{t('ablestack-wall.alert.no-alert-rules-linked', 'There are no alert rules linked to this panel.')}</p>
           {!!dashboard.meta.canSave && canCreateRules && <NewRuleFromPanelButton panel={panel} dashboard={dashboard} />}
         </>
       )}
       {!dashboard.uid && !!dashboard.meta.canSave && (
         <Alert severity="info" title="Dashboard not saved">
-          Dashboard must be saved before alerts can be added.
+          {t('ablestack-wall.alert.dashboard-must-be-saved', 'Dashboard must be saved before alerts can be added.')}
         </Alert>
       )}
     </div>

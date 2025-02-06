@@ -9,6 +9,7 @@ import { reportInteraction } from '@grafana/runtime';
 import { SceneVariable } from '@grafana/scenes';
 import { VariableHide, defaultVariableModel } from '@grafana/schema';
 import { Button, LoadingPlaceholder, ConfirmModal, ModalsController, Stack, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { VariableHideSelect } from 'app/features/dashboard-scene/settings/variables/components/VariableHideSelect';
 import { VariableLegend } from 'app/features/dashboard-scene/settings/variables/components/VariableLegend';
 import { VariableTextAreaField } from 'app/features/dashboard-scene/settings/variables/components/VariableTextAreaField';
@@ -79,10 +80,13 @@ export function VariableEditorForm({
     <form aria-label="Variable editor Form">
       <VariableTypeSelect onChange={onVariableTypeChange} type={type} />
 
-      <VariableLegend>General</VariableLegend>
+      <VariableLegend>{t('ablestack-wall.common.general', 'General')}</VariableLegend>
       <VariableTextField
-        name="Name"
-        description="The name of the template variable. (Max. 50 characters)"
+        name={t('ablestack-wall.common.name', 'Name')}
+        description={t(
+          'ablestack-wall.dashboard.template-variable-name',
+          'The name of the template variable. (Max. 50 characters)'
+        )}
         placeholder="Variable name"
         defaultValue={name ?? ''}
         onChange={onNameChange}
@@ -94,15 +98,15 @@ export function VariableEditorForm({
         error={nameError}
       />
       <VariableTextField
-        name="Label"
-        description="Optional display name"
+        name={t('ablestack-wall.common.label', 'Label')}
+        description={t('ablestack-wall.dashboard.optional-display-name', 'Optional display name')}
         placeholder="Label name"
         defaultValue={label ?? ''}
         onBlur={onLabelBlur}
         testId={selectors.pages.Dashboard.Settings.Variables.Edit.General.generalLabelInputV2}
       />
       <VariableTextAreaField
-        name="Description"
+        name={t('ablestack-wall.common.description', 'Description')}
         defaultValue={description ?? ''}
         placeholder="Descriptive text"
         onBlur={onDescriptionBlur}
@@ -124,16 +128,19 @@ export function VariableEditorForm({
                 fill="outline"
                 onClick={() => {
                   showModal(ConfirmModal, {
-                    title: 'Delete variable',
-                    body: `Are you sure you want to delete: ${name}?`,
-                    confirmText: 'Delete variable',
+                    title: t('ablestack-wall.dashboard.delete-variable', 'Delete variable'),
+                    body: t(
+                      'ablestack-wall.dashboard.delete-confirmation',
+                      `Are you sure you want to delete: ${name}?`
+                    ),
+                    confirmText: t('ablestack-wall.dashboard.delete-variable-confirmation-yes', 'Delete variable'),
                     onConfirm: onDeleteVariable(hideModal),
                     onDismiss: hideModal,
                     isOpen: true,
                   });
                 }}
               >
-                Delete
+                {t('ablestack-wall.common.delete', 'Delete')}
               </Button>
             )}
           </ModalsController>
@@ -142,7 +149,7 @@ export function VariableEditorForm({
             data-testid={selectors.pages.Dashboard.Settings.Variables.Edit.General.applyButton}
             onClick={onGoBack}
           >
-            Back to list
+            {t('ablestack-wall.common.back-to-list', 'Back to list')}
           </Button>
 
           {isHasVariableOptions && (
@@ -155,7 +162,7 @@ export function VariableEditorForm({
               {runQueryState.loading ? (
                 <LoadingPlaceholder className={styles.loadingPlaceHolder} text="Running query..." />
               ) : (
-                `Run query`
+                t('ablestack-wall.dashboard.run-query', 'Run query')
               )}
             </Button>
           )}

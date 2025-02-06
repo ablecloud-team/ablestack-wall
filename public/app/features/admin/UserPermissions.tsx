@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { GrafanaTheme2 } from '@grafana/data';
 import { ConfirmButton, RadioButtonGroup, Icon, useStyles2 } from '@grafana/ui';
 import { contextSrv } from 'app/core/core';
+import { t } from 'app/core/internationalization';
 import { ExternalUserTooltip } from 'app/features/admin/UserOrgs';
 import { AccessControlAction } from 'app/types';
 
@@ -39,7 +40,7 @@ export function UserPermissions({ isGrafanaAdmin, isExternalUser, lockMessage, o
 
   return (
     <div>
-      <h3 className="page-heading">Permissions</h3>
+      <h3 className="page-heading">{t('ablestack-wall.common-permissions', 'Permissions')}</h3>
       <table className="filter-table form-inline">
         <tbody>
           <tr>

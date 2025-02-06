@@ -4,6 +4,7 @@ import * as React from 'react';
 import { Fragment, useDeferredValue, useMemo } from 'react';
 
 import { Badge, Stack } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import {
   AlertGroupTotals,
   AlertInstanceTotalState,
@@ -40,7 +41,9 @@ export const RuleStats = React.memo(({ namespaces }: Props) => {
 
   statsComponents.unshift(
     <Fragment key="total">
-      {total} {pluralize('rule', total)}
+      <span style={{ fontSize: '20px', fontWeight: 'bold' }}>
+        {total} {pluralize(t('ablestack-wall.alert.rules', 'Rules'), total)}
+      </span>
     </Fragment>
   );
 

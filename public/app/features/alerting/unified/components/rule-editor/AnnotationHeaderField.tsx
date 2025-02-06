@@ -1,6 +1,7 @@
 import { FieldArrayWithId, useFormContext, Controller } from 'react-hook-form';
 
 import { Text, Stack } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import { RuleFormValues } from '../../types/rule-form';
 import { Annotation, annotationDescriptions, annotationLabels } from '../../utils/constants';
@@ -36,7 +37,7 @@ const AnnotationHeaderField = ({
 
               switch (annotationField.key) {
                 case Annotation.dashboardUID:
-                  label = 'Dashboard and panel';
+                  label = t('ablestack-wall.alert.dashboard-and-panel', 'Dashboard and panel');
                   break;
                 case Annotation.panelID:
                   label = '';

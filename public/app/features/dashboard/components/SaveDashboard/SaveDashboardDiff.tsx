@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 import { useAsync } from 'react-use';
 
 import { Box, Spinner, Stack } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { Diffs } from 'app/features/dashboard-scene/settings/version-history/utils';
 
 import { DiffGroup } from '../../../dashboard-scene/settings/version-history/DiffGroup';
@@ -83,7 +84,7 @@ export const SaveDashboardDiff = ({
           {value && value.schemaChange && value.schemaChange}
           {value && value.showDiffs && value.diffs}
           <Box paddingTop={1}>
-            <h4>Full JSON diff</h4>
+            <h4>{t('ablestack-wall.alert.full-json-diff', 'Full JSON diff')}</h4>
             {value.jsonView}
           </Box>
         </>

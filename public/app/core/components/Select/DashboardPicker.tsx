@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { SelectableValue } from '@grafana/data';
 import { AsyncSelectProps, AsyncSelect } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { backendSrv } from 'app/core/services/backend_srv';
 import { getDashboardAPI } from 'app/features/dashboard/api/dashboard_api';
 import { DashboardSearchItem } from 'app/features/search/types';
@@ -39,7 +40,7 @@ const getDashboards = debounce(findDashboards, 250, { leading: true });
 export const DashboardPicker = ({
   value,
   onChange,
-  placeholder = 'Select dashboard',
+  placeholder = t('ablestack-wall.alert.select-dashboard', 'Select dashboard'),
   noOptionsMessage = 'No dashboards found',
   ...props
 }: Props) => {

@@ -2,6 +2,7 @@ import { Fragment, useEffect } from 'react';
 
 import { Alert, LoadingPlaceholder, Text, Box } from '@grafana/ui';
 import { useQueryParams } from 'app/core/hooks/useQueryParams';
+import { t } from 'app/core/internationalization';
 import { useDispatch } from 'app/types';
 
 import { AlertmanagerChoice } from '../../../plugins/datasource/alertmanager/types';
@@ -76,7 +77,7 @@ const AlertGroups = () => {
                 (index === 0 && Object.keys(group.labels).length > 0)) && (
                 <Box paddingY={2}>
                   <Text element="h2" variant="body">
-                    Grouped by: {Object.keys(group.labels).join(', ')}
+                    {t('ablestack-wall.alert.grouped-by', 'Grouped by')}: {Object.keys(group.labels).join(', ')}
                   </Text>
                 </Box>
               )}
@@ -84,7 +85,7 @@ const AlertGroups = () => {
             </Fragment>
           );
         })}
-      {results && !filteredAlertGroups.length && <p>No results.</p>}
+      {results && !filteredAlertGroups.length && <p>{t('ablestack-wall.alert.no-result', 'No results.')}</p>}
     </>
   );
 };

@@ -4,7 +4,6 @@ import { memo } from 'react';
 
 import { GrafanaTheme2, NavModelItem } from '@grafana/data';
 import { Dropdown, Icon, Stack, ToolbarButton, useStyles2 } from '@grafana/ui';
-import { config } from 'app/core/config';
 import { useGrafana } from 'app/core/context/GrafanaContext';
 import { contextSrv } from 'app/core/core';
 import { t } from 'app/core/internationalization';
@@ -15,7 +14,7 @@ import { Branding } from '../../Branding/Branding';
 import { Breadcrumbs } from '../../Breadcrumbs/Breadcrumbs';
 import { buildBreadcrumbs } from '../../Breadcrumbs/utils';
 import { enrichHelpItem } from '../MegaMenu/utils';
-import { NewsContainer } from '../News/NewsContainer';
+// import { NewsContainer } from '../News/NewsContainer';
 import { QuickAdd } from '../QuickAdd/QuickAdd';
 import { TOP_BAR_LEVEL_HEIGHT } from '../types';
 
@@ -70,7 +69,6 @@ export const SingleTopBar = memo(function SingleTopBar({
             <ToolbarButton iconOnly icon="question-circle" aria-label="Help" />
           </Dropdown>
         )}
-        {config.newsFeedEnabled && <NewsContainer />}
         {!contextSrv.user.isSignedIn && <SignInLink />}
         {profileNode && (
           <Dropdown overlay={() => <TopNavBarMenu node={profileNode} />} placement="bottom-end">

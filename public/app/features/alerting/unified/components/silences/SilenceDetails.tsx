@@ -2,6 +2,7 @@ import { css } from '@emotion/css';
 
 import { dateMath, GrafanaTheme2, intervalToAbbreviatedDurationString } from '@grafana/data';
 import { useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import SilencedAlertsTable from './SilencedAlertsTable';
 import { SilenceTableItem } from './SilencesTable';
@@ -20,17 +21,17 @@ export const SilenceDetails = ({ silence }: Props) => {
   const duration = intervalToAbbreviatedDurationString({ start: new Date(startsAt), end: new Date(endsAt) });
   return (
     <div className={styles.container}>
-      <div className={styles.title}>Comment</div>
+      <div className={styles.title}>{t('ablestack-wall.common.comment', 'Comment')}</div>
       <div>{comment}</div>
-      <div className={styles.title}>Schedule</div>
+      <div className={styles.title}>{t('ablestack-wall.common.schedule', 'Schedule')}</div>
       <div>{`${startsAtDate?.format(dateDisplayFormat)} - ${endsAtDate?.format(dateDisplayFormat)}`}</div>
-      <div className={styles.title}>Duration</div>
+      <div className={styles.title}>{t('ablestack-wall.common.duration', 'Duration')}</div>
       <div>{duration}</div>
-      <div className={styles.title}>Created by</div>
+      <div className={styles.title}>{t('ablestack-wall.common.created-by', 'Created by')}</div>
       <div>{createdBy}</div>
       {Array.isArray(silencedAlerts) && (
         <>
-          <div className={styles.title}>Affected alerts</div>
+          <div className={styles.title}>{t('ablestack-wall.alert.affected-alerts', 'Affected alerts')}</div>
           <SilencedAlertsTable silencedAlerts={silencedAlerts} />
         </>
       )}

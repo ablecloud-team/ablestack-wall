@@ -4,6 +4,7 @@ import Skeleton from 'react-loading-skeleton';
 
 import { GrafanaTheme2 } from '@grafana/data';
 import { useStyles2, Tooltip, Pagination } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { CombinedRule } from 'app/types/unified-alerting';
 
 import { DEFAULT_PER_PAGE_PAGINATION } from '../../../../../core/constants';
@@ -53,7 +54,7 @@ export const RulesTable = ({
   rules,
   className,
   showGuidelines = false,
-  emptyMessage = 'No rules found.',
+  emptyMessage = t('ablestack-wall.alert.no-rules-found', 'No rules found.'),
   showGroupColumn = false,
   showSummaryColumn = false,
   showNextEvaluationColumn = false,
@@ -195,13 +196,13 @@ function useColumns(
     const columns: RuleTableColumnProps[] = [
       {
         id: 'state',
-        label: 'State',
+        label: t('ablestack-wall.common.state', 'State'),
         renderCell: ({ data: rule }) => <RuleStateCell rule={rule} />,
         size: '165px',
       },
       {
         id: 'name',
-        label: 'Name',
+        label: t('ablestack-wall.common.name', 'Name'),
         // eslint-disable-next-line react/display-name
         renderCell: ({ data: rule }) => rule.name,
         size: showNextEvaluationColumn ? 4 : 5,
@@ -236,7 +237,7 @@ function useColumns(
       },
       {
         id: 'health',
-        label: 'Health',
+        label: t('ablestack-wall.common.health', 'Health'),
         // eslint-disable-next-line react/display-name
         renderCell: ({ data: { promRule, group } }) => (promRule ? <RuleHealth rule={promRule} /> : null),
         size: '75px',
@@ -245,7 +246,7 @@ function useColumns(
     if (showSummaryColumn) {
       columns.push({
         id: 'summary',
-        label: 'Summary',
+        label: t('ablestack-wall.common.summary', 'Summary'),
         // eslint-disable-next-line react/display-name
         renderCell: ({ data: rule }) => {
           return <Tokenize input={rule.annotations[Annotation.summary] ?? ''} />;
@@ -257,7 +258,7 @@ function useColumns(
     if (showNextEvaluationColumn) {
       columns.push({
         id: 'nextEvaluation',
-        label: 'Next evaluation',
+        label: t('ablestack-wall.alert.next-evaluation', 'Next evaluation'),
         renderCell: ({ data: rule }) => {
           const nextEvalInfo = calculateNextEvaluationEstimate(rule.promRule?.lastEvaluation, rule.group.interval);
 
@@ -276,7 +277,7 @@ function useColumns(
     if (showGroupColumn) {
       columns.push({
         id: 'group',
-        label: 'Group',
+        label: t('ablestack-wall.common.group', 'Group'),
         // eslint-disable-next-line react/display-name
         renderCell: ({ data: rule }) => {
           const { namespace, group } = rule;
@@ -295,7 +296,7 @@ function useColumns(
     }
     columns.push({
       id: 'actions',
-      label: 'Actions',
+      label: t('ablestack-wall.common.actions', 'Actions'),
       // eslint-disable-next-line react/display-name
       renderCell: ({ data: rule }) => <RuleActionsCell rule={rule} isLoadingRuler={isRulerLoading} />,
       size: '200px',

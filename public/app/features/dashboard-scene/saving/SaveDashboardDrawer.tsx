@@ -1,5 +1,6 @@
 import { SceneComponentProps, SceneObjectBase, SceneObjectState, SceneObjectRef } from '@grafana/scenes';
 import { Drawer, Tab, TabsBar } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { SaveDashboardDiff } from 'app/features/dashboard/components/SaveDashboard/SaveDashboardDiff';
 
 import { DashboardScene } from '../scene/DashboardScene';
@@ -52,10 +53,14 @@ export class SaveDashboardDrawer extends SceneObjectBase<SaveDashboardDrawerStat
 
     const tabs = (
       <TabsBar>
-        <Tab label={'Details'} active={!showDiff} onChangeTab={() => model.setState({ showDiff: false })} />
+        <Tab
+          label={t('ablestack-wall.common.details', 'Details')}
+          active={!showDiff}
+          onChangeTab={() => model.setState({ showDiff: false })}
+        />
         {changesCount > 0 && (
           <Tab
-            label={'Changes'}
+            label={t('ablestack-wall.common.changes', 'Changes')}
             active={showDiff}
             onChangeTab={() => model.setState({ showDiff: true })}
             counter={changesCount}
@@ -64,11 +69,11 @@ export class SaveDashboardDrawer extends SceneObjectBase<SaveDashboardDrawerStat
       </TabsBar>
     );
 
-    let title = 'Save dashboard';
+    let title = t('ablestack-wall.dashboard.save-dashboard', 'Save dashboard');
     if (saveAsCopy) {
-      title = 'Save dashboard copy';
+      title = t('ablestack-wall.dashboard.save-dashboard-copy', 'Save dashboard copy');
     } else if (isProvisioned) {
-      title = 'Provisioned dashboard';
+      title = t('ablestack-wall.dashboard.save-Provisioned-dashboard', 'Provisioned dashboard');
     }
 
     const renderBody = () => {

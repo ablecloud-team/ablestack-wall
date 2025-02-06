@@ -1,6 +1,8 @@
 import { screen } from '@testing-library/react';
 import { render } from 'test/test-utils';
 
+import { t } from 'app/core/internationalization';
+
 import { getMockDataSources } from '../__mocks__';
 
 import { DataSourcesListView } from './DataSourcesList';
@@ -22,7 +24,9 @@ describe('<DataSourcesList>', () => {
   it('should render action bar', async () => {
     setup();
 
-    expect(await screen.findByPlaceholderText('Search by name or type')).toBeInTheDocument();
+    expect(
+      await screen.findByPlaceholderText(t('ablestack-wall.alert.search-by-name-or-type', 'Search by name or type'))
+    ).toBeInTheDocument();
     expect(await screen.findByRole('combobox', { name: 'Sort' })).toBeInTheDocument();
   });
 

@@ -7,6 +7,7 @@ import { CoreApp, DataQuery, getNextRefId, GrafanaTheme2 } from '@grafana/data';
 import { reportInteraction } from '@grafana/runtime';
 import { Button, Collapse, Modal, useStyles2 } from '@grafana/ui';
 
+import { t } from '../../../../public/app/core/internationalization';
 import { PromQuery } from '../types';
 
 import { promQueryModeller } from './PromQueryModeller';
@@ -111,7 +112,7 @@ export const QueryPatternsModal = (props: Props) => {
         );
       })}
       <Button aria-label="close kick start your query modal" variant="secondary" onClick={onClose}>
-        Close
+        {t('ablestack-wall.common.close', 'Close')}
       </Button>
     </Modal>
   );

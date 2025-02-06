@@ -15,6 +15,7 @@ import {
 } from '@grafana/ui';
 import { UserRolePicker } from 'app/core/components/RolePicker/UserRolePicker';
 import { contextSrv } from 'app/core/core';
+import { t } from 'app/core/internationalization';
 import { AccessControlAction, OrgRole, Role, ServiceAccountDTO } from 'app/types';
 
 import { OrgRolePicker } from '../admin/OrgRolePicker';
@@ -64,7 +65,7 @@ export const ServiceAccountTable = ({
       },
       {
         id: 'name',
-        header: 'Account',
+        header: t('ablestack-wall.common.account', 'Account'),
         cell: ({ cell: { value }, row: { original } }: Cell<'role'>) => {
           return getCellContent(value, original, isLoading);
         },
@@ -72,21 +73,21 @@ export const ServiceAccountTable = ({
       },
       {
         id: 'id',
-        header: 'ID',
+        header: t('ablestack-wall.common.id', 'ID'),
         cell: ({ cell: { value }, row: { original } }: Cell<'role'>) => {
           return getCellContent(value, original, isLoading, 'id');
         },
       },
       {
         id: 'role',
-        header: 'Roles',
+        header: t('ablestack-wall.common.roles', 'Roles'),
         cell: ({ cell: { value }, row: { original } }: Cell<'role'>) => {
           return getRoleCell(value, original, isLoading, roleOptions, onRoleChange);
         },
       },
       {
         id: 'tokens',
-        header: 'Tokens',
+        header: t('ablestack-wall.common.tokens', 'Tokens'),
         cell: ({ cell: { value }, row: { original } }: Cell<'role'>) => {
           return getCellContent(value, original, isLoading, 'tokens');
         },
@@ -210,17 +211,17 @@ const getActionsCell = (
       <Stack alignItems="center" justifyContent="flex-end">
         {contextSrv.hasPermission(AccessControlAction.ServiceAccountsWrite) && !original.tokens && (
           <Button onClick={() => onAddTokenClick(original)} disabled={original.isDisabled}>
-            Add token
+            {t('ablestack-wall.administration.service-and-access.add-token', 'Add token')}
           </Button>
         )}
         {contextSrv.hasPermissionInMetadata(AccessControlAction.ServiceAccountsWrite, original) &&
           (original.isDisabled ? (
             <Button variant="secondary" size="md" onClick={() => onEnable(original)}>
-              Enable
+              {t('ablestack-wall.common.enable', 'Enable')}
             </Button>
           ) : (
             <Button variant="secondary" size="md" onClick={() => onDisable(original)}>
-              Disable
+              {t('ablestack-wall.common.disable', 'Disable')}
             </Button>
           ))}
 

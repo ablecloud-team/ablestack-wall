@@ -3,6 +3,7 @@ import { useFormContext, Controller } from 'react-hook-form';
 
 import { DataSourceInstanceSettings, GrafanaTheme2 } from '@grafana/data';
 import { Field, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import { RuleFormType, RuleFormValues } from '../../../types/rule-form';
 import { CloudRulesSourcePicker } from '../CloudRulesSourcePicker';
@@ -28,7 +29,7 @@ export const CloudDataSourceSelector = ({ disabled, onChangeCloudDatasource }: C
         {(ruleFormType === RuleFormType.cloudAlerting || ruleFormType === RuleFormType.cloudRecording) && (
           <Field
             className={styles.formInput}
-            label={disabled ? 'Data source' : 'Select data source'}
+            label={disabled ? 'Data source' : t('ablestack-wall.alert.select-data-source', 'Select data source')}
             error={errors.dataSourceName?.message}
             invalid={!!errors.dataSourceName?.message}
           >

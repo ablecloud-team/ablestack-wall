@@ -7,6 +7,8 @@ import { useMountedState, usePrevious } from 'react-use';
 import { DataSourceApi, GrafanaTheme2, TimeRange } from '@grafana/data';
 import { Button, Cascader, CascaderOption, useStyles2, Stack } from '@grafana/ui';
 
+import { t } from '../../../../../public/app/core/internationalization';
+
 import { OperationEditor } from './OperationEditor';
 import { QueryBuilderOperation, QueryWithOperations, VisualQueryModeller } from './types';
 
@@ -130,7 +132,7 @@ export function OperationList<T extends QueryWithOperations>({
             />
           ) : (
             <Button icon={'plus'} variant={'secondary'} onClick={() => setCascaderOpen(true)} title={'Add operation'}>
-              Operations
+              {t('ablestack-wall.common.operations', 'Operations')}
             </Button>
           )}
         </div>

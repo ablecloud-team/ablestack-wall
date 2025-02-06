@@ -2,6 +2,7 @@ import { useState, useCallback, useMemo } from 'react';
 
 import { locationService } from '@grafana/runtime';
 import { ConfirmModal } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { dispatch } from 'app/store/store';
 import { CombinedRule } from 'app/types/unified-alerting';
 
@@ -64,12 +65,16 @@ export const useDeleteModal = (redirectToListView = false): DeleteModalHook => {
     () => (
       <ConfirmModal
         isOpen={Boolean(ruleToDelete)}
-        title="Delete rule"
-        body="Deleting this rule will permanently remove it from your alert rule list. Are you sure you want to delete this rule?"
-        confirmText="Yes, delete"
+        title={t('ablestack-wall.alert.delete-rule', 'Delete rule')}
+        body={t(
+          'ablestack-wall.alert.delete-rule-confirmation',
+          'Deleting this rule will permanently remove it from your alert rule list. Are you sure you want to delete this rule?'
+        )}
+        confirmText={t('ablestack-wall.common.yes-delete', 'Yes, delete')}
         icon="exclamation-triangle"
         onConfirm={() => deleteRule(ruleToDelete)}
         onDismiss={dismissModal}
+        dismissText={t('ablestack-wall.common.cancel', 'Cancel')}
       />
     ),
     [deleteRule, dismissModal, ruleToDelete]

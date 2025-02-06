@@ -8,6 +8,8 @@ import { SkeletonComponent, attachSkeleton } from '@grafana/ui/src/unstable';
 import { contextSrv } from 'app/core/core';
 import { AccessControlAction, Organization } from 'app/types';
 
+import { t } from '../../core/internationalization';
+
 interface Props {
   orgs: Organization[];
   onDelete: (orgId: number) => void;
@@ -16,8 +18,8 @@ interface Props {
 const getTableHeader = () => (
   <thead>
     <tr>
-      <th>ID</th>
-      <th>Name</th>
+      <th>{t('ablestack-wall.common.id', 'ID')}</th>
+      <th>{t('ablestack-wall.common.name', 'Name')}</th>
       <th style={{ width: '1%' }}></th>
     </tr>
   </thead>
@@ -56,14 +58,25 @@ function AdminOrgsTableComponent({ orgs, onDelete }: Props) {
         <ConfirmModal
           isOpen
           icon="trash-alt"
-          title="Delete"
+          title={t('ablestack-wall.common.delete', 'Delete')}
           body={
             <div>
-              Are you sure you want to delete &apos;{deleteOrg.name}&apos;?
-              <br /> <small>All dashboards for this organization will be removed!</small>
+              {t(
+                'ablestack-wall.administration.general.confirm-delete-org',
+                'Are you sure you want to delete {{orgName}}?',
+                { orgName: deleteOrg.name }
+              )}
+              <br />{' '}
+              <small>
+                {t(
+                  'ablestack-wall.administration.general.confirm-sub-delete-org',
+                  'All dashboards for this organization will be removed!'
+                )}
+              </small>
             </div>
           }
-          confirmText="Delete"
+          confirmText={t('ablestack-wall.common.delete', 'Delete')}
+          dismissText={t('ablestack-wall.common.cancel', 'Cancel')}
           onDismiss={() => setDeleteOrg(undefined)}
           onConfirm={() => {
             onDelete(deleteOrg.id);

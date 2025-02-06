@@ -84,7 +84,11 @@ export function SaveButton({ overwrite, isLoading, isValid, onSave }: SaveButton
       variant={overwrite ? 'destructive' : 'primary'}
       data-testid={selectors.components.Drawer.DashboardSaveDrawer.saveButton}
     >
-      {isLoading ? 'Saving...' : overwrite ? 'Save and overwrite' : 'Save'}
+      {isLoading
+        ? t('ablestack-wall.common.saving', 'Saving...')
+        : overwrite
+          ? t('ablestack-wall.common.save-and-overwrite', 'Save and overwrite')
+          : t('ablestack-wall.common.save', 'Save')}
     </Button>
   );
 }

@@ -5,6 +5,7 @@ import { Stack } from '@grafana/ui';
 import { Page } from 'app/core/components/Page/Page';
 import SharedPreferences from 'app/core/components/SharedPreferences/SharedPreferences';
 import { appEvents, contextSrv } from 'app/core/core';
+import { t } from 'app/core/internationalization';
 import { getNavModel } from 'app/core/selectors/navModel';
 import { AccessControlAction, StoreState } from 'app/types';
 import { ShowConfirmModalEvent } from 'app/types/events';
@@ -29,10 +30,14 @@ export class OrgDetailsPage extends PureComponent<Props> {
     return new Promise<boolean>((resolve) => {
       appEvents.publish(
         new ShowConfirmModalEvent({
-          title: 'Confirm preferences update',
-          text: 'This will update the preferences for the whole organization. Are you sure you want to update the preferences?',
-          yesText: 'Save',
+          title: t('ablestack-wall.administration.general.confirm-preferences-update', 'Confirm preferences update'),
+          text: t(
+            'ablestack-wall.administration.general.confirm-preferences-update-text',
+            'This will update the preferences for the whole organization. Are you sure you want to update the preferences?'
+          ),
+          yesText: t('ablestack-wall.common.save', 'Save'),
           yesButtonVariant: 'primary',
+          noText: t('ablestack-wall.common.cancel', 'Cancel'),
           onConfirm: async () => resolve(true),
           onDismiss: async () => resolve(false),
         })

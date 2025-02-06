@@ -35,7 +35,7 @@ export function useDashboardEditPageNav(dashboard: DashboardScene, currentEditVi
   const dashboardPageNav = dashboard.getPageNav(location, navIndex);
 
   const pageNav: NavModelItem = {
-    text: 'Settings',
+    text: t('dashboard-settings.settings.title', 'Settings'),
     url: locationUtil.getUrlForPartial(location, { editview: 'settings', editIndex: null }),
     children: [],
     parentItem: dashboardPageNav,

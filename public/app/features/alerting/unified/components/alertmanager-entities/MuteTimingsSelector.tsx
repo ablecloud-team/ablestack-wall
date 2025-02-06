@@ -1,5 +1,6 @@
 import { SelectableValue } from '@grafana/data';
 import { MultiSelect, MultiSelectCommonProps } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { useSelectableMuteTimings } from 'app/features/alerting/unified/components/mute-timings/useMuteTimings';
 import { BaseAlertmanagerArgs } from 'app/features/alerting/unified/types/hooks';
 import { timeIntervalToString } from 'app/features/alerting/unified/utils/alertmanager';
@@ -24,7 +25,7 @@ const MuteTimingsSelector = ({
     <MultiSelect
       aria-label="Mute timings"
       options={muteTimingOptions}
-      placeholder="Select mute timings..."
+      placeholder={t('ablestack-wall.alert.select-mute-timings-placeholder', 'Select mute timings...')}
       {...selectProps}
     />
   );

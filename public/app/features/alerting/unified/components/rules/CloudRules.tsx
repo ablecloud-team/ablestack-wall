@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom-v5-compat';
 
 import { GrafanaTheme2, urlUtil } from '@grafana/data';
 import { LinkButton, LoadingPlaceholder, Pagination, Spinner, Text, useStyles2 } from '@grafana/ui';
-import { Trans } from 'app/core/internationalization';
+import { Trans, t } from 'app/core/internationalization';
 import { CombinedRuleNamespace } from 'app/types/unified-alerting';
 
 import { DEFAULT_PER_PAGE_PAGINATION } from '../../../../../core/constants';
@@ -84,7 +84,9 @@ export const CloudRules = ({ namespaces, expandAll }: Props) => {
       })}
 
       {!hasDataSourcesConfigured && <p>There are no Prometheus or Loki data sources configured.</p>}
-      {hasDataSourcesConfigured && !hasDataSourcesLoading && !hasNamespaces && <p>No rules found.</p>}
+      {hasDataSourcesConfigured && !hasDataSourcesLoading && !hasNamespaces && (
+        <p>{t('ablestack-wall.no-rules-found', 'No rules found.')}</p>
+      )}
       {!hasSomeResults && hasDataSourcesLoading && <Spinner size="xl" className={styles.spinner} />}
 
       <Pagination
@@ -141,7 +143,7 @@ export function CreateRecordingRuleButton() {
         icon="plus"
         variant="secondary"
       >
-        New recording rule
+        {t('alerting.list-view.empty.new-recording-rule', 'New recording rule')}
       </LinkButton>
     );
   }

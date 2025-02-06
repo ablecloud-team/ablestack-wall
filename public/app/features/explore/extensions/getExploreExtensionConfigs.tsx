@@ -1,5 +1,6 @@
 import { PluginExtensionAddedLinkConfig, PluginExtensionPoints } from '@grafana/data';
 import { contextSrv } from 'app/core/core';
+import { t } from 'app/core/internationalization';
 import { dispatch } from 'app/store/store';
 import { AccessControlAction } from 'app/types';
 
@@ -16,7 +17,7 @@ export function getExploreExtensionConfigs(): PluginExtensionAddedLinkConfig[] {
   try {
     return [
       createAddedLinkConfig<PluginExtensionExploreContext>({
-        title: 'Add to dashboard',
+        title: t('ablestack-wall.explore.add-to-dashboard', 'Add to dashboard'),
         description: 'Use the query and panel from explore and create/add it to a dashboard',
         targets: [PluginExtensionPoints.ExploreToolbarAction],
         icon: 'apps',
@@ -41,7 +42,7 @@ export function getExploreExtensionConfigs(): PluginExtensionAddedLinkConfig[] {
         },
       }),
       createAddedLinkConfig<PluginExtensionExploreContext>({
-        title: 'Add correlation',
+        title: t('ablestack-wall.explore.add-correlation', 'Add correlation'),
         description: 'Create a correlation from this query',
         targets: [PluginExtensionPoints.ExploreToolbarAction],
         icon: 'link',

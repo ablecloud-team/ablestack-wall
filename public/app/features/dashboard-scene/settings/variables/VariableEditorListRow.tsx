@@ -7,6 +7,7 @@ import { selectors } from '@grafana/e2e-selectors';
 import { reportInteraction } from '@grafana/runtime';
 import { SceneVariable } from '@grafana/scenes';
 import { Button, ConfirmModal, Icon, IconButton, useStyles2, useTheme2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import { getDefinition } from './utils';
 
@@ -104,9 +105,12 @@ export function VariableEditorListRow({
               />
               <ConfirmModal
                 isOpen={showDeleteModal}
-                title="Delete variable"
-                body={`Are you sure you want to delete: ${variableState.name}?`}
-                confirmText="Delete variable"
+                title={t('ablestack-wall.dashboard.delete-variable', 'Delete variable')}
+                body={
+                  t('ablestack-wall.dashboard.are-you-sure-you-want-to-delete', 'Are you sure you want to delete:') +
+                  ` ${variableState.name}?`
+                }
+                confirmText={t('ablestack-wall.dashboard.delete-variable-confirmation-yes', 'Delete variable')}
                 onConfirm={onDeleteVariable}
                 onDismiss={handleDeleteVariableModal(false)}
               />

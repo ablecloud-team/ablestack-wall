@@ -140,7 +140,11 @@ export function ChannelSubForm<R extends ChannelValues>({
     <div className={styles.wrapper} data-testid="item-container">
       <div className={styles.topRow}>
         <div>
-          <Field label="Integration" htmlFor={contactPointTypeInputId} data-testid={`${pathPrefix}type`}>
+          <Field
+            label={t('ablestack-wall.common.integration', 'Integration')}
+            htmlFor={contactPointTypeInputId}
+            data-testid={`${pathPrefix}type`}
+          >
             <Controller
               name={fieldName('type')}
               defaultValue={defaultValues.type}
@@ -169,13 +173,13 @@ export function ChannelSubForm<R extends ChannelValues>({
               onClick={() => handleTest()}
               icon={testingReceiver ? 'spinner' : 'message'}
             >
-              Test
+              {t('ablestack-wall.common.test', 'Test')}
             </Button>
           )}
           {isEditable && (
             <>
               <Button size="xs" variant="secondary" type="button" onClick={() => onDuplicate()} icon="copy">
-                Duplicate
+                {t('ablestack-wall.common.duplicate', 'Duplicate')}
               </Button>
               {onDelete && (
                 <Button
@@ -186,7 +190,7 @@ export function ChannelSubForm<R extends ChannelValues>({
                   onClick={() => onDelete()}
                   icon="trash-alt"
                 >
-                  Delete
+                  {t('ablestack-wall.common.delete', 'Delete')}
                 </Button>
               )}
             </>
@@ -221,7 +225,9 @@ export function ChannelSubForm<R extends ChannelValues>({
             customValidators={customValidators}
           />
           {!!(mandatoryOptions?.length && optionalOptions?.length) && (
-            <CollapsibleSection label={`Optional ${notifier.dto.name} settings`}>
+            <CollapsibleSection
+              label={`${t('ablestack-wall.common.optional', 'Optional')} ${notifier.dto.name === 'Email' ? t('ablestack-wall.common.email', 'Email') : notifier.dto.name} ${t('ablestack-wall.common.settings', 'settings')}`}
+            >
               {notifier.dto.info !== '' && (
                 <Alert title="" severity="info">
                   {notifier.dto.info}
@@ -239,7 +245,7 @@ export function ChannelSubForm<R extends ChannelValues>({
               />
             </CollapsibleSection>
           )}
-          <CollapsibleSection label="Notification settings">
+          <CollapsibleSection label={t('ablestack-wall.alert.notification-settings', 'Notification settings')}>
             <CommonSettingsComponent pathPrefix={pathPrefix} readOnly={!isEditable} />
           </CollapsibleSection>
         </div>

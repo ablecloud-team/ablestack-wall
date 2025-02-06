@@ -6,6 +6,7 @@ import { useFormContext, Controller } from 'react-hook-form';
 import { GrafanaTheme2, SelectableValue } from '@grafana/data';
 import { Field, FieldValidationMessage, InlineField, MultiSelect, Stack, Switch, Text, useStyles2 } from '@grafana/ui';
 import { MultiValueRemove, MultiValueRemoveProps } from '@grafana/ui/src/components/Select/MultiValue';
+import { t } from 'app/core/internationalization';
 import { RuleFormValues } from 'app/features/alerting/unified/types/rule-form';
 import {
   commonGroupByOptions,
@@ -56,7 +57,11 @@ export const RoutingSettings = ({ alertManager }: RoutingSettingsProps) => {
   return (
     <Stack direction="column">
       <Stack direction="row" gap={1} alignItems="center" justifyContent="space-between">
-        <InlineField label="Override grouping" transparent={true} className={styles.switchElement}>
+        <InlineField
+          label={t('ablestack-wall.alert.override-grouping', 'Override grouping')}
+          transparent={true}
+          className={styles.switchElement}
+        >
           <Switch id="override-grouping-toggle" {...register(`contactPoints.${alertManager}.overrideGrouping`)} />
         </InlineField>
         {!overrideGrouping && (
@@ -137,7 +142,11 @@ export const RoutingSettings = ({ alertManager }: RoutingSettingsProps) => {
         </Field>
       )}
       <Stack direction="row" gap={1} alignItems="center" justifyContent="space-between">
-        <InlineField label="Override timings" transparent={true} className={styles.switchElement}>
+        <InlineField
+          label={t('ablestack-wall.alert.override-timings', 'Override timings')}
+          transparent={true}
+          className={styles.switchElement}
+        >
           <Switch id="override-timings-toggle" {...register(`contactPoints.${alertManager}.overrideTimings`)} />
         </InlineField>
         {!overrideTimings && (

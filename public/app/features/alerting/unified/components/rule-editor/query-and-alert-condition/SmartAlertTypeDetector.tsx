@@ -4,6 +4,7 @@ import { DataSourceInstanceSettings } from '@grafana/data';
 import { DataSourceJsonData } from '@grafana/schema';
 import { RadioButtonGroup, Stack, Text } from '@grafana/ui';
 import { contextSrv } from 'app/core/core';
+import { t } from 'app/core/internationalization';
 import { ExpressionDatasourceUID } from 'app/features/expressions/types';
 import { AccessControlAction } from 'app/types';
 import { AlertQuery } from 'app/types/unified-alerting-dto';
@@ -96,10 +97,10 @@ export function SmartAlertTypeDetector({
   return (
     <Stack direction="column" gap={1} alignItems="flex-start">
       <Stack direction="column" gap={0}>
-        <Text variant="h5">Rule type</Text>
+        <Text variant="h5">{t('ablestack-wall.common.rule-type', 'Rule type')}</Text>
         <Stack direction="row" gap={0.5} alignItems="center">
           <Text variant="bodySmall" color="secondary">
-            Select where the alert rule will be managed.
+            {t('ablestack-wall.alert.select-where-alert-rule-managed', 'Select where the alert rule will be managed.')}
           </Text>
           <NeedHelpInfo
             contentText={
@@ -137,7 +138,12 @@ export function SmartAlertTypeDetector({
       />
       {/* editing an existing rule, we just show "cannot be changed" */}
       {editingExistingRule && (
-        <Text color="secondary">The alert rule type cannot be changed for an existing rule.</Text>
+        <Text color="secondary">
+          {t(
+            'ablestack-wall.alert.alert-rule-type-change-error',
+            'The alert rule type cannot be changed for an existing rule.'
+          )}
+        </Text>
       )}
       {/* in regular alert creation we tell the user what options they have when using a cloud data source */}
       {!editingExistingRule && (

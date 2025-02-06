@@ -5,6 +5,7 @@ import { GrafanaTheme2 } from '@grafana/data';
 import { selectors } from '@grafana/e2e-selectors';
 import { VariableValueOption } from '@grafana/scenes';
 import { Button, InlineFieldRow, InlineLabel, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 export interface VariableValuesPreviewProps {
   options: VariableValueOption[];
@@ -29,7 +30,7 @@ export const VariableValuesPreview = ({ options }: VariableValuesPreviewProps) =
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', marginTop: '16px' }}>
-      <h5>Preview of values</h5>
+      <h5>{t('ablestack-wall.dashboard.preview-of-values', 'Preview of values')}</h5>
       <InlineFieldRow>
         {previewOptions.map((o, index) => (
           <InlineFieldRow key={`${o.value}-${index}`} className={styles.optionContainer}>

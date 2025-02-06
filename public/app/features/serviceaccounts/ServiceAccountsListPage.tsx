@@ -47,9 +47,12 @@ const mapDispatchToProps = {
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
 const availableFilters = [
-  { label: 'All', value: ServiceAccountStateFilter.All },
-  { label: 'With expired tokens', value: ServiceAccountStateFilter.WithExpiredTokens },
-  { label: 'Disabled', value: ServiceAccountStateFilter.Disabled },
+  { label: t('ablestack-wall.common.all', 'All'), value: ServiceAccountStateFilter.All },
+  {
+    label: t('ablestack-wall.administration.service-and-access.with-expired-tokens', 'With expired tokens'),
+    value: ServiceAccountStateFilter.WithExpiredTokens,
+  },
+  { label: t('ablestack-wall.common.disabled', 'Disabled'), value: ServiceAccountStateFilter.Disabled },
 ];
 
 if (config.featureToggles.externalServiceAccounts) {
@@ -172,8 +175,11 @@ export const ServiceAccountsListPageUnconnected = ({
   );
   const subTitle = (
     <span>
-      Service accounts and their tokens can be used to authenticate against the Grafana API. Find out more in our{' '}
-      {docsLink}
+      <Trans
+        i18nKey="ablestack-wall.administration.service-and-access.service-accounts-tokens"
+        defaults="Service accounts and their tokens can be used to authenticate against the Grafana API. Find out more in our {{ docsLink }}"
+        components={[docsLink]}
+      />
     </span>
   );
 
@@ -185,7 +191,7 @@ export const ServiceAccountsListPageUnconnected = ({
         <>
           {!noServiceAccountsCreated && contextSrv.hasPermission(AccessControlAction.ServiceAccountsCreate) && (
             <LinkButton href="org/serviceaccounts/create" variant="primary">
-              Add service account
+              {t('ablestack-wall.administration.service-and-access.add-service-account', 'Add service account')}
             </LinkButton>
           )}
         </>
@@ -195,7 +201,10 @@ export const ServiceAccountsListPageUnconnected = ({
         <div className="page-action-bar">
           <InlineField grow>
             <FilterInput
-              placeholder="Search service account by name"
+              placeholder={t(
+                'ablestack-wall.administration.service-and-access.search-bar-service-account-by-name',
+                'Search service account by name'
+              )}
               value={query}
               onChange={onQueryChange}
               width={50}

@@ -16,6 +16,7 @@ import {
   Text,
   useStyles2,
 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { DiffViewer } from 'app/features/dashboard-scene/settings/version-history/DiffViewer';
 import { jsonDiff } from 'app/features/dashboard-scene/settings/version-history/utils';
 import { AlertManagerCortexConfig } from 'app/plugins/datasource/alertmanager/types';
@@ -216,9 +217,12 @@ const AlertmanagerConfigurationVersionManager = ({
       {/* TODO make this modal persist while restore is in progress */}
       <ConfirmModal
         isOpen={confirmRestore}
-        title={'Restore Version'}
-        body={'Are you sure you want to restore the configuration to this version? All unsaved changes will be lost.'}
-        confirmText={'Yes, restore configuration'}
+        title={t('ablestack-wall.dashboard.restore-version', 'Restore Version')}
+        body={t(
+          'ablestack-wall.dashboard.restore-confirmation',
+          'Are you sure you want to restore the dashboard to version {version}? All unsaved changes will be lost.'
+        )}
+        confirmText={t('ablestack-wall.dashboard.restore-confirmation-yes', 'Yes, restore to version')}
         onConfirm={() => {
           if (activeRestoreVersion) {
             restoreVersion(activeRestoreVersion);

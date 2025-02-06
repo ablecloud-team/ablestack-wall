@@ -2,6 +2,8 @@ import { render as rtlRender, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { TestProvider } from 'test/helpers/TestProvider';
 
+import { t } from 'app/core/internationalization';
+
 import { DeleteModal, Props } from './DeleteModal';
 
 function render(...[ui, options]: Parameters<typeof rtlRender>) {
@@ -45,7 +47,9 @@ describe('browse-dashboards DeleteModal', () => {
   it('only enables the `Delete` button if the confirmation text is typed', async () => {
     render(<DeleteModal {...defaultProps} />);
 
-    const confirmationInput = await screen.findByPlaceholderText('Type "Delete" to confirm');
+    const confirmationInput = await screen.findByPlaceholderText(
+      t('ablestack-wall.administration.general.type-delete-confirm', 'Type "Delete" to confirm')
+    );
     await userEvent.type(confirmationInput, 'Delete');
 
     expect(await screen.findByRole('button', { name: 'Delete' })).toBeEnabled();
@@ -54,7 +58,9 @@ describe('browse-dashboards DeleteModal', () => {
   it('calls onConfirm when clicking the `Delete` button', async () => {
     render(<DeleteModal {...defaultProps} />);
 
-    const confirmationInput = await screen.findByPlaceholderText('Type "Delete" to confirm');
+    const confirmationInput = await screen.findByPlaceholderText(
+      t('ablestack-wall.administration.general.type-delete-confirm', 'Type "Delete" to confirm')
+    );
     await userEvent.type(confirmationInput, 'Delete');
 
     await userEvent.click(await screen.findByRole('button', { name: 'Delete' }));

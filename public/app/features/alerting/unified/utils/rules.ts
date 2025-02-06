@@ -2,6 +2,7 @@ import { capitalize } from 'lodash';
 
 import { AlertState } from '@grafana/data';
 import { config } from '@grafana/runtime';
+import { t } from 'app/core/internationalization';
 import {
   Alert,
   AlertingRule,
@@ -205,9 +206,16 @@ export function isPluginProvidedRule(rule: CombinedRule): boolean {
 
 export function alertStateToReadable(state: PromAlertingRuleState | GrafanaAlertStateWithReason | AlertState): string {
   if (state === PromAlertingRuleState.Inactive) {
-    return 'Normal';
+    return t('ablestack-wall.alert.normal', 'Normal');
   }
-  return capitalize(state);
+  switch (state) {
+    case 'firing':
+      return t('ablestack-wall.alert.firing', 'Firing');
+    case 'pending':
+      return t('ablestack-wall.alert.pending', 'Pending');
+    default:
+      return capitalize(state);
+  }
 }
 
 export const flattenRules = (rules: RuleNamespace[]) => {

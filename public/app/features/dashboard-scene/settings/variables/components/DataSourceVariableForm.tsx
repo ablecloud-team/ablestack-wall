@@ -2,6 +2,7 @@ import { FormEvent } from 'react';
 
 import { SelectableValue } from '@grafana/data';
 import { selectors } from '@grafana/e2e-selectors';
+import { t } from 'app/core/internationalization';
 
 import { SelectionOptionsForm } from './SelectionOptionsForm';
 import { VariableLegend } from './VariableLegend';
@@ -65,7 +66,7 @@ export function DataSourceVariableForm({
         }
       />
 
-      <VariableLegend>Selection options</VariableLegend>
+      <VariableLegend>{t('ablestack-wall.dashboard.selection-options', 'Selection options')}</VariableLegend>
       <SelectionOptionsForm
         multi={multi}
         includeAll={includeAll}

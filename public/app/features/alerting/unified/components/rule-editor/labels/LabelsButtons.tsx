@@ -1,6 +1,7 @@
 import { UseFieldArrayRemove } from 'react-hook-form';
 
 import { Button } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 interface RemoveButtonProps {
   remove: UseFieldArrayRemove;
@@ -26,7 +27,7 @@ interface AddButtonProps {
 export function AddButton({ append }: AddButtonProps) {
   return (
     <Button icon="plus" type="button" variant="secondary" onClick={append}>
-      Add more
+      {t('ablestack-wall.alert.add-more', 'Add more')}
     </Button>
   );
 }

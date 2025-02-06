@@ -4,6 +4,7 @@ import { useAsync } from 'react-use';
 
 import { NavModelItem } from '@grafana/data';
 import { withErrorBoundary } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { useDispatch } from 'app/types';
 import { RuleIdentifier } from 'app/types/unified-alerting';
 
@@ -34,15 +35,23 @@ const getPageNav = (identifier?: RuleIdentifier, type?: RuleEditorPathParams['ty
       // this branch should never trigger actually, the type param isn't used when editing rules
       return { ...defaultPageNav, id: 'alert-rule-edit', text: 'Edit recording rule' };
     } else {
-      return { ...defaultPageNav, id: 'alert-rule-add', text: 'New recording rule' };
+      return {
+        ...defaultPageNav,
+        id: 'alert-rule-add',
+        text: t('alerting.list-view.empty.new-recording-rule', 'New recording rule'),
+      };
     }
   }
 
   if (identifier) {
     // keep this one ambiguous, don't mentiond a specific alert type here
-    return { ...defaultPageNav, id: 'alert-rule-edit', text: 'Edit rule' };
+    return { ...defaultPageNav, id: 'alert-rule-edit', text: t('ablestack-wall.alert.edit-rule', 'Edit rule') };
   } else {
-    return { ...defaultPageNav, id: 'alert-rule-add', text: 'New alert rule' };
+    return {
+      ...defaultPageNav,
+      id: 'alert-rule-add',
+      text: t('ablestack-wall.alert.new-alert-rule', 'New alert rule'),
+    };
   }
 };
 

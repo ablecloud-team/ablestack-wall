@@ -6,6 +6,7 @@ import { selectors } from '@grafana/e2e-selectors';
 import { Dashboard } from '@grafana/schema';
 import { Button, Input, Switch, Field, Label, TextArea, Stack, Alert, Box } from '@grafana/ui';
 import { FolderPicker } from 'app/core/components/Select/FolderPicker';
+import { t } from 'app/core/internationalization';
 import { validationSrv } from 'app/features/manage-dashboards/services/ValidationSrv';
 
 import { DashboardScene } from '../scene/DashboardScene';
@@ -67,7 +68,7 @@ export function SaveDashboardAsForm({ dashboard, changeInfo }: Props) {
 
   const cancelButton = (
     <Button variant="secondary" onClick={() => dashboard.closeModal()} fill="outline">
-      Cancel
+      {t('ablestack-wall.common.cancel', 'Cancel')}
     </Button>
   );
 
@@ -124,7 +125,7 @@ export function SaveDashboardAsForm({ dashboard, changeInfo }: Props) {
         />
       </Field>
 
-      <Field label="Folder">
+      <Field label={t('ablestack-wall.common.folder', 'Folder')}>
         <FolderPicker
           onChange={(uid: string | undefined, title: string | undefined) => {
             setValue('folder', { uid, title });
@@ -156,7 +157,7 @@ export interface TitleLabelProps {
 export function TitleFieldLabel(props: TitleLabelProps) {
   return (
     <Stack justifyContent="space-between">
-      <Label htmlFor="description">Title</Label>
+      <Label htmlFor="description">{t('ablestack-wall.common.title', 'Title')}</Label>
       {/* {config.featureToggles.dashgpt && isNew && (
                 <GenAIDashDescriptionButton
                   onGenerate={(description) => field.onChange(description)}
@@ -175,7 +176,7 @@ export interface DescriptionLabelProps {
 export function DescriptionLabel(props: DescriptionLabelProps) {
   return (
     <Stack justifyContent="space-between">
-      <Label htmlFor="description">Description</Label>
+      <Label htmlFor="description">{t('ablestack-wall.common.description', 'Description')}</Label>
       {/* {config.featureToggles.dashgpt && isNew && (
                 <GenAIDashDescriptionButton
                   onGenerate={(description) => field.onChange(description)}

@@ -4,6 +4,7 @@ import * as React from 'react';
 import { selectors } from '@grafana/e2e-selectors';
 import { Button, Field, Modal, Input, Alert } from '@grafana/ui';
 import { Form } from 'app/core/components/Form/Form';
+import { t } from 'app/core/internationalization';
 
 import { RepeatRowSelect } from '../RepeatRowSelect/RepeatRowSelect';
 
@@ -49,9 +50,9 @@ export const RowOptionsForm = ({ repeat, title, warning, onUpdate, onCancel }: P
           )}
           <Modal.ButtonRow>
             <Button type="button" variant="secondary" onClick={onCancel} fill="outline">
-              Cancel
+              {t('ablestack-wall.common.cancel', 'Cancel')}
             </Button>
-            <Button type="submit">Update</Button>
+            <Button type="submit">{t('ablestack-wall.common.update', 'Update')}</Button>
           </Modal.ButtonRow>
         </>
       )}

@@ -4,6 +4,7 @@ import { useFormContext, useFieldArray, Controller } from 'react-hook-form';
 
 import { GrafanaTheme2 } from '@grafana/data';
 import { Button, Field, Input, IconButton, useStyles2, Select, Divider } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { alertRuleApi } from 'app/features/alerting/unified/api/alertRuleApi';
 import { MatcherOperator } from 'app/plugins/datasource/alertmanager/types';
 
@@ -37,7 +38,7 @@ const MatchersField = ({ className, required, ruleUid }: Props) => {
 
   return (
     <div className={className}>
-      <Field label="Refine affected alerts" required={required}>
+      <Field label={t('ablestack-wall.alert.refine-affected-alerts', 'Refine affected alerts')} required={required}>
         <div>
           <div className={cx(styles.matchers, styles.indent)}>
             {alertRule && (
@@ -52,7 +53,7 @@ const MatchersField = ({ className, required, ruleUid }: Props) => {
               return (
                 <div className={styles.row} key={`${matcher.id}`} data-testid="matcher">
                   <Field
-                    label="Label"
+                    label={t('ablestack-wall.common.label', 'Label')}
                     invalid={!!errors?.matchers?.[index]?.name}
                     error={errors?.matchers?.[index]?.name?.message}
                   >
@@ -65,7 +66,7 @@ const MatchersField = ({ className, required, ruleUid }: Props) => {
                       id={`matcher-${index}-label`}
                     />
                   </Field>
-                  <Field label="Operator">
+                  <Field label={t('ablestack-wall.common.operator', 'Operator')}>
                     <Controller
                       control={control}
                       render={({ field: { onChange, ref, ...field } }) => (
@@ -84,7 +85,7 @@ const MatchersField = ({ className, required, ruleUid }: Props) => {
                     />
                   </Field>
                   <Field
-                    label="Value"
+                    label={t('ablestack-wall.common.value', 'Value')}
                     invalid={!!errors?.matchers?.[index]?.value}
                     error={errors?.matchers?.[index]?.value?.message}
                   >
@@ -122,7 +123,7 @@ const MatchersField = ({ className, required, ruleUid }: Props) => {
               append(newMatcher);
             }}
           >
-            Add matcher
+            {t('ablestack-wall.alert.add-matcher', 'Add matcher')}
           </Button>
         </div>
       </Field>

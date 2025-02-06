@@ -5,6 +5,7 @@ import { useAsyncFn, useInterval } from 'react-use';
 import { urlUtil } from '@grafana/data';
 import { Button, LinkButton, Stack, withErrorBoundary } from '@grafana/ui';
 import { useQueryParams } from 'app/core/hooks/useQueryParams';
+import { Trans } from 'app/core/internationalization';
 import { useDispatch } from 'app/types';
 
 import { CombinedRuleNamespace } from '../../../../../types/unified-alerting';
@@ -156,7 +157,7 @@ export function CreateAlertButton() {
         icon="plus"
         onClick={() => logInfo(LogMessages.alertRuleFromScratch)}
       >
-        New alert rule
+        <Trans i18nKey="ablestack-wall.alert.new-alert-rule">New alert rule</Trans>
       </LinkButton>
     );
   }

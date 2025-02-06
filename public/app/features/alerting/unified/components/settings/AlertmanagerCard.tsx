@@ -1,6 +1,7 @@
 import { capitalize } from 'lodash';
 
 import { Badge, Button, Card, Stack, Text, TextLink } from '@grafana/ui';
+import { Trans } from 'app/core/internationalization';
 
 import { ConnectionStatus } from '../../hooks/useExternalAmSelector';
 import { ProvisioningBadge } from '../Provisioning';
@@ -93,17 +94,21 @@ export function AlertmanagerCard({
         <Stack direction="row" gap={1}>
           {/* ⚠️ provisioned Data sources cannot have their "enable" / "disable" actions but we should still allow editing of the configuration */}
           <Button onClick={onEditConfiguration} icon={readOnly ? 'eye' : 'edit'} variant="secondary" fill="outline">
-            {readOnly ? 'View configuration' : 'Edit configuration'}
+            {readOnly ? (
+              'View configuration'
+            ) : (
+              <Trans i18nKey="ablestack-wall.common.edit-configuration">Edit configuration</Trans>
+            )}
           </Button>
           {showActions ? (
             <>
               {receiving ? (
                 <Button icon="times" variant="destructive" fill="outline" onClick={onDisable}>
-                  Disable
+                  <Trans i18nKey="ablestack-wall.common.disable">Disable</Trans>
                 </Button>
               ) : (
                 <Button icon="check" variant="secondary" fill="outline" onClick={onEnable}>
-                  Enable
+                  <Trans i18nKey="ablestack-wall.common.enable">Enable</Trans>
                 </Button>
               )}
             </>

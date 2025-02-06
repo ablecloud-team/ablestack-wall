@@ -3,6 +3,7 @@ import { useFormContext, Controller } from 'react-hook-form';
 
 import { GrafanaTheme2 } from '@grafana/data';
 import { Field, Input, Select, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import { RuleFormType, RuleFormValues } from '../../types/rule-form';
 import { timeOptions } from '../../utils/time';
@@ -24,7 +25,7 @@ export const CloudEvaluationBehavior = () => {
   const dataSourceName = watch('dataSourceName');
 
   return (
-    <RuleEditorSection stepNo={3} title="Set evaluation behavior">
+    <RuleEditorSection stepNo={3} title={t('ablestack-wall.alert.set-evaluation-behavior', 'Set evaluation behavior')}>
       <Field
         label="Pending period"
         description='Period the threshold condition must be met to trigger the alert. Selecting "None" triggers the alert immediately once the condition is met.'

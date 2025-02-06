@@ -17,6 +17,7 @@ import {
   Stack,
 } from '@grafana/ui';
 import { getConfig } from 'app/core/config';
+import { t } from 'app/core/internationalization';
 import { OrgRole, useDispatch } from 'app/types';
 
 import { Form } from '../../core/components/Form/Form';
@@ -74,7 +75,7 @@ export const UserInviteForm = () => {
               <Field
                 invalid={!!errors.loginOrEmail}
                 error={!!errors.loginOrEmail ? 'Email or username is required' : undefined}
-                label="Email or username"
+                label={t('login.form.username-label', 'Email or username')}
               >
                 <Input {...register('loginOrEmail', { required: true })} placeholder="email@example.com" />
               </Field>

@@ -5,6 +5,7 @@ import { Input, Field, Button, FieldSet, Stack } from '@grafana/ui';
 import { TeamRolePicker } from 'app/core/components/RolePicker/TeamRolePicker';
 import { useRoleOptions } from 'app/core/components/RolePicker/hooks';
 import { SharedPreferences } from 'app/core/components/SharedPreferences/SharedPreferences';
+import { t } from 'app/core/internationalization';
 import { contextSrv } from 'app/core/services/context_srv';
 import { AccessControlAction, Team } from 'app/types';
 
@@ -47,9 +48,9 @@ export const TeamSettings = ({ team, updateTeam }: Props) => {
   return (
     <Stack direction={'column'} gap={3}>
       <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: '600px' }}>
-        <FieldSet label="Team details">
+        <FieldSet label={t('ablestack-wall.administration.service-and-access.team-details', 'Team details')}>
           <Field
-            label="Name"
+            label={t('ablestack-wall.common.name', 'Name')}
             disabled={!canWriteTeamSettings}
             required
             invalid={!!errors.name}
@@ -65,14 +66,17 @@ export const TeamSettings = ({ team, updateTeam }: Props) => {
           )}
 
           <Field
-            label="Email"
-            description="This is optional and is primarily used to set the team profile avatar (via gravatar service)."
+            label={t('ablestack-wall.common.email', 'Email')}
+            description={t(
+              'ablestack-wall.administration.service-and-access.team-email-description-gravatar',
+              'This is optional and is primarily used to set the team profile avatar (via gravatar service).'
+            )}
             disabled={!canWriteTeamSettings}
           >
             <Input {...register('email')} placeholder="team@email.com" type="email" id="email-input" />
           </Field>
           <Button type="submit" disabled={!canWriteTeamSettings}>
-            Update
+            {t('ablestack-wall.common.update', 'Update')}
           </Button>
         </FieldSet>
       </form>

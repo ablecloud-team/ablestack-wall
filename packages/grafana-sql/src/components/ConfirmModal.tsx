@@ -4,6 +4,8 @@ import { useRef, useEffect } from 'react';
 import { GrafanaTheme2 } from '@grafana/data';
 import { Button, Icon, Modal, useStyles2 } from '@grafana/ui';
 
+import { t } from '../../../../public/app/core/internationalization';
+
 type ConfirmModalProps = {
   isOpen: boolean;
   onCancel?: () => void;
@@ -27,26 +29,28 @@ export function ConfirmModal({ isOpen, onCancel, onDiscard, onCopy }: ConfirmMod
       title={
         <div className={styles.modalHeaderTitle}>
           <Icon name="exclamation-triangle" size="lg" />
-          <span className={styles.titleText}>Warning</span>
+          <span className={styles.titleText}>{t('ablestack-wall.common.warning', 'Warning')}</span>
         </div>
       }
       onDismiss={onCancel}
       isOpen={isOpen}
     >
       <p>
-        Builder mode does not display changes made in code. The query builder will display the last changes you made in
-        builder mode.
+        {t(
+          'ablestack-wall.dashboard.builder-mode-message',
+          'Builder mode does not display changes made in code. The query builder will display the last changes you made in builder mode.'
+        )}
       </p>
-      <p>Do you want to copy your code to the clipboard?</p>
+      <p>{t('ablestack-wall.dashboard.copy-code-to-clipboard', 'Do you want to copy your code to the clipboard?')}</p>
       <Modal.ButtonRow>
         <Button type="button" variant="secondary" onClick={onCancel} fill="outline">
-          Cancel
+          {t('ablestack-wall.common.cancel', 'Cancel')}
         </Button>
         <Button variant="destructive" type="button" onClick={onDiscard} ref={buttonRef}>
-          Discard code and switch
+          {t('ablestack-wall.dashboard.discard-code-switch', 'Discard code and switch')}
         </Button>
         <Button variant="primary" onClick={onCopy}>
-          Copy code and switch
+          {t('ablestack-wall.dashboard.copy-code-switch', 'Copy code and switch')}
         </Button>
       </Modal.ButtonRow>
     </Modal>

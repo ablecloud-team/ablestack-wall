@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { QueryEditorProps, SelectableValue, TimeRange } from '@grafana/data';
 import { InlineField, InlineFieldRow, LoadingPlaceholder, Select } from '@grafana/ui';
 
+import { t } from '../../../../../public/app/core/internationalization';
+
 import { ProfileTypesCascader, useProfileTypes } from './QueryEditor/ProfileTypesCascader';
 import { PyroscopeDataSource } from './datasource';
 import { Query, VariableQuery } from './types';
@@ -12,15 +14,20 @@ export function VariableQueryEditor(props: QueryEditorProps<PyroscopeDataSource,
     <>
       <InlineFieldRow>
         <InlineField
-          label="Query type"
+          label={t('ablestack-wall.dashboard.query-type', 'Query type')}
           labelWidth={20}
           tooltip={
-            <div>The Pyroscope data source plugin provides the following query types for template variables</div>
+            <div>
+              {t(
+                'ablestack-wall.dashboard.pyroscope-query-types',
+                'The Pyroscope data source plugin provides the following query types for template variables'
+              )}
+            </div>
           }
         >
           <Select
             placeholder="Select query type"
-            aria-label="Query type"
+            aria-label={t('ablestack-wall.dashboard.query-type', 'Query type')}
             width={25}
             options={[
               { label: 'Profile type', value: 'profileType' as const },

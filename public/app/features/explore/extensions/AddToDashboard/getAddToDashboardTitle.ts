@@ -1,3 +1,4 @@
+import { t } from 'app/core/internationalization';
 import { contextSrv } from 'app/core/services/context_srv';
 import { AccessControlAction } from 'app/types';
 
@@ -13,5 +14,5 @@ export function getAddToDashboardTitle(): string {
     return 'Add panel to existing dashboard';
   }
 
-  return 'Add panel to dashboard';
+  return t('ablestack-wall.dashboard.add-panel-to-dashboard', 'Add panel to dashboard');
 }

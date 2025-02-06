@@ -6,6 +6,7 @@ import { GrafanaTheme2, UrlQueryMap } from '@grafana/data';
 import { Alert, LoadingPlaceholder, Stack, Tab, TabContent, TabsBar, useStyles2, withErrorBoundary } from '@grafana/ui';
 import { useAppNotification } from 'app/core/copy/appNotification';
 import { useQueryParams } from 'app/core/hooks/useQueryParams';
+import { t } from 'app/core/internationalization';
 import { useMuteTimings } from 'app/features/alerting/unified/components/mute-timings/useMuteTimings';
 import { ObjectMatcher, Route, RouteWithID } from 'app/plugins/datasource/alertmanager/types';
 import { useDispatch } from 'app/types';
@@ -223,7 +224,7 @@ const AmRoutes = () => {
       <GrafanaAlertmanagerDeliveryWarning currentAlertmanager={selectedAlertmanager} />
       <TabsBar>
         <Tab
-          label={'Notification Policies'}
+          label={t('ablestack-wall.alert.notification-policies', 'Notification policies')}
           active={policyTreeTabActive}
           onChangeTab={() => {
             setActiveTab(ActiveTab.NotificationPolicies);
@@ -231,7 +232,7 @@ const AmRoutes = () => {
           }}
         />
         <Tab
-          label={'Mute Timings'}
+          label={t('ablestack-wall.alert.mute-timings', 'Mute Timings')}
           active={muteTimingsTabActive}
           counter={numberOfMuteTimings}
           onChangeTab={() => {

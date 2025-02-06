@@ -1,5 +1,6 @@
 import { ConfirmModal } from '@grafana/ui';
 import { useAppNotification } from 'app/core/copy/appNotification';
+import { t } from 'app/core/internationalization';
 
 import { DecoratedRevisionModel } from '../VersionsEditView';
 
@@ -27,7 +28,7 @@ export const RevertDashboardModal = ({ hideModal, onRestore, version }: RevertDa
   return (
     <ConfirmModal
       isOpen={true}
-      title="Restore Version"
+      title={t('ablestack-wall.dashboard.restore-version', 'Restore Version')}
       icon="history"
       onDismiss={hideModal}
       onConfirm={onRestoreDashboard}
@@ -36,7 +37,7 @@ export const RevertDashboardModal = ({ hideModal, onRestore, version }: RevertDa
           Are you sure you want to restore the dashboard to version {version.version}? All unsaved changes will be lost.
         </p>
       }
-      confirmText={`Yes, restore to version ${version.version}`}
+      confirmText={t('ablestack-wall.dashboard.restore-confirmation-yes', `Yes, restore to version ${version.version}`)}
     />
   );
 };

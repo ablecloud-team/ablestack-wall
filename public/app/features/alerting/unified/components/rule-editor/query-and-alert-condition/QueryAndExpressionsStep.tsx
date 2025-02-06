@@ -34,7 +34,6 @@ import { useDispatch } from 'app/types';
 import { AlertDataQuery, AlertQuery } from 'app/types/unified-alerting-dto';
 
 import { useRulesSourcesWithRuler } from '../../../hooks/useRuleSourcesWithRuler';
-import { useURLSearchParams } from '../../../hooks/useURLSearchParams';
 import { fetchAllPromBuildInfoAction } from '../../../state/actions';
 import { RuleFormType, RuleFormValues } from '../../../types/rule-form';
 import { getDefaultOrFirstCompatibleDataSource } from '../../../utils/datasource';
@@ -137,9 +136,7 @@ export const QueryAndExpressionsStep = ({ editingExistingRule, onDataChange }: P
   } = useFormContext<RuleFormValues>();
 
   const { queryPreviewData, runQueries, cancelQueries, isPreviewLoading, clearPreviewData } = useAlertQueryRunner();
-  const [queryParams] = useURLSearchParams();
   const isSwitchModeEnabled = config.featureToggles.alertingQueryAndExpressionsStepMode ?? false;
-  const isNewFromQueryParams = queryParams.has('defaults') && !editingExistingRule;
 
   const initialState = {
     queries: getValues('queries'),
@@ -168,12 +165,8 @@ export const QueryAndExpressionsStep = ({ editingExistingRule, onDataChange }: P
   const isGrafanaAlertingType = isGrafanaAlertingRuleByType(type);
   const isRecordingRuleType = isCloudRecordingRuleByType(type);
   const isCloudAlertRuleType = isCloudAlertingRuleByType(type);
-  const queryParamsAreTransformable = areQueriesTransformableToSimpleCondition(dataQueries, expressionQueries);
 
-  const isAdvancedMode =
-    Boolean(editorSettings?.simplifiedQueryEditor) === false ||
-    !isGrafanaAlertingType ||
-    (isNewFromQueryParams && !queryParamsAreTransformable);
+  const isAdvancedMode = editorSettings?.simplifiedQueryEditor !== true || !isGrafanaAlertingType;
 
   const [showResetModeModal, setShowResetModal] = useState(false);
 
@@ -595,7 +588,7 @@ export const QueryAndExpressionsStep = ({ editingExistingRule, onDataChange }: P
                   disabled={noCompatibleDataSources}
                   className={styles.addQueryButton}
                 >
-                  Add query
+                  {t('ablestack-wall.alert.add-query', 'Add query')}
                 </Button>
               </Tooltip>
             )}
@@ -612,9 +605,12 @@ export const QueryAndExpressionsStep = ({ editingExistingRule, onDataChange }: P
             {isAdvancedMode && (
               <>
                 <Stack direction="column" gap={0}>
-                  <Text element="h5">Expressions</Text>
+                  <Text element="h5">{t('ablestack-wall.alert.expressions', 'Expressions')}</Text>
                   <Text variant="bodySmall" color="secondary">
-                    Manipulate data returned from queries with math and other operations.
+                    {t(
+                      'ablestack-wall.alert.expressions-description',
+                      'Manipulate data returned from queries with math and other operations.'
+                    )}
                   </Text>
                 </Stack>
 
@@ -725,8 +721,8 @@ function TypeSelectorButton({ onClickType }: { onClickType: (type: ExpressionQue
 
   return (
     <Dropdown overlay={newMenu}>
-      <Button variant="secondary" data-testid={'add-expression-button'}>
-        Add expression
+      <Button variant="secondary">
+        {t('ablestack-wall.alert.add-expression', 'Add expression')}
         <Icon name="angle-down" />
       </Button>
     </Dropdown>

@@ -16,7 +16,7 @@ import { VizPanel } from '@grafana/scenes';
 import { AnnotationPanelFilter } from '@grafana/schema/src/raw/dashboard/x/dashboard_types.gen';
 import { Button, Checkbox, Field, FieldSet, Input, MultiSelect, Select, useStyles2, Stack, Alert } from '@grafana/ui';
 import { ColorValueEditor } from 'app/core/components/OptionsUI/color';
-import { Trans } from 'app/core/internationalization';
+import { Trans, t } from 'app/core/internationalization';
 import StandardAnnotationQueryEditor from 'app/features/annotations/components/StandardAnnotationQueryEditor';
 import { DataSourcePicker } from 'app/features/datasources/components/picker/DataSourcePicker';
 
@@ -33,7 +33,7 @@ type Props = {
   onDelete: (index: number) => void;
 };
 
-export const newAnnotationName = 'New annotation';
+export const newAnnotationName = t('ablestack-wall.dashboard.new-annotation', 'New annotation');
 
 export const AnnotationSettingsEdit = ({ annotation, editIndex, panels, onUpdate, onBackToList, onDelete }: Props) => {
   const styles = useStyles2(getStyles);
@@ -171,7 +171,7 @@ export const AnnotationSettingsEdit = ({ annotation, editIndex, panels, onUpdate
   return (
     <div>
       <FieldSet className={styles.settingsForm}>
-        <Field label="Name">
+        <Field label={t('ablestack-wall.common.name', 'Name')}>
           <Input
             data-testid={selectors.pages.Dashboard.Settings.Annotations.Settings.name}
             name="name"
@@ -181,7 +181,10 @@ export const AnnotationSettingsEdit = ({ annotation, editIndex, panels, onUpdate
             onChange={onNameChange}
           />
         </Field>
-        <Field label="Data source" htmlFor="data-source-picker">
+        <Field
+          label={t('ablestack-wall.administration.general.data-sources', 'Data sources')}
+          htmlFor="data-source-picker"
+        >
           <DataSourcePicker annotations variables current={annotation.datasource} onChange={onDataSourceChange} />
         </Field>
         {!ds?.meta.annotations && (
@@ -191,7 +194,13 @@ export const AnnotationSettingsEdit = ({ annotation, editIndex, panels, onUpdate
             </Trans>
           </Alert>
         )}
-        <Field label="Enabled" description="When enabled the annotation query is issued every dashboard refresh">
+        <Field
+          label={t('ablestack-wall.dashboard.enabled', 'Enabled')}
+          description={t(
+            'ablestack-wall.dashboard.enabled-description',
+            'When enabled the annotation query is issued every dashboard refresh'
+          )}
+        >
           <Checkbox
             name="enable"
             id="enable"
@@ -201,8 +210,11 @@ export const AnnotationSettingsEdit = ({ annotation, editIndex, panels, onUpdate
           />
         </Field>
         <Field
-          label="Hidden"
-          description="Annotation queries can be toggled on or off at the top of the dashboard. With this option checked this toggle will be hidden."
+          label={t('ablestack-wall.dashboard.hidden', 'Hidden')}
+          description={t(
+            'ablestack-wall.dashboard.hidden-description',
+            'Annotation queries can be toggled on or off at the top of the dashboard. With this option checked this toggle will be hidden.'
+          )}
         >
           <Checkbox
             name="hide"
@@ -212,12 +224,18 @@ export const AnnotationSettingsEdit = ({ annotation, editIndex, panels, onUpdate
             data-testid={selectors.pages.Dashboard.Settings.Annotations.NewAnnotation.hide}
           />
         </Field>
-        <Field label="Color" description="Color to use for the annotation event markers">
+        <Field
+          label={t('ablestack-wall.dashboard.color', 'Color')}
+          description={t('ablestack-wall.dashboard.color-description', 'Color to use for the annotation event markers')}
+        >
           <Stack>
             <ColorValueEditor value={annotation?.iconColor} onChange={onColorChange} />
           </Stack>
         </Field>
-        <Field label="Show in" data-testid={selectors.pages.Dashboard.Settings.Annotations.NewAnnotation.showInLabel}>
+        <Field
+          label={t('ablestack-wall.dashboard.show-in', 'Show in')}
+          data-testid={selectors.pages.Dashboard.Settings.Annotations.NewAnnotation.showInLabel}
+        >
           <>
             <Select
               options={panelFilters}
@@ -242,7 +260,7 @@ export const AnnotationSettingsEdit = ({ annotation, editIndex, panels, onUpdate
         </Field>
       </FieldSet>
       <FieldSet>
-        <h3 className="page-heading">Query</h3>
+        <h3 className="page-heading">{t('ablestack-wall.dashboard.query', 'Query')}</h3>
         {ds?.annotations && dsi && (
           <StandardAnnotationQueryEditor
             datasource={ds}
@@ -266,7 +284,7 @@ export const AnnotationSettingsEdit = ({ annotation, editIndex, panels, onUpdate
             onClick={onDeleteAndLeavePage}
             data-testid={selectors.pages.Dashboard.Settings.Annotations.NewAnnotation.delete}
           >
-            Delete
+            {t('ablestack-wall.common.delete', 'Delete')}
           </Button>
         )}
         <Button
@@ -274,7 +292,7 @@ export const AnnotationSettingsEdit = ({ annotation, editIndex, panels, onUpdate
           onClick={onBackToList}
           data-testid={selectors.pages.Dashboard.Settings.Annotations.NewAnnotation.apply}
         >
-          Back to list
+          {t('ablestack-wall.common.back-to-list', 'Back to list')}
         </Button>
       </Stack>
     </div>

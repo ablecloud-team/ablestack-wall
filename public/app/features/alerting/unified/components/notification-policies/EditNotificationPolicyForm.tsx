@@ -16,6 +16,7 @@ import {
   Switch,
   useStyles2,
 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import MuteTimingsSelector from 'app/features/alerting/unified/components/alertmanager-entities/MuteTimingsSelector';
 import { ContactPointSelector } from 'app/features/alerting/unified/components/notification-policies/ContactPointSelector';
 import { handleContactPointSelect } from 'app/features/alerting/unified/components/notification-policies/utils';
@@ -84,7 +85,7 @@ export const AmRoutesExpandedForm = ({ actionButtons, route, onSubmit, defaults 
     <form onSubmit={handleSubmit(onSubmit)}>
       <input type="hidden" {...register('id')} />
       <Stack direction="column" alignItems="flex-start">
-        <div>Matching labels</div>
+        <div>{t('ablestack-wall.alert.matching-labels', 'Matching labels')}</div>
         {fields.length === 0 && (
           <Badge
             color="orange"
@@ -153,11 +154,11 @@ export const AmRoutesExpandedForm = ({ actionButtons, route, onSubmit, defaults 
           variant="secondary"
           type="button"
         >
-          Add matcher
+          {t('ablestack-wall.alert.add-matcher', 'Add matcher')}
         </Button>
       </Stack>
 
-      <Field label="Contact point">
+      <Field label={t('ablestack-wall.alert.contact-point', 'Contact point')}>
         <Controller
           render={({ field: { onChange, ref, value, ...field } }) => (
             <ContactPointSelector
@@ -174,10 +175,15 @@ export const AmRoutesExpandedForm = ({ actionButtons, route, onSubmit, defaults 
           name="receiver"
         />
       </Field>
-      <Field label="Continue matching subsequent sibling nodes">
+      <Field
+        label={t(
+          'ablestack-wall.alert.continue-matching-subsequent-sibling-nodes',
+          'Continue matching subsequent sibling nodes'
+        )}
+      >
         <Switch id="continue-toggle" {...register('continue')} />
       </Field>
-      <Field label="Override grouping">
+      <Field label={t('ablestack-wall.alert.override-grouping', 'Override grouping')}>
         <Switch id="override-grouping-toggle" {...register('overrideGrouping')} />
       </Field>
       {watch().overrideGrouping && (
@@ -217,7 +223,7 @@ export const AmRoutesExpandedForm = ({ actionButtons, route, onSubmit, defaults 
           />
         </Field>
       )}
-      <Field label="Override general timings">
+      <Field label={t('ablestack-wall.alert.override-general-timings', 'Override general timings')}>
         <Switch id="override-timings-toggle" {...register('overrideTimings')} />
       </Field>
       {watch().overrideTimings && (
@@ -266,9 +272,9 @@ export const AmRoutesExpandedForm = ({ actionButtons, route, onSubmit, defaults 
         </>
       )}
       <Field
-        label="Mute timings"
+        label={t('ablestack-wall.alert.mute-timings', 'Mute timings')}
         data-testid="am-mute-timing-select"
-        description="Add mute timing to policy"
+        description={t('ablestack-wall.alert.add-mute-timing-to-policy', 'Add mute timing to policy')}
         invalid={!!errors.muteTimeIntervals}
       >
         <Controller

@@ -3,6 +3,7 @@ import { useMemo, ComponentProps } from 'react';
 
 import { GrafanaTheme2, SelectableValue } from '@grafana/data';
 import { InlineField, Select, SelectMenuOptions, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import { useAlertmanager } from '../state/AlertmanagerContext';
 import { AlertManagerDataSource, GRAFANA_RULES_SOURCE_NAME } from '../utils/datasource';
@@ -12,7 +13,7 @@ interface Props {
 }
 
 function getAlertManagerLabel(alertManager: AlertManagerDataSource) {
-  return alertManager.name === GRAFANA_RULES_SOURCE_NAME ? 'Grafana' : alertManager.name;
+  return alertManager.name === GRAFANA_RULES_SOURCE_NAME ? 'Wall' : alertManager.name;
 }
 
 export const AlertManagerPicker = ({ disabled = false }: Props) => {
@@ -29,7 +30,9 @@ export const AlertManagerPicker = ({ disabled = false }: Props) => {
   }, [availableAlertManagers]);
 
   const isDisabled = disabled || options.length === 1;
-  const label = isDisabled ? 'Alertmanager' : 'Choose Alertmanager';
+  const label = isDisabled
+    ? t('ablestack-wall.alert.alertmanager', 'Alertmanager')
+    : t('ablestack-wall.alert.choose-alertmanager', 'Choose Alertmanager');
 
   return (
     <InlineField className={styles.field} label={label} disabled={isDisabled} data-testid="alertmanager-picker">

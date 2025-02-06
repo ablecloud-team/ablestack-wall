@@ -5,6 +5,7 @@ import { useFormContext } from 'react-hook-form';
 import { GrafanaTheme2 } from '@grafana/data';
 import { config } from '@grafana/runtime';
 import { Icon, RadioButtonGroup, Stack, Text, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { AlertmanagerChoice } from 'app/plugins/datasource/alertmanager/types';
 
 import { alertmanagerApi } from '../../api/alertmanagerApi';
@@ -70,17 +71,27 @@ export const NotificationsStep = ({ alertUid }: NotificationsStepProps) => {
   return (
     <RuleEditorSection
       stepNo={4}
-      title={isRecordingRuleByType(type) ? 'Add labels' : 'Configure labels and notifications'}
+      title={
+        isRecordingRuleByType(type)
+          ? t('ablestack-wall.alert.add-labels', 'Add labels')
+          : t('ablestack-wall.alert.configure-labels-and-notifications', 'Configure labels and notifications')
+      }
       description={
         <Stack direction="row" gap={0.5} alignItems="center">
-          {isRecordingRuleByType(type) ? (
+          {type === RuleFormType.cloudRecording ? (
             <Text variant="bodySmall" color="secondary">
-              Add labels to help you better manage your recording rules.
+              {t(
+                'ablestack-wall.alert.add-labels-help-you',
+                'Add labels to help you better manage your recording rules'
+              )}
             </Text>
           ) : (
             shouldAllowSimplifiedRouting && (
               <Text variant="bodySmall" color="secondary">
-                Select who should receive a notification when an alert rule fires.
+                {t(
+                  'ablestack-wall.alert.select-who-receive-notification',
+                  'Select who should receive a notification when an alert rule fires.'
+                )}
               </Text>
             )
           )}
@@ -97,9 +108,12 @@ export const NotificationsStep = ({ alertUid }: NotificationsStepProps) => {
       />
       {shouldAllowSimplifiedRouting && (
         <div className={styles.configureNotifications}>
-          <Text element="h5">Notifications</Text>
+          <Text element="h5">{t('ablestack-wall.alert.notifications', 'Notifications')}</Text>
           <Text variant="bodySmall" color="secondary">
-            Select who should receive a notification when an alert rule fires.
+            {t(
+              'ablestack-wall.alert.select-who-receive-notification',
+              'Select who should receive a notification when an alert rule fires.'
+            )}
           </Text>
         </div>
       )}
@@ -143,7 +157,6 @@ function ManualAndAutomaticRouting({ alertUid }: { alertUid?: string }) {
     <Stack direction="column" gap={2}>
       <Stack direction="column">
         <RadioButtonGroup
-          data-testid={manualRouting ? 'routing-options-contact-point' : 'routing-options-notification-policy'}
           options={routingOptions}
           value={manualRouting ? RoutingOptions.ContactPoint : RoutingOptions.NotificationPolicy}
           onChange={onRoutingOptionChange}
@@ -253,8 +266,14 @@ export const RoutingOptionDescription = ({ manualRouting }: NotificationsStepDes
     <Stack alignItems="center">
       <Text variant="bodySmall" color="secondary">
         {manualRouting
-          ? 'Notifications for firing alerts are routed to a selected contact point.'
-          : 'Notifications for firing alerts are routed to contact points based on matching labels and the notification policy tree.'}
+          ? t(
+              'ablestack-wall.alert.notifications-routing',
+              'Notifications for firing alerts are routed to a selected contact point.'
+            )
+          : t(
+              'ablestack-wall.alert.notifications-routing',
+              'Notifications for firing alerts are routed to contact points based on matching labels and the notification policy tree.'
+            )}
       </Text>
       {manualRouting ? <NeedHelpInfoForContactpoint /> : <NeedHelpInfoForNotificationPolicy />}
     </Stack>

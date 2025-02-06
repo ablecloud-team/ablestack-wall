@@ -3,6 +3,7 @@ import { useAsync } from 'react-use';
 
 import { urlUtil } from '@grafana/data';
 import { Alert, Button, LinkButton } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { DashboardModel, PanelModel } from 'app/features/dashboard/state';
 import { useSelector } from 'app/types';
 
@@ -29,13 +30,16 @@ export const NewRuleFromPanelButton = ({ dashboard, panel, className }: Props) =
   );
 
   if (loading) {
-    return <Button disabled={true}>New alert rule</Button>;
+    return <Button disabled={true}>{t('ablestack-wall.alert.new-alert-rule', 'New alert rule')}</Button>;
   }
 
   if (!formValues) {
     return (
       <Alert severity="info" title="No alerting capable query found">
-        Cannot create alerts from this panel because no query to an alerting capable datasource is found.
+        {t(
+          'ablestack-wall.alert.no-query-alert-datasource',
+          'Cannot create alerts from this panel because no query to an alerting capable datasource is found.'
+        )}
       </Alert>
     );
   }
@@ -53,7 +57,7 @@ export const NewRuleFromPanelButton = ({ dashboard, panel, className }: Props) =
       className={className}
       data-testid="create-alert-rule-button"
     >
-      New alert rule
+      {t('ablestack-wall.alert.new-alert-rule', 'New alert rule')}
     </LinkButton>
   );
 };

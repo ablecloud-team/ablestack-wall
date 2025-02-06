@@ -12,6 +12,7 @@ import {
 } from 'app/core/components/QueryOperationRow/QueryOperationAction';
 import { QueryOperationRow } from 'app/core/components/QueryOperationRow/QueryOperationRow';
 import config from 'app/core/config';
+import { t } from 'app/core/internationalization';
 import { PluginStateInfo } from 'app/features/plugins/components/PluginStateInfo';
 
 import { TransformationEditor } from './TransformationEditor';
@@ -134,8 +135,11 @@ export const TransformationOperationRow = ({
           <ConfirmModal
             isOpen={showDeleteModal}
             title={`Delete ${uiConfig.name}?`}
-            body="Note that removing one transformation may break others. If there is only a single transformation, you will go back to the main selection screen."
-            confirmText="Delete"
+            body={t(
+              'ablestack-wall.alert.remove-transformation-note',
+              'Note that removing one transformation may break others. If there is only a single transformation, you will go back to the main selection screen.'
+            )}
+            confirmText={t('ablestack-wall.common.delete', 'Delete')}
             onConfirm={() => {
               setShowDeleteModal(false);
               onRemove(index);

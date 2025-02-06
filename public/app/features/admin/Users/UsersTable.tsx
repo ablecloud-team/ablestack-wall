@@ -16,6 +16,7 @@ import {
   Tooltip,
 } from '@grafana/ui';
 import { TagBadge } from 'app/core/components/TagFilter/TagBadge';
+import { t } from 'app/core/internationalization';
 import { UserDTO } from 'app/types';
 
 import { OrgUnits } from './OrgUnits';
@@ -51,7 +52,7 @@ export const UsersTable = ({
       },
       {
         id: 'login',
-        header: 'Login',
+        header: t('ablestack-wall.common.login', 'Login'),
         cell: ({ row: { original } }: Cell<'login'>) => {
           return (
             <TextLink color="primary" inline={false} href={`/admin/users/edit/${original.id}`} title="Edit user">
@@ -63,13 +64,13 @@ export const UsersTable = ({
       },
       {
         id: 'email',
-        header: 'Email',
+        header: t('ablestack-wall.common.email', 'Email'),
         cell: ({ cell: { value } }: Cell<'email'>) => value,
         sortType: 'string',
       },
       {
         id: 'name',
-        header: 'Name',
+        header: t('ablestack-wall.common.name', 'Name'),
         cell: ({ cell: { value } }: Cell<'name'>) => value,
         sortType: 'string',
       },
@@ -115,7 +116,7 @@ export const UsersTable = ({
         : []),
       {
         id: 'lastSeenAtAge',
-        header: 'Last active',
+        header: t('ablestack-wall.common.last-active', 'Last active'),
         headerTooltip: {
           content: 'Time since user was seen using Grafana',
           iconName: 'question-circle',
@@ -127,7 +128,7 @@ export const UsersTable = ({
       },
       {
         id: 'authLabels',
-        header: 'Origin',
+        header: t('ablestack-wall.common.origin', 'Origin'),
         cell: ({ cell: { value } }: Cell<'authLabels'>) => (
           <>{Array.isArray(value) && value.length > 0 && <TagBadge label={value[0]} removeIcon={false} count={0} />}</>
         ),

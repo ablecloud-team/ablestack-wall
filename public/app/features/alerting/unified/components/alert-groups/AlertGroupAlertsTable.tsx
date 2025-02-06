@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 
 import { GrafanaTheme2, intervalToAbbreviatedDurationString } from '@grafana/data';
 import { useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { AlertmanagerAlert } from 'app/plugins/datasource/alertmanager/types';
 
 import { AlertLabels } from '../AlertLabels';
@@ -27,7 +28,7 @@ export const AlertGroupAlertsTable = ({ alerts, alertManagerSourceName }: Props)
     (): AlertGroupAlertsTableColumnProps[] => [
       {
         id: 'state',
-        label: 'Notification state',
+        label: t('ablestack-wall.alert.notification-state', 'Notification state'),
         // eslint-disable-next-line react/display-name
         renderCell: ({ data: alert }) => (
           <>
@@ -45,7 +46,7 @@ export const AlertGroupAlertsTable = ({ alerts, alertManagerSourceName }: Props)
       },
       {
         id: 'labels',
-        label: 'Instance labels',
+        label: t('ablestack-wall.alert.instance-labels', 'Instance labels'),
         // eslint-disable-next-line react/display-name
         renderCell: ({ data: { labels } }) => <AlertLabels labels={labels} size="sm" />,
         size: 1,

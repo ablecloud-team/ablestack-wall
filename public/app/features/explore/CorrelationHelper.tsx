@@ -20,6 +20,7 @@ import {
 } from '@grafana/ui';
 import { useDispatch, useSelector } from 'app/types';
 
+import { Trans } from '../../core/internationalization';
 import { getTransformationVars } from '../correlations/transformations';
 import { generateDefaultLabel } from '../correlations/utils';
 
@@ -217,7 +218,7 @@ export const CorrelationHelper = ({ exploreId, correlations }: Props) => {
             }}
             className={styles.transformationAction}
           >
-            Add transformation
+            <Trans i18nKey="correlations.transform.add-button">Add transformation</Trans>
           </Button>
           {transformations.map((transformation, i) => {
             const { type, field, expression, mapValue } = transformation;

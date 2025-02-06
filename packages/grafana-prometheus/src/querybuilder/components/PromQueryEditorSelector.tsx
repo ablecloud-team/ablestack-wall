@@ -8,6 +8,7 @@ import { EditorHeader, EditorRows, FlexItem } from '@grafana/experimental';
 import { reportInteraction } from '@grafana/runtime';
 import { Button, ConfirmModal, Space } from '@grafana/ui';
 
+import { t } from '../../../../../public/app/core/internationalization';
 import { PromQueryEditorProps } from '../../components/types';
 import { PromQueryFormat } from '../../dataquery';
 import { PromQuery } from '../../types';
@@ -123,10 +124,14 @@ export const PromQueryEditorSelector = memo<Props>((props) => {
           size="sm"
           onClick={() => setQueryPatternsModalOpen((prevValue) => !prevValue)}
         >
-          Kick start your query
+          {t('ablestack-wall.explore.kick-start-your-query', 'Kick start your query')}
         </Button>
         <div data-testid={selectors.components.DataSource.Prometheus.queryEditor.explain}>
-          <QueryHeaderSwitch label="Explain" value={explain} onChange={onShowExplainChange} />
+          <QueryHeaderSwitch
+            label={t('ablestack-wall.explore.explain', 'Explain')}
+            value={explain}
+            onChange={onShowExplainChange}
+          />
         </div>
         <FlexItem grow={1} />
         {app !== CoreApp.Explore && app !== CoreApp.Correlations && (
@@ -137,7 +142,7 @@ export const PromQueryEditorSelector = memo<Props>((props) => {
             icon={data?.state === LoadingState.Loading ? 'spinner' : undefined}
             disabled={data?.state === LoadingState.Loading}
           >
-            Run queries
+            {t('ablestack-wall.explore.run-queries', 'Run queries')}
           </Button>
         )}
         <PromQueryCodeEditorAutocompleteInfo datasourceUid={props.datasource.uid} editorMode={editorMode} />

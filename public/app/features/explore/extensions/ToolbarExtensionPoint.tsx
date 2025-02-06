@@ -4,6 +4,7 @@ import { type PluginExtensionLink, PluginExtensionPoints, RawTimeRange, getTimeZ
 import { config, usePluginLinks } from '@grafana/runtime';
 import { DataQuery, TimeZone } from '@grafana/schema';
 import { Dropdown, ToolbarButton } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { contextSrv } from 'app/core/services/context_srv';
 import { AccessControlAction, ExplorePanelData, useSelector } from 'app/types';
 
@@ -58,7 +59,7 @@ export function ToolbarExtensionPoint(props: Props): ReactElement | null {
     <>
       <Dropdown onVisibleChange={setIsOpen} placement="bottom-start" overlay={menu}>
         <ToolbarButton aria-label="Add" disabled={!Boolean(noQueriesInPane)} variant="canvas" isOpen={isOpen}>
-          Add
+          {t('ablestack-wall.common.add', 'Add')}
         </ToolbarButton>
       </Dropdown>
       {!!selectedExtension && !!selectedExtension.path && (

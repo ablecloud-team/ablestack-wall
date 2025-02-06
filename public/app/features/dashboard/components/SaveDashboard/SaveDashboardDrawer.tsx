@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { config, isFetchError } from '@grafana/runtime';
 import { Drawer, Tab, TabsBar } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { jsonDiff } from 'app/features/dashboard-scene/settings/version-history/utils';
 
 import DashboardValidation from './DashboardValidation';
@@ -102,11 +103,11 @@ export const SaveDashboardDrawer = ({ dashboard, onDismiss, onSaveSuccess, isCop
     );
   }
 
-  let title = 'Save dashboard';
+  let title = t('ablestack-wall.dashboard.save-dashboard', 'Save dashboard');
   if (isCopy) {
-    title = 'Save dashboard copy';
+    title = t('ablestack-wall.dashboard.save-dashboard-copy', 'Save dashboard copy');
   } else if (isProvisioned) {
-    title = 'Provisioned dashboard';
+    title = t('ablestack-wall.dashboard.save-Provisioned-dashboard', 'Provisioned dashboard');
   }
 
   return (
@@ -116,7 +117,11 @@ export const SaveDashboardDrawer = ({ dashboard, onDismiss, onSaveSuccess, isCop
       subtitle={dashboard.title}
       tabs={
         <TabsBar>
-          <Tab label={'Details'} active={!showDiff} onChangeTab={() => setShowDiff(false)} />
+          <Tab
+            label={t('ablestack-wall.common.details', 'Details')}
+            active={!showDiff}
+            onChangeTab={() => setShowDiff(false)}
+          />
           {data.hasChanges && (
             <Tab label={'Changes'} active={showDiff} onChangeTab={() => setShowDiff(true)} counter={data.diffCount} />
           )}

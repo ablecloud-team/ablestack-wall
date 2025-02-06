@@ -1,5 +1,6 @@
 import { Menu } from '@grafana/ui';
 import { useAppNotification } from 'app/core/copy/appNotification';
+import { t } from 'app/core/internationalization';
 import {
   isGrafanaRulerRule,
   isGrafanaRulerRulePaused,
@@ -29,7 +30,9 @@ const MenuItemPauseRule = ({ rule, onPauseChange }: Props) => {
 
   const isPaused = isGrafanaRulerRule(rule.rulerRule) && isGrafanaRulerRulePaused(rule.rulerRule);
   const icon = isPaused ? 'play' : 'pause';
-  const title = isPaused ? 'Resume evaluation' : 'Pause evaluation';
+  const title = isPaused
+    ? t('ablestack-wall.alert.resume-evaluation', 'Resume evaluation')
+    : t('ablestack-wall.alert.pause-evaluation', 'Pause evaluation');
 
   /**
    * Triggers API call to update the current rule to the new `is_paused` state

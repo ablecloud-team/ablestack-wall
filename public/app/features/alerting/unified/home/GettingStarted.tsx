@@ -4,6 +4,7 @@ import SVG from 'react-inlinesvg';
 
 import { GrafanaTheme2 } from '@grafana/data';
 import { useStyles2, useTheme2, Stack, Text, TextLink } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 export default function GettingStarted() {
   const theme = useTheme2();
@@ -102,24 +103,33 @@ export function WelcomeHeader({ className }: { className?: string }) {
     <Stack gap={2} direction="column">
       <ContentBox className={cx(styles.ctaContainer, className)}>
         <WelcomeCTABox
-          title="Alert rules"
-          description="Define the condition that must be met before an alert rule fires"
+          title={t('ablestack-wall.alert.alert-rule', 'Alert rules')}
+          description={t(
+            'ablestack-wall.alert.alert-rule-description',
+            'Define the condition that must be met before an alert rule fires'
+          )}
           href="/alerting/list"
-          hrefText="Manage alert rules"
+          hrefText={t('ablestack-wall.alert.alert-rule-hrefText', 'Manage alert rules')}
         />
         <div className={styles.separator} />
         <WelcomeCTABox
-          title="Contact points"
-          description="Configure who receives notifications and how they are sent"
+          title={t('ablestack-wall.alert.contact-points', 'Contact Points')}
+          description={t(
+            'ablestack-wall.alert.contact-points-description',
+            'Configure who receives notifications and how they are sent'
+          )}
           href="/alerting/notifications"
-          hrefText="Manage contact points"
+          hrefText={t('ablestack-wall.alert.contact-points-hrefText', 'Manage contact points')}
         />
         <div className={styles.separator} />
         <WelcomeCTABox
-          title="Notification policies"
-          description="Configure how firing alert instances are routed to contact points"
+          title={t('ablestack-wall.alert.notification-policies', 'notification policies')}
+          description={t(
+            'ablestack-wall.alert.notification-policies-description',
+            'Configure how firing alert instances are routed to contact points'
+          )}
           href="/alerting/routes"
-          hrefText="Manage notification policies"
+          hrefText={t('ablestack-wall.alert.notification-policies-hrefText', 'Manage notification policies')}
         />
       </ContentBox>
     </Stack>

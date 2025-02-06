@@ -4,6 +4,7 @@ import { useDebounce } from 'react-use';
 
 import { Stack } from '@grafana/experimental';
 import { Button, Field, Icon, Input, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import { useURLSearchParams } from '../../../hooks/useURLSearchParams';
 
@@ -33,10 +34,13 @@ const ContactPointsFilter = () => {
 
   return (
     <Stack direction="row" alignItems="end" gap={0.5}>
-      <Field className={styles.noBottom} label="Search by name or type">
+      <Field
+        className={styles.noBottom}
+        label={t('ablestack-wall.alert.search-by-name-or-type', 'Search by name or type')}
+      >
         <Input
           aria-label="search contact points"
-          placeholder="Search"
+          placeholder={t('ablestack-wall.common.search', 'Search')}
           width={46}
           prefix={<Icon name="search" />}
           onChange={(event) => {
@@ -46,7 +50,7 @@ const ContactPointsFilter = () => {
         />
       </Field>
       <Button variant="secondary" icon="times" onClick={() => clear()} disabled={!hasInput} aria-label="clear">
-        Clear
+        {t('ablestack-wall.common.clear', 'Clear')}
       </Button>
     </Stack>
   );

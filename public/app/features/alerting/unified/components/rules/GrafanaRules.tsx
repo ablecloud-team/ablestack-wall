@@ -113,7 +113,9 @@ export const GrafanaRules = ({ namespaces, expandAll }: Props) => {
           viewMode={wantsListView ? 'list' : 'grouped'}
         />
       ))}
-      {hasResult && namespacesFormat?.length === 0 && <p>No rules found.</p>}
+      {hasResult && namespacesFormat?.length === 0 && (
+        <p>{t('ablestack-wall.alert.no-rules-found', 'No rules found.')}</p>
+      )}
       {!hasResult && loading && <Spinner size="xl" className={styles.spinner} />}
       <Pagination
         className={styles.pagination}

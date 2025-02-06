@@ -9,15 +9,18 @@ import { TeamRolePicker } from 'app/core/components/RolePicker/TeamRolePicker';
 import { updateTeamRoles } from 'app/core/components/RolePicker/api';
 import { useRoleOptions } from 'app/core/components/RolePicker/hooks';
 import { contextSrv } from 'app/core/core';
+import { t } from 'app/core/internationalization';
 import { AccessControlAction, Role, TeamDTO } from 'app/types';
 
 const pageNav: NavModelItem = {
   icon: 'users-alt',
   id: 'team-new',
-  text: 'New team',
-  subTitle: 'Create a new team. Teams let you grant permissions to a group of users.',
+  text: t('ablestack-wall.administration.service-and-access.new-team', 'New team'),
+  subTitle: t(
+    'ablestack-wall.administration.service-and-access.new-team-subtitle',
+    'Create a new team. Teams let you grant permissions to a group of users.'
+  ),
 };
-
 export const CreateTeam = (): JSX.Element => {
   const currentOrgId = contextSrv.user.orgId;
   const [pendingRoles, setPendingRoles] = useState<Role[]>([]);
@@ -51,7 +54,12 @@ export const CreateTeam = (): JSX.Element => {
       <Page.Contents>
         <form onSubmit={handleSubmit(createTeam)} style={{ maxWidth: '600px' }}>
           <FieldSet>
-            <Field label="Name" required invalid={!!errors.name} error="Team name is required">
+            <Field
+              label={t('ablestack-wall.common.name', 'Name')}
+              required
+              invalid={!!errors.name}
+              error="Team name is required"
+            >
               <Input {...register('name', { required: true })} id="team-name" />
             </Field>
             {contextSrv.licensedAccessControlEnabled() && (
@@ -68,15 +76,18 @@ export const CreateTeam = (): JSX.Element => {
               </Field>
             )}
             <Field
-              label={'Email'}
-              description={'This is optional and is primarily used for allowing custom team avatars.'}
+              label={t('ablestack-wall.common.email', 'Email')}
+              description={t(
+                'ablestack-wall.administration.service-and-access.team-email-description',
+                'This is optional and is primarily used for allowing custom team avatars.'
+              )}
             >
               <Input {...register('email')} type="email" id="team-email" placeholder="email@test.com" />
             </Field>
           </FieldSet>
 
           <Button type="submit" variant="primary">
-            Create
+            {t('ablestack-wall.common.create', 'Create')}
           </Button>
         </form>
       </Page.Contents>

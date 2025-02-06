@@ -1,6 +1,7 @@
 import { AppEvents } from '@grafana/data';
 import { ComponentSize, Dropdown, Menu } from '@grafana/ui';
 import appEvents from 'app/core/app_events';
+import { t } from 'app/core/internationalization';
 import MenuItemPauseRule from 'app/features/alerting/unified/components/MenuItemPauseRule';
 import MoreButton from 'app/features/alerting/unified/components/MoreButton';
 import { useRulePluginLinkExtension } from 'app/features/alerting/unified/plugins/useRulePluginLinkExtensions';
@@ -76,14 +77,32 @@ const AlertRuleMenu = ({
   const menuItems = (
     <>
       {canPause && <MenuItemPauseRule rule={rule} onPauseChange={onPauseChange} />}
-      {canSilence && <Menu.Item label="Silence notifications" icon="bell-slash" onClick={handleSilence} />}
+      {canSilence && (
+        <Menu.Item
+          label={t('ablestack-wall.alert.silence-notifications', 'Silence notifications')}
+          icon="bell-slash"
+          onClick={handleSilence}
+        />
+      )}
       {shouldShowDeclareIncidentButton && <DeclareIncidentMenuItem title={rule.name} url={''} />}
-      {canDuplicate && <Menu.Item label="Duplicate" icon="copy" onClick={() => handleDuplicateRule(identifier)} />}
+      {canDuplicate && (
+        <Menu.Item
+          label={t('ablestack-wall.common.duplicate', 'Duplicate')}
+          icon="copy"
+          onClick={() => handleDuplicateRule(identifier)}
+        />
+      )}
       {showDivider && <Menu.Divider />}
-      {shareUrl && <Menu.Item label="Copy link" icon="share-alt" onClick={() => copyToClipboard(shareUrl)} />}
+      {shareUrl && (
+        <Menu.Item
+          label={t('ablestack-wall.alert.copy-link', 'Copy link')}
+          icon="share-alt"
+          onClick={() => copyToClipboard(shareUrl)}
+        />
+      )}
       {canExport && (
         <Menu.Item
-          label="Export"
+          label={t('ablestack-wall.common.export', 'Export')}
           icon="download-alt"
           childItems={[<ExportMenuItem key="export-with-modifications" identifier={identifier} />]}
         />
@@ -99,7 +118,12 @@ const AlertRuleMenu = ({
       {canDelete && (
         <>
           <Menu.Divider />
-          <Menu.Item label="Delete" icon="trash-alt" destructive onClick={() => handleDelete(rule)} />
+          <Menu.Item
+            label={t('ablestack-wall.common.delete', 'Delete')}
+            icon="trash-alt"
+            destructive
+            onClick={() => handleDelete(rule)}
+          />
         </>
       )}
     </>

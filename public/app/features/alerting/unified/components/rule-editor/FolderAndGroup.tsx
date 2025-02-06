@@ -1,8 +1,8 @@
 import { css } from '@emotion/css';
 import { debounce, take, uniqueId } from 'lodash';
-import * as React from 'react';
 import { useCallback, useMemo, useState } from 'react';
-import { Controller, FormProvider, useForm, useFormContext } from 'react-hook-form';
+import * as React from 'react';
+import { FormProvider, useForm, useFormContext, Controller } from 'react-hook-form';
 
 import { AppEvents, GrafanaTheme2, SelectableValue } from '@grafana/data';
 import { selectors } from '@grafana/e2e-selectors';
@@ -18,7 +18,7 @@ import { alertRuleApi } from '../../api/alertRuleApi';
 import { GRAFANA_RULER_CONFIG } from '../../api/featureDiscoveryApi';
 import { RuleFormValues } from '../../types/rule-form';
 import { DEFAULT_GROUP_EVALUATION_INTERVAL } from '../../utils/rule-form';
-import { isGrafanaRecordingRuleByType, isGrafanaRulerRule } from '../../utils/rules';
+import { isGrafanaRulerRule } from '../../utils/rules';
 import { ProvisioningBadge } from '../Provisioning';
 import { evaluateEveryValidationOptions } from '../rules/EditRuleGroupModal';
 
@@ -99,8 +99,8 @@ export function FolderAndGroup({
 
   const styles = useStyles2(getStyles);
 
-  const [folder, group, type] = watch(['folder', 'group', 'type']);
-  const isGrafanaRecordingRule = type ? isGrafanaRecordingRuleByType(type) : false;
+  const folder = watch('folder');
+  const group = watch('group');
 
   const { groupOptions, loading } = useFolderGroupOptions(folder?.uid ?? '', enableProvisionedGroups);
 
@@ -140,18 +140,17 @@ export function FolderAndGroup({
 
   const defaultGroupValue = group ? { value: group, label: group } : undefined;
 
-  const evaluationDesc = isGrafanaRecordingRule
-    ? t('alerting.folderAndGroup.evaluation.text.recording', 'Define how often the recording rule is evaluated.')
-    : t('alerting.folderAndGroup.evaluation.text.alerting', 'Define how often the alert rule is evaluated.');
-
   return (
     <div className={styles.container}>
       <Stack alignItems="center">
         {
           <Field
             label={
-              <Label htmlFor="folder" description={'Select a folder to store your rule.'}>
-                Folder
+              <Label
+                htmlFor="folder"
+                description={t('ablestack-wall.alert.select-folder', 'Select a folder to store your rule.')}
+              >
+                {t('ablestack-wall.alert.folder', 'Folder')}
               </Label>
             }
             className={styles.formInput}
@@ -191,7 +190,7 @@ export function FolderAndGroup({
                     disabled={!contextSrv.hasPermission(AccessControlAction.FoldersCreate)}
                     data-testid={selectors.components.AlertRules.newFolderButton}
                   >
-                    New folder
+                    title={t('ablestack-wall.alert.new-folder', 'New folder')}
                   </Button>
                 </>
               )) || <div>Creating new folder...</div>}
@@ -210,9 +209,12 @@ export function FolderAndGroup({
       <Stack alignItems="center">
         <div style={{ width: 420 }}>
           <Field
-            label="Evaluation group and interval"
+            label={t('ablestack-wall.alert.evaluation-group-interval', 'Evaluation group and interval')}
             data-testid="group-picker"
-            description={evaluationDesc}
+            description={t(
+              'ablestack-wall.alert.evaluation-group-definition',
+              'Define how often the alert rule is evaluated.'
+            )}
             className={styles.formInput}
             error={errors.group?.message}
             invalid={!!errors.group?.message}
@@ -268,7 +270,7 @@ export function FolderAndGroup({
             disabled={!folder}
             data-testid={selectors.components.AlertRules.newEvaluationGroupButton}
           >
-            New evaluation group
+            {t('ablestack-wall.alert.new-evaluation-group', 'New evaluation group')}
           </Button>
         </Box>
         {isCreatingEvaluationGroup && (
@@ -308,12 +310,20 @@ function FolderCreationModal({
   const error = containsSlashes(title);
 
   return (
-    <Modal className={styles.modal} isOpen={true} title={'New folder'} onDismiss={onClose} onClickBackdrop={onClose}>
-      <div className={styles.modalTitle}>Create a new folder to store your rule</div>
+    <Modal
+      className={styles.modal}
+      isOpen={true}
+      title={t('ablestack-wall.alert.new-folder', 'New folder')}
+      onDismiss={onClose}
+      onClickBackdrop={onClose}
+    >
+      <div className={styles.modalTitle}>
+        {t('ablestack-wall.alert.create-new-folder', 'Create a new folder to store your rule')}
+      </div>
 
       <form onSubmit={onSubmit}>
         <Field
-          label={<Label htmlFor="folder">Folder name</Label>}
+          label={<Label htmlFor="folder">{t('ablestack-wall.alert.folder-name', 'Folder name')}</Label>}
           error={"The folder name can't contain slashes"}
           invalid={error}
         >
@@ -330,14 +340,14 @@ function FolderCreationModal({
 
         <Modal.ButtonRow>
           <Button variant="secondary" type="button" onClick={onClose}>
-            Cancel
+            {t('ablestack-wall.common.cancel', 'Cancel')}
           </Button>
           <Button
             type="submit"
             disabled={!title || error}
             data-testid={selectors.components.AlertRules.newFolderNameCreateButton}
           >
-            Create
+            {t('ablestack-wall.common.create', 'Create')}
           </Button>
         </Modal.ButtonRow>
       </form>
@@ -363,8 +373,7 @@ function EvaluationGroupCreationModal({
 
   const evaluateEveryId = 'eval-every-input';
   const evaluationGroupNameId = 'new-eval-group-name';
-  const [groupName, folderName, type] = watch(['group', 'folder.title', 'type']);
-  const isGrafanaRecordingRule = type ? isGrafanaRecordingRuleByType(type) : false;
+  const [groupName, folderName] = watch(['group', 'folder.title']);
 
   const groupRules =
     (groupfoldersForGrafana && groupfoldersForGrafana[folderName]?.find((g) => g.name === groupName)?.rules) ?? [];
@@ -386,25 +395,20 @@ function EvaluationGroupCreationModal({
     setValue('evaluateEvery', interval, { shouldValidate: true });
   };
 
-  const modalTitle = isGrafanaRecordingRule
-    ? t(
-        'alerting.folderAndGroup.evaluation.modal.text.recording',
-        'Create a new evaluation group to use for this recording rule.'
-      )
-    : t(
-        'alerting.folderAndGroup.evaluation.modal.text.alerting',
-        'Create a new evaluation group to use for this alert rule.'
-      );
-
   return (
     <Modal
       className={styles.modal}
       isOpen={true}
-      title={'New evaluation group'}
+      title={t('ablestack-wall.alert.new-evaluation-group', 'New evaluation group')}
       onDismiss={onCancel}
       onClickBackdrop={onCancel}
     >
-      <div className={styles.modalTitle}>{modalTitle}</div>
+      <div className={styles.modalTitle}>
+        {t(
+          'ablestack-wall.alert.create-new-evaluation-group',
+          'Create a new evaluation group to use for this alert rule.'
+        )}
+      </div>
 
       <FormProvider {...formAPI}>
         <form onSubmit={handleSubmit(() => onSubmit())}>
@@ -412,9 +416,12 @@ function EvaluationGroupCreationModal({
             label={
               <Label
                 htmlFor={evaluationGroupNameId}
-                description="A group evaluates all its rules over the same evaluation interval."
+                description={t(
+                  'ablestack-wall.alert.evaluation-group-description',
+                  'A group evaluates all its rules over the same evaluation interval.'
+                )}
               >
-                Evaluation group name
+                {t('ablestack-wall.alert.evaluation-group-name', 'Evaluation group name')}
               </Label>
             }
             error={formState.errors.group?.message}
@@ -455,14 +462,14 @@ function EvaluationGroupCreationModal({
 
           <Modal.ButtonRow>
             <Button variant="secondary" type="button" onClick={onCancel}>
-              Cancel
+              {t('ablestack-wall.common.cancel', 'Cancel')}
             </Button>
             <Button
               type="submit"
               disabled={!formState.isValid}
               data-testid={selectors.components.AlertRules.newEvaluationGroupCreate}
             >
-              Create
+              {t('ablestack-wall.common.create', 'Create')}
             </Button>
           </Modal.ButtonRow>
         </form>

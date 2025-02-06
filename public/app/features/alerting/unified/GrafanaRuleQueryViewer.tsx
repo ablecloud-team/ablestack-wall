@@ -7,6 +7,7 @@ import { secondsToHms } from '@grafana/data/src/datetime/rangeutil';
 import { config } from '@grafana/runtime';
 import { Preview } from '@grafana/sql/src/components/visual-query-builder/Preview';
 import { Badge, ErrorBoundaryAlert, LinkButton, Stack, Text, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { CombinedRule } from 'app/types/unified-alerting';
 
 import { AlertDataQuery, AlertQuery } from '../../../types/unified-alerting-dto';
@@ -271,7 +272,7 @@ function QueryBox({ refId, headerItems = [], children, isAlertCondition, explore
           <WithReturnButton
             component={
               <LinkButton size="md" variant="secondary" icon="compass" href={exploreLink}>
-                View in Explore
+                {t('ablestack-wall.alert.view-in-explore', 'View in Explore')}
               </LinkButton>
             }
           />

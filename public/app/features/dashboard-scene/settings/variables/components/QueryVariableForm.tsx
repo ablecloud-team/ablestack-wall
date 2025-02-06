@@ -7,6 +7,7 @@ import { getDataSourceSrv } from '@grafana/runtime';
 import { QueryVariable } from '@grafana/scenes';
 import { DataSourceRef, VariableRefresh, VariableSort } from '@grafana/schema';
 import { Field } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { QueryEditor } from 'app/features/dashboard-scene/settings/variables/components/QueryEditor';
 import { SelectionOptionsForm } from 'app/features/dashboard-scene/settings/variables/components/SelectionOptionsForm';
 import { DataSourcePicker } from 'app/features/datasources/components/picker/DataSourcePicker';
@@ -70,8 +71,11 @@ export function QueryVariableEditorForm({
 
   return (
     <>
-      <VariableLegend>Query options</VariableLegend>
-      <Field label="Data source" htmlFor="data-source-picker">
+      <VariableLegend>{t('ablestack-wall.dashboard.query-options', 'Query options')}</VariableLegend>
+      <Field
+        label={t('ablestack-wall.administration.general.data-sources', 'Data sources')}
+        htmlFor="data-source-picker"
+      >
         <DataSourcePicker current={datasourceRef} onChange={onDataSourceChange} variables={true} width={30} />
       </Field>
 
@@ -88,12 +92,18 @@ export function QueryVariableEditorForm({
 
       <VariableTextAreaField
         defaultValue={regex ?? ''}
-        name="Regex"
+        name={t('ablestack-wall.common.regex', 'Regex')}
         description={
           <div>
-            Optional, if you want to extract part of a series name or metric node segment.
+            {t(
+              'ablestack-wall.dashboard.optional-extract-series',
+              'Optional, if you want to extract part of a series name or metric node segment.'
+            )}
             <br />
-            Named capture groups can be used to separate the display text and value (
+            {t(
+              'ablestack-wall.dashboard.named-capture-groups',
+              'Named capture groups can be used to separate the display text and value ('
+            )}
             <a
               className="external-link"
               href="https://grafana.com/docs/grafana/latest/variables/filter-variables-with-regex#filter-and-modify-using-named-text-and-value-capture-groups"
@@ -122,7 +132,7 @@ export function QueryVariableEditorForm({
         refresh={refresh}
       />
 
-      <VariableLegend>Selection options</VariableLegend>
+      <VariableLegend>{t('ablestack-wall.dashboard.selection-options', 'Selection options')}</VariableLegend>
       <SelectionOptionsForm
         multi={!!isMulti}
         includeAll={!!includeAll}

@@ -2,6 +2,7 @@ import { uniq } from 'lodash';
 
 import { SelectableValue } from '@grafana/data';
 import { Icon, Label, MultiSelect, Tooltip } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { AlertmanagerGroup } from 'app/plugins/datasource/alertmanager/types';
 
 import { isPrivateLabelKey } from '../../utils/labels';
@@ -23,7 +24,7 @@ export const GroupBy = ({ groups, groupBy, onGroupingChange }: Props) => {
   return (
     <div data-testid={'group-by-container'}>
       <Label>
-        <span>Custom group by&nbsp;</span>
+        <span>{t('ablestack-wall.alert.custom-group-by', 'Custom group by')}&nbsp;</span>
         <Tooltip
           content={
             <div>
@@ -38,7 +39,7 @@ export const GroupBy = ({ groups, groupBy, onGroupingChange }: Props) => {
       <MultiSelect
         aria-label={'group by label keys'}
         value={groupBy}
-        placeholder="Group by"
+        placeholder={t('ablestack-wall.alert.group-by', 'Group by')}
         prefix={<Icon name={'tag-alt'} />}
         onChange={(items) => {
           onGroupingChange(items.map(({ value }) => value as string));

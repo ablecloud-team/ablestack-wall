@@ -4,6 +4,7 @@ import { lazy, Suspense } from 'react';
 
 import { GrafanaTheme2 } from '@grafana/data';
 import { Button, LoadingPlaceholder, Text, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { alertRuleApi } from 'app/features/alerting/unified/api/alertRuleApi';
 import { Stack } from 'app/plugins/datasource/parca/QueryEditor/Stack';
 import { AlertQuery } from 'app/types/unified-alerting-dto';
@@ -71,7 +72,9 @@ export const NotificationPreview = ({
     <Stack direction="column">
       <div className={styles.routePreviewHeaderRow}>
         <div className={styles.previewHeader}>
-          <Text element="h5">Alert instance routing preview</Text>
+          <Text element="h5">
+            {t('ablestack-wall.alert.alert-instance-routing-preview', 'Alert instance routing preview')}
+          </Text>
           {isLoading && previewUninitialized && (
             <Text color="secondary" variant="bodySmall">
               Loading...
@@ -91,7 +94,7 @@ export const NotificationPreview = ({
         </div>
         <div className={styles.button}>
           <Button icon="sync" variant="secondary" type="button" onClick={onPreview} disabled={disabled}>
-            Preview routing
+            {t('ablestack-wall.alert.preview-routing', 'Preview routing')}
           </Button>
         </div>
       </div>

@@ -7,6 +7,7 @@ import { GrafanaTheme2, LoadingState, SelectableValue, VariableHide, VariableTyp
 import { selectors } from '@grafana/e2e-selectors';
 import { locationService } from '@grafana/runtime';
 import { Button, HorizontalGroup, Icon, Themeable2, withTheme2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import { StoreState, ThunkDispatch } from '../../../types';
 import { VariableHideSelect } from '../../dashboard-scene/settings/variables/components/VariableHideSelect';
@@ -161,13 +162,16 @@ export class VariableEditorEditorUnConnected extends PureComponent<Props, State>
         <form aria-label="Variable editor Form" onSubmit={this.onHandleSubmit}>
           <VariableTypeSelect onChange={this.onTypeChange} type={this.props.variable.type} />
 
-          <VariableLegend>General</VariableLegend>
+          <VariableLegend>{t('ablestack-wall.dashboard.general', 'General')}</VariableLegend>
           <VariableTextField
             value={this.props.editor.name}
             onChange={this.onNameChange}
             name="Name"
             placeholder="Variable name"
-            description="The name of the template variable. (Max. 50 characters)"
+            description={t(
+              'ablestack-wall.dashboard.template-variable-name',
+              'The name of the template variable. (Max. 50 characters)'
+            )}
             invalid={!!this.props.editor.errors.name}
             error={this.props.editor.errors.name}
             testId={selectors.pages.Dashboard.Settings.Variables.Edit.General.generalNameInputV2}

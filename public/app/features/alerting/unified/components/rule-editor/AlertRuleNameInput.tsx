@@ -2,6 +2,7 @@ import { useFormContext } from 'react-hook-form';
 
 import { selectors } from '@grafana/e2e-selectors';
 import { Field, Input, Stack, Text } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import { RuleFormType, RuleFormValues } from '../../types/rule-form';
 import { isCloudRecordingRuleByType, isGrafanaRecordingRuleByType, isRecordingRuleByType } from '../../utils/rules';
@@ -39,15 +40,19 @@ export const AlertRuleNameAndMetric = () => {
   return (
     <RuleEditorSection
       stepNo={1}
-      title={`Enter ${entityName} name`}
+      title={t('ablestack-wall.alert.alert-rule-enter-name', `{{entityName}}`, { entityName: entityName })}
       description={
         <Text variant="bodySmall" color="secondary">
-          Enter a name to identify your {entityName}.
+          {t('ablestack-wall.alert.alert-rule-enter-name-description', `{{entityName}}`, { entityName: entityName })}
         </Text>
       }
     >
       <Stack direction="column">
-        <Field label="Name" error={errors?.name?.message} invalid={!!errors.name?.message}>
+        <Field
+          label={t('ablestack-wall.common.name', 'Name')}
+          error={errors?.name?.message}
+          invalid={!!errors.name?.message}
+        >
           <Input
             data-testid={selectors.components.AlertRules.ruleNameField}
             id="name"
@@ -59,7 +64,9 @@ export const AlertRuleNameAndMetric = () => {
                 : undefined,
             })}
             aria-label="name"
-            placeholder={`Give your ${namePlaceholder} a name`}
+            placeholder={t('ablestack-wall.alert.give-a-name', 'Give your {{namePlaceholder}} a name', {
+              namePlaceholder: namePlaceholder,
+            })}
           />
         </Field>
         {isGrafanaRecordingRule && (

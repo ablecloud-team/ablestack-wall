@@ -4,6 +4,7 @@ import { selectors } from '@grafana/e2e-selectors';
 import { EditorField, EditorRow, EditorRows, EditorSwitch } from '@grafana/experimental';
 import { AutoSizeInput, Input, Space } from '@grafana/ui';
 
+import { t } from '../../../../public/app/core/internationalization';
 import { PromQueryCodeEditor } from '../querybuilder/components/PromQueryCodeEditor';
 import { PromQuery } from '../types';
 
@@ -64,7 +65,7 @@ export function AnnotationQueryEditor(props: Props) {
       <Space v={0.5} />
       <EditorRow>
         <EditorField
-          label="Title"
+          label={t('ablestack-wall.common.title', 'Title')}
           tooltip={
             'Use either the name or a pattern. For example, {{instance}} is replaced with label value for the label instance.'
           }
@@ -82,7 +83,7 @@ export function AnnotationQueryEditor(props: Props) {
             data-testid={selectors.components.DataSource.Prometheus.annotations.title}
           />
         </EditorField>
-        <EditorField label="Tags">
+        <EditorField label={t('ablestack-wall.administration.general.tags', 'Tags')}>
           <Input
             type="text"
             placeholder="label1,label2"
@@ -103,7 +104,7 @@ export function AnnotationQueryEditor(props: Props) {
           }
         >
           <Input
-            type="text"
+            type={t('ablestack-wall.dashboard.text', 'text')}
             placeholder="{{instance}}"
             value={annotation.textFormat}
             onChange={(event) => {
@@ -116,7 +117,7 @@ export function AnnotationQueryEditor(props: Props) {
           />
         </EditorField>
         <EditorField
-          label="Series value as timestamp"
+          label={t('ablestack-wall.dashboard.series-value-as-timestamp', 'Series value as timestamp')}
           tooltip={
             'The unit of timestamp is milliseconds. If the unit of the series value is seconds, multiply its range vector by 1000.'
           }

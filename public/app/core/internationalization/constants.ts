@@ -2,6 +2,7 @@ import { ResourceKey } from 'i18next';
 import { uniq } from 'lodash';
 
 export const ENGLISH_US = 'en-US';
+export const KOREAN_KOREA = 'ko-KR';
 export const FRENCH_FRANCE = 'fr-FR';
 export const SPANISH_SPAIN = 'es-ES';
 export const GERMAN_GERMANY = 'de-DE';
@@ -30,6 +31,14 @@ export const LANGUAGES: LanguageDefinition[] = [
     name: 'English',
     loader: {
       grafana: () => import('../../../locales/en-US/grafana.json'),
+    },
+  },
+
+  {
+    code: KOREAN_KOREA,
+    name: '한글',
+    loader: {
+      grafana: () => import('../../../locales/ko-KR/grafana.json'),
     },
   },
 

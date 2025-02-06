@@ -8,6 +8,8 @@ import { Alert, Button } from '@grafana/ui';
 import { LogMessages } from 'app/features/alerting/unified/Analytics';
 import { scenesPanelToRuleFormValues } from 'app/features/alerting/unified/utils/rule-form';
 
+import { t } from '../../../../core/internationalization';
+
 interface ScenesNewRuleFromPanelButtonProps {
   panel: VizPanel;
   className?: string;
@@ -18,7 +20,7 @@ export const ScenesNewRuleFromPanelButton = ({ panel, className }: ScenesNewRule
   const { loading, value: formValues } = useAsync(() => scenesPanelToRuleFormValues(panel), [panel]);
 
   if (loading) {
-    return <Button disabled={true}>New alert rule</Button>;
+    return <Button disabled={true}>{t('ablestack-wall.alert.new-alert-rule', 'New alert rule')}</Button>;
   }
 
   if (!formValues) {
@@ -44,7 +46,7 @@ export const ScenesNewRuleFromPanelButton = ({ panel, className }: ScenesNewRule
 
   return (
     <Button icon="bell" onClick={onClick} className={className} data-testid="create-alert-rule-button">
-      New alert rule
+      {t('ablestack-wall.alert.new-alert-rule', 'New alert rule')}
     </Button>
   );
 };

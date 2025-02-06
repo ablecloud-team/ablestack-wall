@@ -123,7 +123,7 @@ const ContactPointsTab = () => {
               disabled={!exportContactPointsAllowed}
               onClick={() => showExportDrawer(ALL_CONTACT_POINTS)}
             >
-              Export all
+              {t('alerting.common.export-all', 'Export all')}
             </Button>
           )}
         </Stack>
@@ -146,7 +146,10 @@ const NotificationTemplatesTab = () => {
     <>
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Text variant="body" color="secondary">
-          Create notification templates to customize your notifications.
+          {t(
+            'ablestack-wall.alert.notification-templates-description',
+            'Create notification templates to customize your notifications.'
+          )}
         </Text>
         {createTemplateSupported && (
           <LinkButton
@@ -155,7 +158,7 @@ const NotificationTemplatesTab = () => {
             href="/alerting/notifications/templates/new"
             disabled={!createTemplateAllowed}
           >
-            Add notification template
+            {t('ablestack-wall.alert.notification-templates-add', 'Add notification template')}
           </LinkButton>
         )}
       </Stack>
@@ -199,14 +202,14 @@ export const ContactPointsPageContents = () => {
       <Stack direction="column">
         <TabsBar>
           <Tab
-            label="Contact Points"
+            label={t('ablestack-wall.alert.contact-points', 'Contact Points')}
             active={showingContactPoints}
             counter={contactPoints.length}
             onChangeTab={() => setActiveTab(ActiveTab.ContactPoints)}
           />
           {showTemplatesTab && (
             <Tab
-              label="Notification Templates"
+              label={t('ablestack-wall.alert.notification-templates', 'Notification Templates')}
               active={showNotificationTemplates}
               onChangeTab={() => setActiveTab(ActiveTab.NotificationTemplates)}
             />

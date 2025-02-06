@@ -1,10 +1,10 @@
 import { connect, ConnectedProps } from 'react-redux';
 
-import { NavModelItem } from '@grafana/data';
 import { Button, Input, Field, FieldSet } from '@grafana/ui';
 import { Form } from 'app/core/components/Form/Form';
 import { Page } from 'app/core/components/Page/Page';
 import { getConfig } from 'app/core/config';
+import { Trans } from 'app/core/internationalization';
 
 import { createOrganization } from './state/actions';
 
@@ -20,10 +20,10 @@ interface CreateOrgFormDTO {
   name: string;
 }
 
-const pageNav: NavModelItem = {
+const pageNav: { icon: string; id: string; text: JSX.Element } = {
   icon: 'building',
   id: 'org-new',
-  text: 'New organization',
+  text: <Trans i18nKey="ablestack-wall.administration.general.new-organization">New organization</Trans>,
 };
 
 export const NewOrgPage = ({ createOrganization }: Props) => {
@@ -36,9 +36,11 @@ export const NewOrgPage = ({ createOrganization }: Props) => {
     <Page navId="global-orgs" pageNav={pageNav}>
       <Page.Contents>
         <p className="muted">
-          Each organization contains their own dashboards, data sources, and configuration, which cannot be shared
-          shared between organizations. While users might belong to more than one organization, multiple organizations
-          are most frequently used in multi-tenant deployments.
+          <Trans i18nKey="ablestack-wall.administration.general.new-organization-description">
+            Each organization contains their own dashboards, data sources, and configuration, which cannot be shared
+            shared between organizations. While users might belong to more than one organization, multiple organizations
+            are most frequently used in multi-tenant deployments.
+          </Trans>
         </p>
 
         <Form<CreateOrgFormDTO> onSubmit={createOrg}>
@@ -46,7 +48,15 @@ export const NewOrgPage = ({ createOrganization }: Props) => {
             return (
               <>
                 <FieldSet>
-                  <Field label="Organization name" invalid={!!errors.name} error={errors.name && errors.name.message}>
+                  <Field
+                    label={
+                      <Trans i18nKey="ablestack-wall.administration.general.new-organization-name">
+                        Organization name
+                      </Trans>
+                    }
+                    invalid={!!errors.name}
+                    error={errors.name && errors.name.message}
+                  >
                     <Input
                       placeholder="Org name"
                       {...register('name', {
@@ -55,7 +65,9 @@ export const NewOrgPage = ({ createOrganization }: Props) => {
                     />
                   </Field>
                 </FieldSet>
-                <Button type="submit">Create</Button>
+                <Button type="submit">
+                  <Trans i18nKey="ablestack-wall.administration.general.new-organization-name-create">Create</Trans>
+                </Button>
               </>
             );
           }}

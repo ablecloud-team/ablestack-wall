@@ -7,6 +7,7 @@ import { isFetchError } from '@grafana/runtime';
 import { Alert, Button, Field, Input, LinkButton, Stack, useStyles2 } from '@grafana/ui';
 import { useAppNotification } from 'app/core/copy/appNotification';
 import { useCleanup } from 'app/core/hooks/useCleanup';
+import { t } from 'app/core/internationalization';
 import { useValidateContactPoint } from 'app/features/alerting/unified/components/contact-points/useContactPoints';
 import { ManagePermissions } from 'app/features/alerting/unified/components/permissions/ManagePermissions';
 
@@ -135,7 +136,11 @@ export function ReceiverForm<R extends ChannelValues>({
       <form onSubmit={handleSubmit(submitCallback, onInvalid)} className={styles.wrapper}>
         <Stack justifyContent="space-between" alignItems="center">
           <h2 className={styles.heading}>
-            {!isEditable ? 'Contact point' : initialValues ? 'Update contact point' : 'Create contact point'}
+            {!isEditable
+              ? t('ablestack-wall.alert.contact-point', 'Contact point')
+              : initialValues
+                ? t('ablestack-wall.alert.update-contact-point', 'Update contact point')
+                : t('ablestack-wall.alert.create-contact-point', 'Create contact point')}
           </h2>
           {canManagePermissions && contactPointId && (
             <ManagePermissions
@@ -146,7 +151,12 @@ export function ReceiverForm<R extends ChannelValues>({
             />
           )}
         </Stack>
-        <Field label="Name" invalid={!!errors.name} error={errors.name && errors.name.message} required>
+        <Field
+          label={t('ablestack-wall.common.name', 'Name')}
+          invalid={!!errors.name}
+          error={errors.name && errors.name.message}
+          required
+        >
           <Input
             readOnly={!isEditable}
             id="name"
@@ -204,7 +214,7 @@ export function ReceiverForm<R extends ChannelValues>({
               variant="secondary"
               onClick={() => append({ ...defaultItem, __id: String(Math.random()) })}
             >
-              Add contact point integration
+              {t('ablestack-wall.alert.add-contact-point-integration', 'Add contact point integration')}
             </Button>
           )}
           <div className={styles.buttons}>
@@ -215,7 +225,9 @@ export function ReceiverForm<R extends ChannelValues>({
                     Saving...
                   </Button>
                 )}
-                {!isSubmitting && <Button type="submit">Save contact point</Button>}
+                {!isSubmitting && (
+                  <Button type="submit">{t('ablestack-wall.alert.save-contact-point', 'Save contact point')}</Button>
+                )}
               </>
             )}
             <LinkButton
@@ -224,7 +236,7 @@ export function ReceiverForm<R extends ChannelValues>({
               data-testid="cancel-button"
               href={makeAMLink('/alerting/notifications', alertManagerSourceName)}
             >
-              Cancel
+              {t('ablestack-wall.common.cancel', 'Cancel')}
             </LinkButton>
           </div>
         </>

@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { GrafanaTheme2 } from '@grafana/data';
 import { selectors } from '@grafana/e2e-selectors';
 
+import { t } from '../../../../../public/app/core/internationalization';
 import { useStyles2 } from '../../themes';
 import { Button, ButtonVariant } from '../Button';
 import { Field } from '../Forms/Field';
@@ -100,7 +101,14 @@ export const ConfirmContent = ({
           <div className={styles.confirmationInput}>
             <Stack alignItems="flex-start">
               <Field disabled={disabled}>
-                <Input placeholder={`Type "${confirmPromptText}" to confirm`} onChange={onConfirmationTextChange} />
+                <Input
+                  placeholder={t(
+                    'ablestack-wall.administration.general.type-to-confirm',
+                    'Type "{{confirmPromptText}}" to confirm',
+                    { confirmPromptText }
+                  )}
+                  onChange={onConfirmationTextChange}
+                />
               </Field>
             </Stack>
           </div>

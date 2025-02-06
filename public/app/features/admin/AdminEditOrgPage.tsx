@@ -7,6 +7,7 @@ import { NavModelItem } from '@grafana/data';
 import { Field, Input, Button, Legend, Alert } from '@grafana/ui';
 import { Page } from 'app/core/components/Page/Page';
 import { contextSrv } from 'app/core/core';
+import { Trans } from 'app/core/internationalization';
 import { OrgUser, AccessControlAction, OrgRole } from 'app/types';
 
 import { OrgUsersTable } from './Users/OrgUsersTable';
@@ -82,13 +83,30 @@ const AdminEditOrgPage = () => {
   };
 
   return (
-    <Page navId="global-orgs" pageNav={pageNav} subTitle="Manage settings for this specific org.">
+    <Page
+      navId="global-orgs"
+      pageNav={pageNav}
+      subTitle={
+        <Trans i18nKey="ablestack-wall.administration.general.manage-org-settings">
+          Manage settings for this specific org.
+        </Trans>
+      }
+    >
       <Page.Contents>
         <>
-          <Legend>Edit organization</Legend>
+          <Legend>
+            <Trans i18nKey="ablestack-wall.administration.general.manage-org-edit-organization">
+              Edit organization
+            </Trans>
+          </Legend>
           {orgState.value && (
             <form onSubmit={handleSubmit(onUpdateOrgName)} style={{ maxWidth: '600px' }}>
-              <Field label="Name" invalid={!!errors.orgName} error="Name is required" disabled={!canWriteOrg}>
+              <Field
+                label={<Trans i18nKey="ablestack-wall.administration.general.manage-org-edit-name">Name</Trans>}
+                invalid={!!errors.orgName}
+                error="Name is required"
+                disabled={!canWriteOrg}
+              >
                 <Input
                   {...register('orgName', { required: true })}
                   id="org-name-input"
@@ -96,13 +114,17 @@ const AdminEditOrgPage = () => {
                 />
               </Field>
               <Button type="submit" disabled={!canWriteOrg}>
-                Update
+                <Trans i18nKey="ablestack-wall.common.update">Update</Trans>
               </Button>
             </form>
           )}
 
           <div style={{ marginTop: '20px' }}>
-            <Legend>Organization users</Legend>
+            <Legend>
+              <Trans i18nKey="ablestack-wall.administration.general.manage-org-organization-users">
+                Organization users
+              </Trans>
+            </Legend>
             {!canReadUsers && renderMissingPermissionMessage()}
             {canReadUsers && !!users.length && (
               <OrgUsersTable

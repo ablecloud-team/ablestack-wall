@@ -245,7 +245,7 @@ export function ExploreToolbar({ exploreId, onChangeTime, onContentOutlineToogle
             aria-controls={isContentOutlineOpen ? 'content-outline-container' : undefined}
             className={styles.toolbarButton}
           >
-            Outline
+            {t('ablestack-wall.explore.outline', 'Outline')}
           </ToolbarButton>,
           <DataSourcePicker
             key={`${exploreId}-ds-picker`}

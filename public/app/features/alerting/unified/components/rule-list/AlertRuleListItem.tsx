@@ -7,6 +7,7 @@ import { useStyles2, Stack, Text, TextLink, Dropdown, Button, Menu, Alert } from
 import { CombinedRule, RuleHealth } from 'app/types/unified-alerting';
 import { Labels, PromAlertingRuleState } from 'app/types/unified-alerting-dto';
 
+import { Trans } from '../../../../../core/internationalization';
 import { logError } from '../../Analytics';
 import { GRAFANA_RULES_SOURCE_NAME } from '../../utils/datasource';
 import { labelsSize } from '../../utils/labels';
@@ -117,7 +118,7 @@ export const AlertRuleListItem = (props: AlertRuleListItemProps) => {
 
         <Stack direction="row" alignItems="center" gap={1} wrap="nowrap">
           <Button variant="secondary" size="sm" icon="pen" type="button" disabled={isProvisioned}>
-            Edit
+            <Trans i18nKey="silences.table.edit-button">Edit</Trans>
           </Button>
           <Dropdown
             overlay={
@@ -229,7 +230,7 @@ export const RecordingRuleListItem = ({
             disabled={isProvisioned}
             data-testid="edit-rule-action"
           >
-            Edit
+            <Trans i18nKey="silences.table.edit-button">Edit</Trans>
           </Button>
           <Dropdown
             overlay={

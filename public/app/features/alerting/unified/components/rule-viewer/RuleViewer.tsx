@@ -173,13 +173,13 @@ const createMetadata = (rule: CombinedRule): PageInfoItem[] => {
 
   if (hasDashboardAndPanel) {
     metadata.push({
-      label: 'Dashboard and panel',
+      label: t('ablestack-wall.alert.dashboard-and-panel', 'Dashboard and panel'),
       value: (
         <WithReturnButton
           title={rule.name}
           component={
             <TextLink variant="bodySmall" href={makePanelLink(dashboardUID, panelID)}>
-              View panel
+              {t('ablestack-wall.common.view-panel', 'View panel')}
             </TextLink>
           }
         />
@@ -210,7 +210,7 @@ const createMetadata = (rule: CombinedRule): PageInfoItem[] => {
 
   if (interval) {
     metadata.push({
-      label: 'Evaluation interval',
+      label: t('ablestack-wall.alert.evaluation-interval', 'Evaluation interval'),
       value: <Text color="primary">Every {interval}</Text>,
     });
   }
@@ -346,14 +346,14 @@ function usePageNav(rule: CombinedRule) {
     subTitle: summary,
     children: [
       {
-        text: 'Query and conditions',
+        text: t('ablestack-wall.alert.query-and-conditions', 'Query and conditions'),
         active: activeTab === ActiveTab.Query,
         onClick: () => {
           setActiveTab(ActiveTab.Query);
         },
       },
       {
-        text: 'Instances',
+        text: t('ablestack-wall.alert.instances', 'Instances'),
         active: activeTab === ActiveTab.Instances,
         onClick: () => {
           setActiveTab(ActiveTab.Instances);
@@ -362,7 +362,7 @@ function usePageNav(rule: CombinedRule) {
         hideFromTabs: isRecordingRuleType,
       },
       {
-        text: 'History',
+        text: t('ablestack-wall.alert.history', 'History'),
         active: activeTab === ActiveTab.History,
         onClick: () => {
           setActiveTab(ActiveTab.History);
@@ -371,7 +371,7 @@ function usePageNav(rule: CombinedRule) {
         hideFromTabs: !isGrafanaAlertRule,
       },
       {
-        text: 'Details',
+        text: t('ablestack-wall.alert.details', 'Details'),
         active: activeTab === ActiveTab.Details,
         onClick: () => {
           setActiveTab(ActiveTab.Details);

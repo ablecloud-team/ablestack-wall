@@ -1,5 +1,6 @@
 import { EditorHeader, FlexItem, InlineSelect } from '@grafana/experimental';
 
+import { t } from '../../../../../../public/app/core/internationalization';
 import { QUERY_TYPES } from '../constants';
 import { CloudMonitoringQuery } from '../types/query';
 
@@ -16,7 +17,7 @@ export const QueryHeader = (props: QueryEditorHeaderProps) => {
   return (
     <EditorHeader>
       <InlineSelect
-        label="Query type"
+        label={t('ablestack-wall.dashboard.query-type', 'Query type')}
         options={QUERY_TYPES}
         value={queryType}
         onChange={({ value }) => {

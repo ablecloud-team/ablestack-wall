@@ -1,4 +1,5 @@
 import { Tooltip, Button, Stack } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 type VersionsButtonsType = {
   hasMore: boolean;
@@ -17,12 +18,12 @@ export const VersionsHistoryButtons = ({
   <Stack>
     {hasMore && (
       <Button type="button" onClick={() => getVersions(true)} variant="secondary" disabled={isLastPage}>
-        Show more versions
+        {t('ablestack-wall.dashboard.show-more-versions', 'Show more versions')}
       </Button>
     )}
     <Tooltip content="Select two versions to start comparing" placement="bottom">
       <Button type="button" disabled={!canCompare} onClick={getDiff} icon="code-branch">
-        Compare versions
+        {t('ablestack-wall.dashboard.compare-versions', 'Compare versions')}
       </Button>
     </Tooltip>
   </Stack>

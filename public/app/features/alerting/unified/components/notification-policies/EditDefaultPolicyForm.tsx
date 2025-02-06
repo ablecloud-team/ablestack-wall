@@ -2,6 +2,7 @@ import { ReactNode, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 
 import { Collapse, Field, Link, MultiSelect, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { ContactPointSelector } from 'app/features/alerting/unified/components/notification-policies/ContactPointSelector';
 import { handleContactPointSelect } from 'app/features/alerting/unified/components/notification-policies/utils';
 import { RouteWithID } from 'app/plugins/datasource/alertmanager/types';
@@ -51,7 +52,11 @@ export const AmRootRouteForm = ({ actionButtons, alertManagerSourceName, onSubmi
   });
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Field label="Default contact point" invalid={!!errors.receiver} error={errors.receiver?.message}>
+      <Field
+        label={t('ablestack-wall.alert.default-contact-point', 'Default contact point')}
+        invalid={!!errors.receiver}
+        error={errors.receiver?.message}
+      >
         <>
           <div className={styles.container} data-testid="am-receiver-select">
             <Controller
@@ -73,14 +78,17 @@ export const AmRootRouteForm = ({ actionButtons, alertManagerSourceName, onSubmi
               className={styles.linkText}
               href={makeAMLink('/alerting/notifications/receivers/new', alertManagerSourceName)}
             >
-              Create a contact point
+              {t('ablestack-wall.alert.create-contact-point', 'Create a contact point')}
             </Link>
           </div>
         </>
       </Field>
       <Field
-        label="Group by"
-        description="Combine multiple alerts into a single notification by grouping them by the same label values."
+        label={t('ablestack-wall.alert.group-by', 'Group by')}
+        description={t(
+          'ablestack-wall.alert.combine-multiple-alerts',
+          'Combine multiple alerts into a single notification by grouping them by the same label values.'
+        )}
         data-testid="am-group-select"
       >
         <Controller
@@ -106,13 +114,16 @@ export const AmRootRouteForm = ({ actionButtons, alertManagerSourceName, onSubmi
         collapsible
         className={styles.collapse}
         isOpen={isTimingOptionsExpanded}
-        label="Timing options"
+        label={t('ablestack-wall.alert.timing-options', 'Timing options')}
         onToggle={setIsTimingOptionsExpanded}
       >
         <div className={styles.timingFormContainer}>
           <Field
-            label="Group wait"
-            description="The waiting time before sending the first notification for a new group of alerts. Default 30 seconds."
+            label={t('ablestack-wall.alert.group-wait', 'Group wait')}
+            description={t(
+              'ablestack-wall.alert.group-wait-description',
+              'The waiting time before sending the first notification for a new group of alerts. Default 30 seconds.'
+            )}
             invalid={!!errors.groupWaitValue}
             error={errors.groupWaitValue?.message}
             data-testid="am-group-wait"
@@ -125,8 +136,11 @@ export const AmRootRouteForm = ({ actionButtons, alertManagerSourceName, onSubmi
             />
           </Field>
           <Field
-            label="Group interval"
-            description="The wait time before sending a notification about changes in the alert group after the first notification has been sent. Default is 5 minutes."
+            label={t('ablestack-wall.alert.group-interval', 'Group interval')}
+            description={t(
+              'ablestack-wall.alert.group-interval-description',
+              'The wait time before sending a notification about changes in the alert group after the first notification has been sent. Default is 5 minutes.'
+            )}
             invalid={!!errors.groupIntervalValue}
             error={errors.groupIntervalValue?.message}
             data-testid="am-group-interval"
@@ -139,8 +153,11 @@ export const AmRootRouteForm = ({ actionButtons, alertManagerSourceName, onSubmi
             />
           </Field>
           <Field
-            label="Repeat interval"
-            description="The wait time before resending a notification that has already been sent successfully. Default is 4 hours. Should be a multiple of Group interval."
+            label={t('ablestack-wall.alert.repeat-interval', 'Repeat interval')}
+            description={t(
+              'ablestack-wall.alert.repeat-interval-description',
+              'The wait time before resending a notification that has already been sent successfully. Default is 4 hours. Should be a multiple of Group interval.'
+            )}
             invalid={!!errors.repeatIntervalValue}
             error={errors.repeatIntervalValue?.message}
             data-testid="am-repeat-interval"

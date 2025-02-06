@@ -3,6 +3,7 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 
 import { GrafanaTheme2 } from '@grafana/data';
 import { Button, Field, Icon, IconButton, InlineField, InlineFieldRow, Input, Tooltip, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import { MuteTimingFields } from '../../types/mute-timing-form';
 import ConditionalWrap from '../ConditionalWrap';
@@ -35,8 +36,11 @@ export const MuteTimingTimeRange = ({ intervalIndex }: Props) => {
     <div>
       <Field
         className={styles.field}
-        label="Time range"
-        description="The time inclusive of the start and exclusive of the end time (in UTC if no location has been selected, otherwise local time)"
+        label={t('ablestack-wall.alert.time-range', 'Time range')}
+        description={t(
+          'ablestack-wall.alert.time-range-description',
+          'The time inclusive of the start and exclusive of the end time (in UTC if no location has been selected, otherwise local time)'
+        )}
         invalid={timeRangeInvalid}
       >
         <>
@@ -58,7 +62,7 @@ export const MuteTimingTimeRange = ({ intervalIndex }: Props) => {
               <div className={styles.timeRange} key={timeRange.id}>
                 <InlineFieldRow>
                   <InlineField
-                    label="Start time"
+                    label={t('ablestack-wall.alert.start-time', 'Start time')}
                     invalid={Boolean(timeRangeErrors?.start_time)}
                     error={timeRangeErrors?.start_time?.message}
                   >
@@ -91,7 +95,7 @@ export const MuteTimingTimeRange = ({ intervalIndex }: Props) => {
                     />
                   </InlineField>
                   <InlineField
-                    label="End time"
+                    label={t('ablestack-wall.alert.end-time', 'End time')}
                     invalid={Boolean(timeRangeErrors?.end_time)}
                     error={timeRangeErrors?.end_time?.message}
                   >
@@ -154,7 +158,7 @@ export const MuteTimingTimeRange = ({ intervalIndex }: Props) => {
           disabled={isDisabled}
           onClick={() => addTimeRange({ start_time: '', end_time: '' })}
         >
-          Add another time range
+          {t('ablestack-wall.alert.add-another-time-range', 'Add another time range')}
         </Button>
       </ConditionalWrap>
     </div>

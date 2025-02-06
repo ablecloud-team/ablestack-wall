@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { GrafanaTheme2 } from '@grafana/data';
 import { config, GrafanaBootConfig } from '@grafana/runtime';
 import { LinkButton, useStyles2 } from '@grafana/ui';
+import { Trans, t } from 'app/core/internationalization';
 import { AccessControlAction } from 'app/types';
 
 import { contextSrv } from '../../core/services/context_srv';
@@ -34,7 +35,9 @@ export const ServerStats = () => {
 
   return (
     <>
-      <h2 className={styles.title}>Instance statistics</h2>
+      <h2 className={styles.title}>
+        <Trans i18nKey="ablestack-wall.administration.general.instance-statistics">Instance statistics</Trans>
+      </h2>
       {!isLoading && !stats ? (
         <p className={styles.notFound}>No stats found.</p>
       ) : (
@@ -42,14 +45,17 @@ export const ServerStats = () => {
           <ServerStatsCard
             isLoading={isLoading}
             content={[
-              { name: 'Dashboards (starred)', value: `${stats?.dashboards} (${stats?.stars})` },
-              { name: 'Tags', value: stats?.tags },
-              { name: 'Playlists', value: stats?.playlists },
-              { name: 'Snapshots', value: stats?.snapshots },
+              {
+                name: t('ablestack-wall.administration.general.dashboards-starred', 'Dashboards (starred)'),
+                value: `${stats?.dashboards} (${stats?.stars})`,
+              },
+              { name: t('ablestack-wall.administration.general.tags', 'Tags'), value: stats?.tags },
+              { name: t('ablestack-wall.administration.general.playlists', 'Playlists'), value: stats?.playlists },
+              { name: t('ablestack-wall.administration.general.snapshots', 'Snapshots'), value: stats?.snapshots },
             ]}
             footer={
               <LinkButton href={'/dashboards'} variant={'secondary'}>
-                Manage dashboards
+                {t('ablestack-wall.administration.general.manage-dashboards', 'Manage dashboards')}
               </LinkButton>
             }
           />
@@ -57,11 +63,16 @@ export const ServerStats = () => {
           <div className={styles.doubleRow}>
             <ServerStatsCard
               isLoading={isLoading}
-              content={[{ name: 'Data sources', value: stats?.datasources }]}
+              content={[
+                {
+                  name: t('ablestack-wall.administration.general.data-sources', 'Data sources'),
+                  value: stats?.datasources,
+                },
+              ]}
               footer={
                 hasAccessToDataSources && (
                   <LinkButton href={'/datasources'} variant={'secondary'}>
-                    Manage data sources
+                    {t('ablestack-wall.administration.general.manage-data-sources', 'Manage data sources')}
                   </LinkButton>
                 )
               }
@@ -71,7 +82,7 @@ export const ServerStats = () => {
               content={[{ name: 'Alerts', value: stats?.alerts }]}
               footer={
                 <LinkButton href={'/alerting/list'} variant={'secondary'}>
-                  Manage alerts
+                  {t('ablestack-wall.administration.general.manage-alerts', 'Manage alerts')}
                 </LinkButton>
               }
             />
@@ -79,16 +90,25 @@ export const ServerStats = () => {
           <ServerStatsCard
             isLoading={isLoading}
             content={[
-              { name: 'Organisations', value: stats?.orgs },
-              { name: 'Users total', value: stats?.users },
-              { name: 'Active sessions', value: stats?.activeSessions },
-              { name: 'Active users in last 30 days', value: stats?.activeUsers },
+              { name: t('ablestack-wall.administration.general.organisations', 'Organisations'), value: stats?.orgs },
+              { name: t('ablestack-wall.administration.general.users-total', 'Users total'), value: stats?.users },
+              {
+                name: t('ablestack-wall.administration.general.active-sessions', 'Active sessions'),
+                value: stats?.activeSessions,
+              },
+              {
+                name: t(
+                  'ablestack-wall.administration.general.active-users-in-last-30-days',
+                  'Active users in last 30 days'
+                ),
+                value: stats?.activeUsers,
+              },
               ...getAnonymousStatsContent(stats, config),
             ]}
             footer={
               hasAccessToAdminUsers && (
                 <LinkButton href={'/admin/users'} variant={'secondary'}>
-                  Manage users
+                  {t('ablestack-wall.administration.general.manage-users', 'Manage users')}
                 </LinkButton>
               )
             }

@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import { IconName } from '@grafana/data';
 
+import { t } from '../../../../../public/app/core/internationalization';
 import { useStyles2 } from '../../themes';
 import { ButtonVariant } from '../Button';
 import { Modal } from '../Modal/Modal';
@@ -56,7 +57,7 @@ export const ConfirmModal = ({
   confirmText,
   confirmVariant = 'destructive',
   confirmationText,
-  dismissText = 'Cancel',
+  dismissText = t('ablestack-wall.common.cancel', 'Cancel'),
   dismissVariant = 'secondary',
   alternativeText,
   modalClass,

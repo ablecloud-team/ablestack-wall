@@ -4,6 +4,7 @@ import { useDebounce, useDeepCompareEffect } from 'react-use';
 
 import { dateTime, GrafanaTheme2 } from '@grafana/data';
 import { Alert, Badge, LoadingPlaceholder, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { MatcherFieldValue } from 'app/features/alerting/unified/types/silence-form';
 import { matcherFieldToMatcher } from 'app/features/alerting/unified/utils/alertmanager';
 import { MATCHER_ALERT_RULE_UID } from 'app/features/alerting/unified/utils/constants';
@@ -66,7 +67,10 @@ export const SilencedInstancesPreview = ({ amSourceName, matchers: inputMatchers
   if (isError) {
     return (
       <Alert title="Preview not available" severity="error">
-        Error occurred when generating preview of affected alerts. Are your matchers valid?
+        {t(
+          'ablestack-wall.alert.error-occurred-generating-preview-affected-alerts',
+          'Error occurred when generating preview of affected alerts. Are your matchers valid?'
+        )}
       </Alert>
     );
   }
@@ -79,12 +83,14 @@ export const SilencedInstancesPreview = ({ amSourceName, matchers: inputMatchers
   return (
     <div>
       <h4 className={styles.title}>
-        Affected alert rule instances
+        {t('ablestack-wall.alert.affected-alert-rule-instances', 'Affected alert rule instances')}
         {tableItemAlerts.length > 0 ? (
           <Badge className={styles.badge} color="blue" text={tableItemAlerts.length} />
         ) : null}
       </h4>
-      {!hasValidMatchers && <span>Add a valid matcher to see affected alerts</span>}
+      {!hasValidMatchers && (
+        <span>{t('ablestack-wall.alert.add-valid-matcher', 'Add a valid matcher to see affected alerts')}</span>
+      )}
 
       {isFetching && <LoadingPlaceholder text="Loading affected alert rule instances..." />}
       {!isFetching && !isError && hasValidMatchers && (
@@ -97,7 +103,7 @@ export const SilencedInstancesPreview = ({ amSourceName, matchers: inputMatchers
               pagination={{ itemsPerPage: 10 }}
             />
           ) : (
-            <span>No firing alert instances found</span>
+            <span>{t('ablestack-wall.alert.no-firing-alert-instances', 'No firing alert instances found')}</span>
           )}
         </div>
       )}
@@ -111,7 +117,7 @@ function useColumns(): Array<DynamicTableColumnProps<AlertmanagerAlert>> {
   return [
     {
       id: 'state',
-      label: 'State',
+      label: t('ablestack-wall.common.state', 'State'),
       renderCell: function renderStateTag({ data }) {
         return <AmAlertStateTag state={data.status.state} />;
       },
@@ -120,7 +126,7 @@ function useColumns(): Array<DynamicTableColumnProps<AlertmanagerAlert>> {
     },
     {
       id: 'labels',
-      label: 'Labels',
+      label: t('ablestack-wall.common.labels', 'Labels'),
       renderCell: function renderName({ data }) {
         return <AlertLabels labels={data.labels} size="sm" />;
       },
@@ -128,7 +134,7 @@ function useColumns(): Array<DynamicTableColumnProps<AlertmanagerAlert>> {
     },
     {
       id: 'created',
-      label: 'Created',
+      label: t('ablestack-wall.common.create', 'Create'),
       renderCell: function renderSummary({ data }) {
         return <>{isNullDate(data.startsAt) ? '-' : dateTime(data.startsAt).format('YYYY-MM-DD HH:mm:ss')}</>;
       },

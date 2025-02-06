@@ -14,6 +14,7 @@ import { selectors } from '@grafana/e2e-selectors';
 import { reportInteraction } from '@grafana/runtime';
 import { clearButtonStyles, Icon, Themeable2, withTheme2 } from '@grafana/ui';
 
+import { t } from '../../../../public/app/core/internationalization';
 import { PrometheusDatasource } from '../datasource';
 import { roundMsToMin } from '../language_utils';
 import { PromOptions, PromQuery } from '../types';
@@ -37,7 +38,7 @@ function getChooserText(metricsLookupDisabled: boolean, hasSyntax: boolean, hasM
     return '(No metrics found)';
   }
 
-  return 'Metrics browser';
+  return t('ablestack-wall.dashboard.metrics-browser', 'Metrics browser');
 }
 
 interface PromQueryFieldProps extends QueryEditorProps<PrometheusDatasource, PromQuery, PromOptions>, Themeable2 {

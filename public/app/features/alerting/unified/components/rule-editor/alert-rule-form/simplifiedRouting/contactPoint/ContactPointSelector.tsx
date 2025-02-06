@@ -3,6 +3,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 
 import { SelectableValue } from '@grafana/data';
 import { ActionMeta, Field, FieldValidationMessage, Stack, TextLink } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { ContactPointSelector as ContactPointSelectorDropdown } from 'app/features/alerting/unified/components/notification-policies/ContactPointSelector';
 import { RuleFormValues } from 'app/features/alerting/unified/types/rule-form';
 import { createRelativeUrl } from 'app/features/alerting/unified/utils/url';
@@ -34,7 +35,7 @@ export function ContactPointSelector({ alertManager, onSelectContactPoint }: Con
   return (
     <Stack direction="column">
       <Stack direction="row" alignItems="center">
-        <Field label="Contact point" data-testid="contact-point-picker">
+        <Field label={t('ablestack-wall.alert.contact-point', 'Contact point')} data-testid="contact-point-picker">
           <Controller
             render={({ field: { onChange }, fieldState: { error } }) => (
               <>
@@ -77,7 +78,7 @@ function LinkToContactPoints() {
   const hrefToContactPoints = '/alerting/notifications';
   return (
     <TextLink external href={createRelativeUrl(hrefToContactPoints)} aria-label="View or create contact points">
-      View or create contact points
+      {t('ablestack-wall.alert.view-or-create-contact-points', 'View or create contact points')}
     </TextLink>
   );
 }

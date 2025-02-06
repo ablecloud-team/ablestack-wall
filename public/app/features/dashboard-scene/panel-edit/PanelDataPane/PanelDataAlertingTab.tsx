@@ -4,6 +4,7 @@ import { GrafanaTheme2 } from '@grafana/data';
 import { SceneComponentProps, SceneObjectBase, SceneObjectRef, SceneObjectState, VizPanel } from '@grafana/scenes';
 import { Alert, LoadingPlaceholder, Tab, useStyles2 } from '@grafana/ui';
 import { contextSrv } from 'app/core/core';
+import { t } from 'app/core/internationalization';
 import { RulesTable } from 'app/features/alerting/unified/components/rules/RulesTable';
 import { usePanelCombinedRules } from 'app/features/alerting/unified/hooks/usePanelCombinedRules';
 import { getRulesPermissions } from 'app/features/alerting/unified/utils/access-control';
@@ -88,7 +89,7 @@ export function PanelDataAlertingTabRendered({ model }: SceneComponentProps<Pane
 
   return (
     <div className={styles.noRulesWrapper}>
-      <p>There are no alert rules linked to this panel.</p>
+      <p>{t('ablestack-wall.alert.no-alert-rules-linked', 'There are no alert rules linked to this panel.')}</p>
       {canCreateRules && <ScenesNewRuleFromPanelButton panel={panel}></ScenesNewRuleFromPanelButton>}
     </div>
   );

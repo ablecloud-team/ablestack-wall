@@ -2,6 +2,7 @@ import { groupBy } from 'lodash';
 import { FC, useCallback, useMemo, useState } from 'react';
 
 import { Button, Icon, Modal, ModalProps, Spinner, Stack } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { AlertmanagerGroup, AlertState, ObjectMatcher, RouteWithID } from 'app/plugins/datasource/alertmanager/types';
 
 import { FormAmRoute } from '../../types/amroutes';
@@ -48,7 +49,7 @@ const useAddPolicyModal = (
           onDismiss={handleDismiss}
           closeOnBackdropClick={true}
           closeOnEscape={true}
-          title="Add notification policy"
+          title={t('ablestack-wall.alert.add-notification-policy', 'Add notification policy')}
         >
           <AmRoutesExpandedForm
             defaults={{
@@ -62,9 +63,9 @@ const useAddPolicyModal = (
             actionButtons={
               <Modal.ButtonRow>
                 <Button type="button" variant="secondary" onClick={handleDismiss} fill="outline">
-                  Cancel
+                  {t('ablestack-wall.common.cancel', 'Cancel')}
                 </Button>
-                <Button type="submit">Save policy</Button>
+                <Button type="submit">{t('ablestack-wall.alert.save-policy', 'Save policy')}</Button>
               </Modal.ButtonRow>
             }
           />
@@ -106,7 +107,7 @@ const useEditPolicyModal = (
           onDismiss={handleDismiss}
           closeOnBackdropClick={true}
           closeOnEscape={true}
-          title="Edit notification policy"
+          title={t('ablestack-wall.alert.edit-notification-policy', 'Edit notification policy')}
         >
           {isDefaultPolicy && route && (
             <AmRootRouteForm
@@ -118,9 +119,11 @@ const useEditPolicyModal = (
               actionButtons={
                 <Modal.ButtonRow>
                   <Button type="button" variant="secondary" onClick={handleDismiss} fill="outline">
-                    Cancel
+                    {t('ablestack-wall.common.cancel', 'Cancel')}
                   </Button>
-                  <Button type="submit">Update default policy</Button>
+                  <Button type="submit">
+                    {t('ablestack-wall.alert.update-default-policy', 'Update default policy')}
+                  </Button>
                 </Modal.ButtonRow>
               }
             />
@@ -132,9 +135,9 @@ const useEditPolicyModal = (
               actionButtons={
                 <Modal.ButtonRow>
                   <Button type="button" variant="secondary" onClick={handleDismiss} fill="outline">
-                    Cancel
+                    {t('ablestack-wall.common.cancel', 'Cancel')}
                   </Button>
-                  <Button type="submit">Update policy</Button>
+                  <Button type="submit">{t('ablestack-wall.alert.update-policy', 'Update policy')}</Button>
                 </Modal.ButtonRow>
               }
             />

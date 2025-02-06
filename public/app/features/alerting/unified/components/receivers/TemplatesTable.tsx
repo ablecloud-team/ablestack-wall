@@ -1,10 +1,9 @@
 import { Fragment, useState } from 'react';
 
 import { logError } from '@grafana/runtime';
-import { Badge, ConfirmModal, Tooltip, useStyles2 } from '@grafana/ui';
+import { ConfirmModal, useStyles2 } from '@grafana/ui';
 import { useAppNotification } from 'app/core/copy/appNotification';
-import { t, Trans } from 'app/core/internationalization';
-import { CodeText } from 'app/features/alerting/unified/components/common/TextVariants';
+import { t } from 'app/core/internationalization';
 
 import { Authorize } from '../../components/Authorize';
 import { AlertmanagerAction } from '../../hooks/useAbilities';
@@ -61,7 +60,7 @@ export const TemplatesTable = ({ alertManagerName, templates }: Props) => {
         <thead>
           <tr>
             <th></th>
-            <th>Template</th>
+            <th>{t('ablestack-wall.common.template', 'Template')}</th>
             <Authorize
               actions={[
                 AlertmanagerAction.CreateNotificationTemplate,
@@ -69,14 +68,14 @@ export const TemplatesTable = ({ alertManagerName, templates }: Props) => {
                 AlertmanagerAction.DeleteNotificationTemplate,
               ]}
             >
-              <th>Actions</th>
+              <th>{t('ablestack-wall.common.actions', 'Actions')}</th>
             </Authorize>
           </tr>
         </thead>
         <tbody>
           {!templates.length && (
             <tr className={tableStyles.evenRow}>
-              <td colSpan={3}>No templates defined.</td>
+              <td colSpan={3}>{t('ablestack-wall.alert.no-templates-defined', 'No templates defined.')}</td>
             </tr>
           )}
           {templates.map((notificationTemplate, idx) => (
@@ -118,8 +117,8 @@ function TemplateRow({ notificationTemplate, idx, alertManagerName, onDeleteClic
   const [isExpanded, setIsExpanded] = useState(false);
   const { isProvisioned } = useNotificationTemplateMetadata(notificationTemplate);
 
-  const { uid, title: name, content: template, missing } = notificationTemplate;
-  const misconfiguredBadgeText = t('alerting.templates.misconfigured-badge-text', 'Misconfigured');
+  const { uid, title: name, content: template } = notificationTemplate;
+
   return (
     <Fragment key={uid}>
       <tr className={idx % 2 === 0 ? tableStyles.evenRow : undefined}>
@@ -127,25 +126,7 @@ function TemplateRow({ notificationTemplate, idx, alertManagerName, onDeleteClic
           <CollapseToggle isCollapsed={!isExpanded} onToggle={() => setIsExpanded(!isExpanded)} />
         </td>
         <td>
-          {name} {isProvisioned && <ProvisioningBadge />}{' '}
-          {missing && (
-            <Tooltip
-              content={
-                <>
-                  <Trans i18nKey="alerting.templates.misconfigured-warning">This template is misconfigured.</Trans>
-                  <br />
-                  <Trans i18nKey="alerting.templates.misconfigured-warning-details">
-                    Templates must be defined in both the <CodeText content="template_files" /> and{' '}
-                    <CodeText content="templates" /> sections of your alertmanager configuration.
-                  </Trans>
-                </>
-              }
-            >
-              <span>
-                <Badge text={misconfiguredBadgeText} color="orange" />
-              </span>
-            </Tooltip>
-          )}
+          {name} {isProvisioned && <ProvisioningBadge />}
         </td>
         <td className={tableStyles.actionsCell}>
           {isProvisioned && (
@@ -189,7 +170,7 @@ function TemplateRow({ notificationTemplate, idx, alertManagerName, onDeleteClic
         <tr className={idx % 2 === 0 ? tableStyles.evenRow : undefined}>
           <td></td>
           <td colSpan={2}>
-            <DetailsField label="Description" horizontal={true}>
+            <DetailsField label={t('ablestack-wall.common.description', 'Description')} horizontal={true}>
               <TemplateEditor
                 width={'auto'}
                 height={'auto'}

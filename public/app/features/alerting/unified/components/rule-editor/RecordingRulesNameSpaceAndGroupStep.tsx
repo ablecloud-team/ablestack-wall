@@ -1,5 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 
+import { t } from 'app/core/internationalization';
+
 import { RuleFormValues } from '../../types/rule-form';
 
 import { GroupAndNamespaceFields } from './GroupAndNamespaceFields';
@@ -17,7 +19,7 @@ export function RecordingRulesNameSpaceAndGroupStep() {
   return (
     <RuleEditorSection
       stepNo={3}
-      title={'Add namespace and group'}
+      title={t('ablestack-wall.alert.add-namespace-and-group', 'Add namespace and group')}
       description="Select the Namespace and Group for your recording rule."
     >
       <GroupAndNamespaceFields rulesSourceName={dataSourceName} />

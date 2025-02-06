@@ -7,6 +7,7 @@ import { Button, ConfirmModal, Stack } from '@grafana/ui';
 import appEvents from 'app/core/app_events';
 import configCore from 'app/core/config';
 import { useQueryParams } from 'app/core/hooks/useQueryParams';
+import { t } from 'app/core/internationalization';
 import { removePluginFromNavTree } from 'app/core/reducers/navBarTree';
 import { useDispatch } from 'app/types';
 
@@ -50,7 +51,9 @@ export function InstallControlsButton({
   const [isConfirmModalVisible, setIsConfirmModalVisible] = useState(false);
   const showConfirmModal = () => setIsConfirmModalVisible(true);
   const hideConfirmModal = () => setIsConfirmModalVisible(false);
-  const uninstallBtnText = isUninstalling ? 'Uninstalling' : 'Uninstall';
+  const uninstallBtnText = isUninstalling
+    ? t('ablestack-wall.administration.general.uninstalling', 'Uninstalling')
+    : t('ablestack-wall.administration.general.uninstall', 'Uninstall');
   const trackingProps = {
     plugin_id: plugin.id,
     plugin_type: plugin.type,
@@ -132,11 +135,15 @@ export function InstallControlsButton({
       <>
         <ConfirmModal
           isOpen={isConfirmModalVisible}
-          title={`Uninstall ${plugin.name}`}
-          body="Are you sure you want to uninstall this plugin?"
-          confirmText="Confirm"
+          title={`${t('ablestack-wall.administration.general.uninstall', 'Uninstall')} ${plugin.name}`}
+          body={t(
+            'ablestack-wall.administration.general.uninstall-plugin-confirmation',
+            'Are you sure you want to uninstall this plugin?'
+          )}
+          confirmText={t('ablestack-wall.common.confirm', 'Confirm')}
           icon="exclamation-triangle"
           onConfirm={onUninstall}
+          dismissText={t('ablestack-wall.common.cancel', 'Cancel')}
           onDismiss={hideConfirmModal}
         />
         <Stack alignItems="flex-start" width="auto" height="auto">

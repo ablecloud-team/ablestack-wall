@@ -4,6 +4,7 @@ import { GrafanaTheme2, QueryEditorProps, SelectableValue } from '@grafana/data'
 import { EditorField } from '@grafana/experimental';
 import { config } from '@grafana/runtime';
 import { useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import { CloudWatchDatasource } from '../../datasource';
 import {
@@ -131,7 +132,7 @@ export const VariableQueryEditor = ({ query, datasource, onChange }: Props) => {
         onChange={(value: VariableQueryType) =>
           onQueryChange({ ...parsedQuery, queryType: value, accountId: undefined })
         }
-        label="Query type"
+        label={t('ablestack-wall.dashboard.query-type', 'Query type')}
         inputId={`variable-query-type-${query.refId}`}
       />
       {hasRegionField && (

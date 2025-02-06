@@ -6,6 +6,7 @@ import { CoreApp, GrafanaTheme2, getNextRefId } from '@grafana/data';
 import { reportInteraction } from '@grafana/runtime';
 import { DataQuery } from '@grafana/schema';
 import { Button, Collapse, Modal, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import { LokiQuery } from '../../types';
 import { lokiQueryModeller } from '../LokiQueryModeller';
@@ -89,9 +90,17 @@ export const QueryPatternsModal = (props: Props) => {
   };
 
   return (
-    <Modal isOpen={isOpen} title="Kick start your query" onDismiss={onClose} className={styles.modal}>
+    <Modal
+      isOpen={isOpen}
+      title={t('ablestack-wall.explore.kick-start-your-query', 'Kick start your query')}
+      onDismiss={onClose}
+      className={styles.modal}
+    >
       <div className={styles.spacing}>
-        Kick start your query by selecting one of these queries. You can then continue to complete your query.
+        {t(
+          'ablestack-wall.explore.kick-start-query-description',
+          'Kick start your query by selecting one of these queries. You can then continue to complete your query.'
+        )}
       </div>
       {Object.values(LokiQueryPatternType).map((patternType) => {
         return (

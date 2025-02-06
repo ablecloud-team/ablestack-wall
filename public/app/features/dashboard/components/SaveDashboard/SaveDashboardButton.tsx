@@ -1,6 +1,7 @@
 import { selectors } from '@grafana/e2e-selectors';
 import { reportInteraction } from '@grafana/runtime';
 import { Button, ButtonVariant, ComponentSize, ModalsController } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { DashboardModel } from 'app/features/dashboard/state';
 
 import { SaveDashboardDrawer } from './SaveDashboardDrawer';
@@ -28,7 +29,7 @@ export const SaveDashboardButton = ({ dashboard, onSaveSuccess, size }: SaveDash
             }}
             aria-label={selectors.pages.Dashboard.Settings.General.saveDashBoard}
           >
-            Save dashboard
+            {t('ablestack-wall.common.save-dashboard', 'Save-dashboard')}
           </Button>
         );
       }}

@@ -1,5 +1,6 @@
 import { DataQuery, ReducerID, SelectableValue } from '@grafana/data';
 import { config } from 'app/core/config';
+import { t } from 'app/core/internationalization';
 
 import { EvalFunction } from '../alerting/state/alertDef';
 
@@ -38,35 +39,47 @@ export const expressionTypes: Array<SelectableValue<ExpressionQueryType>> = [
   {
     value: ExpressionQueryType.math,
     label: 'Math',
-    description: 'Free-form math formulas on time series or number data.',
+    description: t('ablestack-wall.alert.free-form-math', 'Free-form math formulas on time series or number data.'),
   },
   {
     value: ExpressionQueryType.reduce,
     label: 'Reduce',
-    description:
-      'Takes one or more time series returned from a query or an expression and turns each series into a single number.',
+    description: t(
+      'ablestack-wall.alert.reduce-description',
+      'Takes one or more time series returned from a query or an expression and turns each series into a single number.'
+    ),
   },
   {
     value: ExpressionQueryType.resample,
     label: 'Resample',
-    description: 'Changes the time stamps in each time series to have a consistent time interval.',
+    description: t(
+      'ablestack-wall.alert.time-stamp-alignment',
+      'Changes the time stamps in each time series to have a consistent time interval.'
+    ),
   },
   {
     value: ExpressionQueryType.classic,
     label: 'Classic condition (legacy)',
-    description:
-      'Takes one or more time series returned from a query or an expression and checks if any of the series match the condition. Disables multi-dimensional alerts for this rule.',
+    description: t(
+      'ablestack-wall.alert.check-condition',
+      'Takes one or more time series returned from a query or an expression and checks if any of the series match the condition. Disables multi-dimensional alerts for this rule.'
+    ),
   },
   {
     value: ExpressionQueryType.threshold,
     label: 'Threshold',
-    description:
-      'Takes one or more time series returned from a query or an expression and checks if any of the series match the threshold condition.',
+    description: t(
+      'ablestack-wall.alert.check-threshold',
+      'Takes one or more time series returned from a query or an expression and checks if any of the series match the threshold condition.'
+    ),
   },
   {
     value: ExpressionQueryType.sql,
     label: 'SQL',
-    description: 'Transform data using SQL. Supports Aggregate/Analytics functions from DuckDB',
+    description: t(
+      'ablestack-wall.alert.sql-transformation',
+      'Transform data using SQL. Supports Aggregate/Analytics functions from DuckDB'
+    ),
   },
 ].filter((expr) => {
   if (expr.value === ExpressionQueryType.sql) {

@@ -5,6 +5,7 @@ import config from 'app/core/config';
 import { contextSrv } from 'app/core/core';
 import { AccessControlAction, StoreState } from 'app/types';
 
+import { t } from '../../core/internationalization';
 import { selectTotal } from '../invites/state/selectors';
 
 import { changeSearchQuery } from './state/actions';
@@ -57,7 +58,10 @@ export const UsersActionBarUnconnected = ({
         <FilterInput
           value={searchQuery}
           onChange={changeSearchQuery}
-          placeholder="Search user by login, email or name"
+          placeholder={t(
+            'ablestack-wall.administration.service-and-access.search-bar-user-by-login-email-name',
+            'Search user by login, email or name'
+          )}
         />
       </InlineField>
       {pendingInvitesCount > 0 && (

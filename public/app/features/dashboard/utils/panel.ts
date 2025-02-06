@@ -5,6 +5,7 @@ import { getTemplateSrv } from '@grafana/runtime';
 import appEvents from 'app/core/app_events';
 import config from 'app/core/config';
 import { LS_PANEL_COPY_KEY, PANEL_BORDER } from 'app/core/constants';
+import { t } from 'app/core/internationalization';
 import store from 'app/core/store';
 import { ShareModal } from 'app/features/dashboard/components/ShareModal';
 import { DashboardModel } from 'app/features/dashboard/state/DashboardModel';
@@ -23,11 +24,12 @@ export const removePanel = (dashboard: DashboardModel, panel: PanelModel, ask: b
 
     appEvents.publish(
       new ShowConfirmModalEvent({
-        title: 'Remove panel',
-        text: 'Are you sure you want to remove this panel?',
+        title: t('ablestack-wall.dashboard.remove-panel-title', 'Remove panel'),
+        text: t('ablestack-wall.dashboard.remove-panel-text', 'Are you sure you want to remove this panel?'),
         icon: 'trash-alt',
         confirmText: confirmText,
-        yesText: 'Remove',
+        yesText: t('ablestack-wall.dashboard.remove-panel-yes', 'Remove'),
+        noText: t('ablestack-wall.common.cancel', 'Cancel'),
         onConfirm: () => removePanel(dashboard, panel, false),
       })
     );

@@ -3,6 +3,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { DataQuery, SelectableValue } from '@grafana/data';
 import { InlineField, InlineFieldRow, InputActionMeta, Select } from '@grafana/ui';
 
+import { t } from '../../../../../public/app/core/internationalization';
+
 import { maxOptions } from './SearchTraceQLEditor/SearchField';
 import { TempoDatasource } from './datasource';
 
@@ -92,7 +94,7 @@ export const TempoVariableQueryEditor = ({ onChange, query, datasource }: TempoV
   return (
     <>
       <InlineFieldRow>
-        <InlineField label="Query type" labelWidth={20}>
+        <InlineField label={t('ablestack-wall.dashboard.query-type', 'Query type')} labelWidth={20}>
           <Select
             aria-label="Query type"
             onChange={onQueryTypeChange}

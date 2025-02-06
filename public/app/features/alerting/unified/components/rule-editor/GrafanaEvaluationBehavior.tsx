@@ -5,7 +5,7 @@ import { Controller, RegisterOptions, useFormContext } from 'react-hook-form';
 import { GrafanaTheme2, SelectableValue } from '@grafana/data';
 import { Field, Icon, IconButton, Input, Label, Stack, Switch, Text, Tooltip, useStyles2 } from '@grafana/ui';
 import { Trans, t } from 'app/core/internationalization';
-import { isGrafanaAlertingRuleByType, isGrafanaRecordingRuleByType } from 'app/features/alerting/unified/utils/rules';
+import { isGrafanaAlertingRuleByType } from 'app/features/alerting/unified/utils/rules';
 
 import { CombinedRuleGroup, CombinedRuleNamespace } from '../../../../../types/unified-alerting';
 import { LogMessages, logInfo } from '../../Analytics';
@@ -189,7 +189,10 @@ function ForInput({ evaluateEvery }: { evaluateEvery: string }) {
         label={
           <Label
             htmlFor={evaluateForId}
-            description='Period the threshold condition must be met to trigger the alert. Selecting "None" triggers the alert immediately once the condition is met.'
+            description={t(
+              'ablestack-wall.alert.threshold-period',
+              "Period the threshold condition must be met to trigger the alert. Selecting 'None' triggers the alert immediately once the condition is met."
+            )}
           >
             <Trans i18nKey="alert-rule-form.evaluation-behaviour.pending-period">Pending period</Trans>
           </Label>
@@ -225,27 +228,21 @@ function NeedHelpInfoForConfigureNoDataError() {
         contentText="These settings can help mitigate temporary data source issues, preventing alerts from unintentionally firing due to lack of data, errors, or timeouts."
         externalLink={docsLink}
         linkText={`Read more about this option`}
-        title="Configure no data and error handling"
+        title={t('ablestack-wall.alert.no-data-error-handling', 'Configure no data and error handling')}
       />
     </Stack>
   );
 }
 
-function getDescription(isGrafanaRecordingRule: boolean) {
+function getDescription() {
   const docsLink = 'https://grafana.com/docs/grafana/latest/alerting/fundamentals/alert-rules/rule-evaluation/';
 
   return (
     <Stack direction="row" gap={0.5} alignItems="center">
       <Text variant="bodySmall" color="secondary">
-        {isGrafanaRecordingRule ? (
-          <Trans i18nKey="alerting.alert-recording-rule-form.evaluation-behaviour.description.text">
-            Define how the recording rule is evaluated.
-          </Trans>
-        ) : (
-          <Trans i18nKey="alerting.alert-rule-form.evaluation-behaviour.description.text">
-            Define how the alert rule is evaluated.
-          </Trans>
-        )}
+        <Trans i18nKey="alert-rule-form.evaluation-behaviour.description.text">
+          Define how the alert rule is evaluated.
+        </Trans>
       </Text>
       <NeedHelpInfo
         contentText={
@@ -297,15 +294,14 @@ export function GrafanaEvaluationBehavior({
   const type = watch('type');
 
   const isGrafanaAlertingRule = isGrafanaAlertingRuleByType(type);
-  const isGrafanaRecordingRule = type ? isGrafanaRecordingRuleByType(type) : false;
-
-  const pauseContentText = isGrafanaRecordingRule
-    ? t('alert-rule-form.pause.recording', 'Turn on to pause evaluation for this recording rule.')
-    : t('alert-rule-form.pause.alerting', 'Turn on to pause evaluation for this alert rule.');
 
   return (
     // TODO remove "and alert condition" for recording rules
-    <RuleEditorSection stepNo={3} title="Set evaluation behavior" description={getDescription(isGrafanaRecordingRule)}>
+    <RuleEditorSection
+      stepNo={3}
+      title={t('ablestack-wall.alert.set-evaluation-behavior', 'Set evaluation behavior')}
+      description={getDescription()}
+    >
       <Stack direction="column" justify-content="flex-start" align-items="flex-start">
         <FolderGroupAndEvaluationInterval
           setEvaluateEvery={setEvaluateEvery}
@@ -328,8 +324,8 @@ export function GrafanaEvaluationBehavior({
                     value={Boolean(isPaused)}
                   />
                   <label htmlFor="pause-alert" className={styles.switchLabel}>
-                    <Trans i18nKey="alert-rule-form.pause.label">Pause evaluation</Trans>
-                    <Tooltip placement="top" content={pauseContentText} theme={'info'}>
+                    <Trans i18nKey="alert-rule-form.pause">Pause evaluation</Trans>
+                    <Tooltip placement="top" content="Turn on to pause evaluation for this alert rule." theme={'info'}>
                       <Icon tabIndex={0} name="info-circle" size="sm" className={styles.infoIcon} />
                     </Tooltip>
                   </label>
@@ -345,12 +341,18 @@ export function GrafanaEvaluationBehavior({
           <CollapseToggle
             isCollapsed={!showErrorHandling}
             onToggle={(collapsed) => setShowErrorHandling(!collapsed)}
-            text="Configure no data and error handling"
+            text={t('ablestack-wall.alert.no-data-error-handling', 'Configure no data and error handling')}
           />
           {showErrorHandling && (
             <>
               <NeedHelpInfoForConfigureNoDataError />
-              <Field htmlFor="no-data-state-input" label="Alert state if no data or all values are null">
+              <Field
+                htmlFor="no-data-state-input"
+                label={t(
+                  'ablestack-wall.alert.alert-state-no-data-null',
+                  'Alert state if no data or all values are null'
+                )}
+              >
                 <Controller
                   render={({ field: { onChange, ref, ...field } }) => (
                     <GrafanaAlertStatePicker
@@ -365,7 +367,10 @@ export function GrafanaEvaluationBehavior({
                   name="noDataState"
                 />
               </Field>
-              <Field htmlFor="exec-err-state-input" label="Alert state if execution error or timeout">
+              <Field
+                htmlFor="exec-err-state-input"
+                label={t('ablestack-wall.alert.alert-state-error-timeout', 'Alert state if execution error or timeout')}
+              >
                 <Controller
                   render={({ field: { onChange, ref, ...field } }) => (
                     <GrafanaAlertStatePicker

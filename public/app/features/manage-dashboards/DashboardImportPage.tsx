@@ -224,8 +224,8 @@ class UnthemedDashboardImport extends PureComponent<Props> {
   }
 
   pageNav: NavModelItem = {
-    text: 'Import dashboard',
-    subTitle: 'Import dashboard from file or Grafana.com',
+    text: t('ablestack-wall.dashboard.import-dashboard', 'Import dashboard'),
+    subTitle: t('ablestack-wall.dashboard.import-dashboard-sustitle', 'Import dashboard from file or Grafana.com'),
   };
 
   render() {

@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { GrafanaTheme2, PanelProps } from '@grafana/data';
 import { Button, clearButtonStyles, Icon, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { AlertInstancesTable } from 'app/features/alerting/unified/components/rules/AlertInstancesTable';
 import { INSTANCES_DISPLAY_LIMIT } from 'app/features/alerting/unified/components/rules/RuleDetails';
 import { sortAlerts } from 'app/features/alerting/unified/utils/misc';
@@ -121,8 +122,10 @@ export const AlertInstances = ({
           onClick={() => toggleShowInstances()}
         >
           {uncollapsible && <Icon name={displayInstances ? 'angle-down' : 'angle-right'} size={'md'} />}
-          <span>{`${totalInstancesNumber} ${pluralize('instance', totalInstancesNumber)}`}</span>
-          {hiddenInstances > 0 && <span>, {`${hiddenInstances} hidden by filters`}</span>}
+          <span>{`${totalInstancesNumber} ${pluralize(t('ablestack-wall.alert.instance', 'instance'), totalInstancesNumber)}`}</span>
+          {hiddenInstances > 0 && (
+            <span>, {`${hiddenInstances} ${t('ablestack-wall.alert.hidden-by-filters', 'Hidden by filters')}`}</span>
+          )}
         </button>
       )}
       {displayInstances && (

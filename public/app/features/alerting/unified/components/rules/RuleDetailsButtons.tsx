@@ -3,6 +3,7 @@ import { Fragment } from 'react';
 import { textUtil } from '@grafana/data';
 import { useReturnToPrevious } from '@grafana/runtime';
 import { Button, LinkButton, Stack } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { CombinedRule, RulesSource } from 'app/types/unified-alerting';
 
 import { AlertRuleAction, useAlertRuleAbility } from '../../hooks/useAbilities';
@@ -80,7 +81,7 @@ const RuleDetailsButtons = ({ rule, rulesSource }: Props) => {
             setReturnToPrevious(rule.name);
           }}
         >
-          Go to dashboard
+          {t('ablestack-wall.alert.go-to-dashboard', 'Go to dashboard')}
         </LinkButton>
       );
       const panelId = rule.annotations[Annotation.panelID];
@@ -96,7 +97,7 @@ const RuleDetailsButtons = ({ rule, rulesSource }: Props) => {
               setReturnToPrevious(rule.name);
             }}
           >
-            Go to panel
+            {t('ablestack-wall.alert.go-to-panel', 'Go to panel')}
           </LinkButton>
         );
       }
@@ -111,7 +112,7 @@ const RuleDetailsButtons = ({ rule, rulesSource }: Props) => {
           icon="history"
           onClick={() => isGrafanaRulerRule(rule.rulerRule) && showStateHistoryModal(rule.rulerRule)}
         >
-          Show state history
+          {t('ablestack-wall.alert.show-state-history', 'Show state history')}
         </Button>
         {StateHistoryModal}
       </Fragment>

@@ -1,4 +1,5 @@
 import { Drawer, Stack } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { SilencesEditor } from 'app/features/alerting/unified/components/silences/SilencesEditor';
 import { getDefaultSilenceFormValues } from 'app/features/alerting/unified/components/silences/utils';
 import { GRAFANA_RULES_SOURCE_NAME } from 'app/features/alerting/unified/utils/datasource';
@@ -19,8 +20,11 @@ const SilenceGrafanaRuleDrawer = ({ rulerRule, onClose }: Props) => {
 
   return (
     <Drawer
-      title="Silence alert rule"
-      subtitle="Configure silences to stop notifications from a particular alert rule."
+      title={t('ablestack-wall.alert.silence-alert-rule', 'Silence alert rule')}
+      subtitle={t(
+        'ablestack-wall.alert.silence-alert-rule-subtitle',
+        'Configure silences to stop notifications from a particular alert rule.'
+      )}
       onClose={onClose}
       size="md"
     >

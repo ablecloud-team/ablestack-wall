@@ -1,11 +1,12 @@
 import { css } from '@emotion/css';
 import * as H from 'history';
 import { memo, useContext, useEffect, useMemo } from 'react';
+import { Prompt } from 'react-router';
 
 import { locationService } from '@grafana/runtime';
 import { Dashboard } from '@grafana/schema/dist/esm/index.gen';
 import { ModalsContext, Modal, Button, useStyles2 } from '@grafana/ui';
-import { Prompt } from 'app/core/components/FormPrompt/Prompt';
+import { t } from 'app/core/internationalization';
 import { contextSrv } from 'app/core/services/context_srv';
 
 import { SaveLibraryVizPanelModal } from '../panel-edit/SaveLibraryVizPanelModal';
@@ -125,20 +126,20 @@ export const UnsavedChangesModal = ({ onDiscard, onDismiss, onSaveDashboardClick
   return (
     <Modal
       isOpen={true}
-      title="Unsaved changes"
+      title={t('ablestack-wall.dashboard.unsaved-changes', 'Unsaved changes')}
       onDismiss={onDismiss}
       icon="exclamation-triangle"
       className={styles.modal}
     >
-      <h5>Do you want to save your changes?</h5>
+      <h5>{t('ablestack-wall.dashboard.save-changes', 'Do you want to save your changes?')}</h5>
       <Modal.ButtonRow>
         <Button variant="secondary" onClick={onDismiss} fill="outline">
-          Cancel
+          {t('ablestack-wall.common.cancel', 'Cancel')}
         </Button>
         <Button variant="destructive" onClick={onDiscard}>
-          Discard
+          {t('ablestack-wall.common.discard', 'Discard')}
         </Button>
-        <Button onClick={onSaveDashboardClick}>Save dashboard</Button>
+        <Button onClick={onSaveDashboardClick}>{t('ablestack-wall.dashboard.save-dashboard', 'Save dashboard')}</Button>
       </Modal.ButtonRow>
     </Modal>
   );

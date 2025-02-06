@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { selectors } from '@grafana/e2e-selectors';
 import { SceneObject } from '@grafana/scenes';
 import { Button, Field, Modal, Input, Alert } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { RepeatRowSelect2 } from 'app/features/dashboard/components/RepeatRowSelect/RepeatRowSelect';
 
 export type OnRowOptionsUpdate = (title: string, repeat?: string | null) => void;
@@ -34,10 +35,10 @@ export const RowOptionsForm = ({ repeat, title, sceneContext, warning, onUpdate,
 
   return (
     <form onSubmit={handleSubmit(submit)}>
-      <Field label="Title">
+      <Field label={t('ablestack-wall.common.title', 'Title')}>
         <Input {...register('title')} type="text" />
       </Field>
-      <Field label="Repeat for">
+      <Field label={t('ablestack-wall.dashboard.repeat-for', 'Repeat for')}>
         <RepeatRowSelect2 sceneContext={sceneContext} repeat={newRepeat} onChange={onChangeRepeat} />
       </Field>
       {warning && (
@@ -53,9 +54,9 @@ export const RowOptionsForm = ({ repeat, title, sceneContext, warning, onUpdate,
       )}
       <Modal.ButtonRow>
         <Button type="button" variant="secondary" onClick={onCancel} fill="outline">
-          Cancel
+          {t('ablestack-wall.common.cancel', 'Cancel')}
         </Button>
-        <Button type="submit">Update</Button>
+        <Button type="submit">{t('ablestack-wall.common.update', 'Update')}</Button>
       </Modal.ButtonRow>
     </form>
   );

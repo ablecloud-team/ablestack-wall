@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { Drawer } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import { RuleInspectorTabs } from '../rule-editor/RuleInspector';
 
@@ -30,7 +31,10 @@ export function GrafanaExportDrawer({
   return (
     <Drawer
       title={title}
-      subtitle="Select the format and download the file or copy the contents to clipboard"
+      subtitle={t(
+        'ablestack-wall.alert.select-format-download',
+        'Select the format and download the file or copy the contents to clipboard'
+      )}
       tabs={
         <RuleInspectorTabs<ExportFormats> tabs={grafanaRulesTabs} setActiveTab={onTabChange} activeTab={activeTab} />
       }

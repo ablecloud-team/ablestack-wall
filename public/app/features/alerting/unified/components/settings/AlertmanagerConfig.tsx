@@ -5,6 +5,7 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 
 import { GrafanaTheme2 } from '@grafana/data';
 import { Alert, Button, CodeEditor, ConfirmModal, Stack, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import { reportFormErrors } from '../../Analytics';
 import { useAlertmanagerConfig } from '../../hooks/useAlertmanagerConfig';
@@ -152,16 +153,16 @@ export default function AlertmanagerConfig({ alertmanagerName, onDismiss, onSave
       <Stack justifyContent="flex-end">
         {!readOnly && (
           <Button variant="destructive" onClick={() => setShowResetConfirmation(true)} disabled={isOperating}>
-            Reset
+            {t('ablestack-wall.alert.reset', 'Reset')}
           </Button>
         )}
         <Spacer />
         <Button variant="secondary" onClick={() => onDismiss()} disabled={isOperating}>
-          Cancel
+          {t('ablestack-wall.common.cancel', 'Cancel')}
         </Button>
         {!readOnly && (
           <Button variant="primary" onClick={handleSave} disabled={isOperating}>
-            Save
+            {t('ablestack-wall.common.save', 'Save')}
           </Button>
         )}
       </Stack>

@@ -1,5 +1,6 @@
 import { SelectableValue } from '@grafana/data';
 import { RadioButtonGroup, Label, Tooltip, Icon } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { AlertState } from 'app/plugins/datasource/alertmanager/types';
 
 interface Props {
@@ -11,14 +12,14 @@ export const AlertStateFilter = ({ onStateFilterChange, stateFilter }: Props) =>
   const alertStateOptions: SelectableValue[] = Object.entries(AlertState)
     .sort(([labelA], [labelB]) => (labelA < labelB ? -1 : 1))
     .map(([label, state]) => ({
-      label,
+      label: getTranslatedAlertState(state),
       value: state,
     }));
 
   return (
     <div>
       <Label>
-        <span>Notification state&nbsp;</span>
+        <span>{t('ablestack-wall.alert.notification-state', 'Notification state')}&nbsp;</span>
         <Tooltip
           content={
             <div>
@@ -40,3 +41,16 @@ export const AlertStateFilter = ({ onStateFilterChange, stateFilter }: Props) =>
     </div>
   );
 };
+
+function getTranslatedAlertState(state: AlertState): string {
+  switch (state) {
+    case AlertState.Active:
+      return t('ablestack-wall.alert.active', 'Active');
+    case AlertState.Suppressed:
+      return t('ablestack-wall.alert.suppressed', 'Suppressed');
+    case AlertState.Unprocessed:
+      return t('ablestack-wall.alert.unprocessed', 'Unprocessed');
+    default:
+      return state;
+  }
+}

@@ -11,6 +11,7 @@ import {
   SceneVariable,
   SceneVariableState,
 } from '@grafana/scenes';
+import { t } from 'app/core/internationalization';
 
 import { getDatasourceSrv } from '../plugins/datasource_srv';
 
@@ -70,7 +71,7 @@ export function getDataSourceName(dataSourceUid: string) {
 
 export function getMetricName(metric?: string) {
   if (!metric) {
-    return 'Select metric';
+    return t('ablestack-wall.explore.select-metric', 'Select metric');
   }
 
   if (metric === LOGS_METRIC) {

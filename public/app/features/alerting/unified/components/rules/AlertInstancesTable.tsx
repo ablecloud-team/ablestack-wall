@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import * as React from 'react';
 
 import { PluginExtensionPoints, dateTime, findCommonLabels } from '@grafana/data';
+import { t } from 'app/core/internationalization';
 import { Alert, CombinedRule, PaginationProps } from 'app/types/unified-alerting';
 
 import { alertInstanceKey } from '../../utils/rules';
@@ -62,7 +63,7 @@ export const AlertInstancesTable = ({ rule, instances, pagination, footerRow }: 
 const columns: AlertTableColumnProps[] = [
   {
     id: 'state',
-    label: 'State',
+    label: t('ablestack-wall.common.state', 'State'),
     // eslint-disable-next-line react/display-name
     renderCell: ({
       data: {
@@ -73,7 +74,7 @@ const columns: AlertTableColumnProps[] = [
   },
   {
     id: 'labels',
-    label: 'Labels',
+    label: t('ablestack-wall.common.labels', 'Labels'),
     // eslint-disable-next-line react/display-name
     renderCell: ({
       data: {
@@ -83,7 +84,7 @@ const columns: AlertTableColumnProps[] = [
   },
   {
     id: 'created',
-    label: 'Created',
+    label: t('ablestack-wall.common.created', 'Created'),
     // eslint-disable-next-line react/display-name
     renderCell: ({
       data: {

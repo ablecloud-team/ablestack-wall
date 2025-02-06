@@ -6,6 +6,7 @@ import { selectors } from '@grafana/e2e-selectors';
 import { config } from '@grafana/runtime';
 import { Dashboard } from '@grafana/schema';
 import { Button, Checkbox, TextArea, useStyles2, Stack } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { DashboardModel } from 'app/features/dashboard/state';
 import { SaveDashboardResponseDTO } from 'app/types';
 
@@ -72,7 +73,10 @@ export const SaveDashboardForm = ({
                 saveTimerange: !options.saveTimerange,
               })
             }
-            label="Save current time range as dashboard default"
+            label={t(
+              'ablestack-wall.dashboard.save-current-time-range-as-dashboard-default',
+              'Save current time range as dashboard default'
+            )}
             aria-label={selectors.pages.SaveDashboardModal.saveTimerange}
           />
         )}
@@ -85,7 +89,10 @@ export const SaveDashboardForm = ({
                 saveVariables: !options.saveVariables,
               })
             }
-            label="Save current variable values as dashboard default"
+            label={t(
+              'ablestack-wall.dashboard.save-current-variable-values-as-dashboard-default',
+              'Save current variable values as dashboard default'
+            )}
             aria-label={selectors.pages.SaveDashboardModal.saveVariables}
           />
         )}
@@ -113,7 +120,10 @@ export const SaveDashboardForm = ({
               });
               setMessage(e.currentTarget.value);
             }}
-            placeholder="Add a note to describe your changes."
+            placeholder={t(
+              'ablestack-wall.dashboard.save-current-time-range-as-dashboard-default',
+              'Save current time range as dashboard default'
+            )}
             autoFocus
             rows={5}
           />
@@ -121,7 +131,7 @@ export const SaveDashboardForm = ({
 
         <Stack alignItems="center">
           <Button variant="secondary" onClick={onCancel} fill="outline">
-            Cancel
+            {t('ablestack-wall.common.cancel', 'Cancel')}
           </Button>
           <Button
             type="submit"
@@ -129,9 +139,9 @@ export const SaveDashboardForm = ({
             icon={saving ? 'spinner' : undefined}
             aria-label={selectors.pages.SaveDashboardModal.save}
           >
-            {isLoading ? 'Saving...' : 'Save'}
+            {isLoading ? t('ablestack-wall.common.saving', 'Saving...') : t('ablestack-wall.common.save', 'Save')}
           </Button>
-          {!saveModel.hasChanges && <div>No changes to save</div>}
+          {!saveModel.hasChanges && <div>{t('ablestack-wall.dashboard.save-no-changes', 'No changes to save')}</div>}
         </Stack>
       </Stack>
     </form>

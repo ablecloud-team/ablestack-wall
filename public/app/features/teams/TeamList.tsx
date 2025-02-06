@@ -92,7 +92,7 @@ export const TeamList = ({
       },
       {
         id: 'name',
-        header: 'Name',
+        header: t('ablestack-wall.common.name', 'Name'),
         cell: ({ cell: { value }, row: { original } }: Cell<'name'>) => {
           if (!hasFetched) {
             return <Skeleton width={100} />;
@@ -113,7 +113,7 @@ export const TeamList = ({
       },
       {
         id: 'email',
-        header: 'Email',
+        header: t('ablestack-wall.common.email', 'Email'),
         cell: ({ cell: { value } }: Cell<'email'>) => {
           if (!hasFetched) {
             return <Skeleton width={60} />;
@@ -124,7 +124,7 @@ export const TeamList = ({
       },
       {
         id: 'memberCount',
-        header: 'Members',
+        header: t('ablestack-wall.common.members', 'Members'),
         disableGrow: true,
         cell: ({ cell: { value } }: Cell<'memberCount'>) => {
           if (!hasFetched) {
@@ -210,7 +210,7 @@ export const TeamList = ({
       actions={
         !noTeams ? (
           <LinkButton href={canCreate ? 'org/teams/new' : '#'} disabled={!canCreate}>
-            New Team
+            {t('ablestack-wall.administration.service-and-access.new-team', 'New team')}
           </LinkButton>
         ) : undefined
       }

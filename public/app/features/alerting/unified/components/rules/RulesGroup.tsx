@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { GrafanaTheme2 } from '@grafana/data';
 import { selectors } from '@grafana/e2e-selectors';
 import { Badge, ConfirmModal, Icon, Spinner, Stack, Tooltip, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { CombinedRuleGroup, CombinedRuleNamespace, RuleGroupIdentifier, RulesSource } from 'app/types/unified-alerting';
 
 import { LogMessages, logInfo } from '../../Analytics';
@@ -102,7 +103,7 @@ export const RulesGroup = React.memo(({ group, namespace, expandAll, viewMode }:
               data-testid="edit-group"
               key="edit"
               icon="pen"
-              tooltip="edit rule group"
+              tooltip={t('ablestack-wall.alert.edit-rule-group', 'Edit rule group')}
               onClick={() => setIsEditingGroup(true)}
             />
           );
@@ -111,7 +112,7 @@ export const RulesGroup = React.memo(({ group, namespace, expandAll, viewMode }:
               data-testid="reorder-group"
               key="reorder"
               icon="exchange-alt"
-              tooltip="reorder rules"
+              tooltip={t('ablestack-wall.alert.reorder-rules', 'Reorder rules')}
               className={styles.rotate90}
               onClick={() => setIsReorderingGroup(true)}
             />
@@ -123,7 +124,7 @@ export const RulesGroup = React.memo(({ group, namespace, expandAll, viewMode }:
               aria-label="go to folder"
               key="goto"
               icon="folder-open"
-              tooltip="go to folder"
+              tooltip={t('ablestack-wall.alert.go-to-folder', 'Go to folder')}
               to={baseUrl}
               target="__blank"
             />
@@ -135,7 +136,7 @@ export const RulesGroup = React.memo(({ group, namespace, expandAll, viewMode }:
                 aria-label="manage permissions"
                 key="manage-perms"
                 icon="lock"
-                tooltip="manage permissions"
+                tooltip={t('ablestack-wall.alert.manage-permissions', 'Manage permissions')}
                 to={baseUrl + '/permissions'}
                 target="__blank"
               />
@@ -151,7 +152,7 @@ export const RulesGroup = React.memo(({ group, namespace, expandAll, viewMode }:
               data-testid="export-folder"
               key="export-folder"
               icon="download-alt"
-              tooltip="Export rules folder"
+              tooltip={t('ablestack-wall.alert.export-rule-group', 'Export rule group')}
               onClick={() => setIsExporting('folder')}
             />
           );
@@ -162,7 +163,7 @@ export const RulesGroup = React.memo(({ group, namespace, expandAll, viewMode }:
               data-testid="export-group"
               key="export-group"
               icon="download-alt"
-              tooltip="Export rule group"
+              tooltip={t('ablestack-wall.alert.export-rule-group', 'Export rule group')}
               onClick={() => setIsExporting('group')}
             />
           );

@@ -89,6 +89,7 @@ export const DeleteModal = ({ onConfirm, onDismiss, selectedItems, ...props }: P
       title={t('browse-dashboards.action.delete-modal-title', 'Delete')}
       {...props}
       disabled={deleteIsInvalid}
+      dismissText={t('ablestack-wall.common.cancel', 'Cancel')}
     />
   );
 };

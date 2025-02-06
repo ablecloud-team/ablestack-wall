@@ -7,6 +7,7 @@ import { SceneComponentProps, sceneGraph, SceneObject, SceneObjectBase, SceneObj
 import { Button, EmptyState, Stack, useStyles2 } from '@grafana/ui';
 import { Text } from '@grafana/ui/src/components/Text/Text';
 import { Trans } from '@grafana/ui/src/utils/i18n';
+import { t } from 'app/core/internationalization';
 
 import { DataTrail } from './DataTrail';
 import { DataTrailCard } from './DataTrailCard';
@@ -65,13 +66,15 @@ export class DataTrailsHome extends SceneObjectBase<DataTrailsHomeState> {
       <div className={styles.container}>
         <Stack direction={'column'} gap={1} alignItems={'start'}>
           <Button icon="plus" size="md" variant="primary" onClick={model.onNewMetricsTrail}>
-            New metric exploration
+            {t('ablestack-wall.explore.new-metric-exploration', 'New metric exploration')}
           </Button>
         </Stack>
 
         <Stack gap={5}>
           <div className={styles.column}>
-            <Text variant="h4">Recent metrics explorations</Text>
+            <Text variant="h4">
+              {t('ablestack-wall.explore.recent-metrics-explorations', 'Recent metrics explorations')}
+            </Text>
             <div className={styles.trailList}>
               {getTrailStore().recent.map((trail, index) => {
                 const resolvedTrail = trail.resolve();
@@ -87,7 +90,7 @@ export class DataTrailsHome extends SceneObjectBase<DataTrailsHomeState> {
           </div>
           <div className={styles.verticalLine} />
           <div className={styles.column}>
-            <Text variant="h4">Bookmarks</Text>
+            <Text variant="h4">{t('ablestack-wall.common.bookmarks', 'Bookmarks')}</Text>
             <div className={styles.trailList}>
               {getTrailStore().bookmarks.length ? (
                 getTrailStore().bookmarks.map((bookmark, index) => {

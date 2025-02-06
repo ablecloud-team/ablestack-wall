@@ -6,6 +6,7 @@ import AutoSizer from 'react-virtualized-auto-sizer';
 
 import { GrafanaTheme2 } from '@grafana/data';
 import { Alert, Button, ClipboardButton, CodeEditor, TextLink, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import { allGrafanaExportProviders, ExportFormats, ExportProvider, ProvisioningType } from './providers';
 
@@ -59,13 +60,13 @@ export function FileExportPreview({ format, textDefinition, downloadFileName, on
       </div>
       <div className={styles.actions}>
         <Button variant="secondary" onClick={onClose}>
-          Cancel
+          {t('ablestack-wall.common.cancel', 'Cancel')}
         </Button>
         <ClipboardButton icon="copy" getText={() => textDefinition}>
-          Copy code
+          {t('ablestack-wall.common.copy-code', 'Copy code')}
         </ClipboardButton>
         <Button icon="download-alt" onClick={onDownload}>
-          Download
+          {t('ablestack-wall.common.download', 'Download')}
         </Button>
       </div>
     </div>

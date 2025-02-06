@@ -9,16 +9,16 @@ import { getFooterLinks } from '../../Footer/Footer';
 import { HelpModal } from '../../help/HelpModal';
 
 export const enrichHelpItem = (helpItem: NavModelItem) => {
-  let menuItems = helpItem.children || [];
+  // let menuItems = helpItem.children || [];
 
   if (helpItem.id === 'help') {
     const onOpenShortcuts = () => {
       appEvents.publish(new ShowModalReactEvent({ component: HelpModal }));
     };
     helpItem.children = [
-      ...menuItems,
+      // ...menuItems,
       ...getFooterLinks(),
-      ...getEditionAndUpdateLinks(),
+      // ...getEditionAndUpdateLinks(),
       {
         id: 'keyboard-shortcuts',
         text: t('nav.help/keyboard-shortcuts', 'Keyboard shortcuts'),

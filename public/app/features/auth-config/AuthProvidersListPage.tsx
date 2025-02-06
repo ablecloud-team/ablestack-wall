@@ -6,6 +6,7 @@ import { reportInteraction } from '@grafana/runtime';
 import { Grid, TextLink, ToolbarButton } from '@grafana/ui';
 import { Page } from 'app/core/components/Page/Page';
 import { config } from 'app/core/config';
+import { Trans } from 'app/core/internationalization';
 import { StoreState } from 'app/types';
 
 import AuthDrawer from './AuthDrawer';
@@ -82,7 +83,9 @@ export const AuthConfigPageUnconnected = ({
       navId="authentication"
       subTitle={
         <>
-          Manage your auth settings and configure single sign-on. Find out more in our{' '}
+          <Trans i18nKey="ablestack-wall.administration.manage-auth-findout">
+            Manage your auth settings and configure single sign-on. Find out more in our
+          </Trans>{' '}
           <TextLink
             external={true}
             href="https://grafana.com/docs/grafana/next/setup-grafana/configure-security/configure-authentication"

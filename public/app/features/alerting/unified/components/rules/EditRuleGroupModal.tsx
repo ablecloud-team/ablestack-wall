@@ -6,6 +6,7 @@ import { FieldValues, FormProvider, RegisterOptions, useForm, useFormContext } f
 import { GrafanaTheme2 } from '@grafana/data';
 import { Alert, Badge, Button, Field, Input, Label, LinkButton, Modal, Stack, useStyles2 } from '@grafana/ui';
 import { useAppNotification } from 'app/core/copy/appNotification';
+import { t } from 'app/core/internationalization';
 import { dispatch } from 'app/store/store';
 import { CombinedRuleGroup, CombinedRuleNamespace, RuleGroupIdentifier } from 'app/types/unified-alerting';
 import { RulerRuleDTO } from 'app/types/unified-alerting-dto';
@@ -83,7 +84,7 @@ export const RulesForGroupTable = ({ rulesWithoutRecordingRules }: { rulesWithou
     return [
       {
         id: 'alertName',
-        label: 'Alert',
+        label: t('ablestack-wall.alert.alert', 'Alert'),
         renderCell: ({ data: { alertName } }) => {
           return <>{alertName}</>;
         },
@@ -91,7 +92,7 @@ export const RulesForGroupTable = ({ rulesWithoutRecordingRules }: { rulesWithou
       },
       {
         id: 'for',
-        label: 'Pending period',
+        label: t('ablestack-wall.alert.pending-period', 'Pending period'),
         renderCell: ({ data: { forDuration } }) => {
           return <>{forDuration}</>;
         },
@@ -99,7 +100,7 @@ export const RulesForGroupTable = ({ rulesWithoutRecordingRules }: { rulesWithou
       },
       {
         id: 'numberEvaluations',
-        label: '#Eval',
+        label: t('ablestack-wall.alert.eval-column', '#Eval'),
         renderCell: ({ data: { evaluationsToFire: numberEvaluations } }) => {
           if (unknownCurrentInterval) {
             return <ForBadge message="#Evaluations not available." />;
@@ -212,7 +213,9 @@ export function EditCloudGroupModal(props: ModalProps): React.ReactElement {
   // parse any parent folders the alert rule might be stored in
   const nestedFolderParents = decodeGrafanaNamespace(namespace).parents;
 
-  const nameSpaceLabel = isGrafanaManagedGroup ? 'Folder' : 'Namespace';
+  const nameSpaceLabel = isGrafanaManagedGroup
+    ? t('ablestack-wall.common.folder', 'Folder')
+    : t('ablestack-wall.common.namespace', 'Namespace');
 
   const onSubmit = async (values: FormValues) => {
     const ruleGroupIdentifier: RuleGroupIdentifier = {
@@ -269,8 +272,9 @@ export function EditCloudGroupModal(props: ModalProps): React.ReactElement {
   );
   const hasSomeNoRecordingRules = rulesWithoutRecordingRules.length > 0;
   const modalTitle =
-    intervalEditOnly || isGrafanaManagedGroup ? 'Edit evaluation group' : 'Edit namespace or evaluation group';
-
+    intervalEditOnly || isGrafanaManagedGroup
+      ? t('ablestack-wall.alert.edit-evaluation-group', 'Edit evaluation group')
+      : t('ablestack-wall.alert.edit-namespace-or-evaluation-group', 'Edit namespace or evaluation group');
   return (
     <Modal className={styles.modal} isOpen={true} title={modalTitle} onDismiss={onClose} onClickBackdrop={onClose}>
       <FormProvider {...formAPI}>
@@ -317,9 +321,12 @@ export function EditCloudGroupModal(props: ModalProps): React.ReactElement {
               label={
                 <Label
                   htmlFor="groupName"
-                  description="A group evaluates all its rules over the same evaluation interval."
+                  description={t(
+                    'ablestack-wall.alert.evaluation-group-description',
+                    'A group evaluates all its rules over the same evaluation interval.'
+                  )}
                 >
-                  Evaluation group
+                  {t('ablestack-wall.alert.evaluation-group', 'Evaluation group')}
                 </Label>
               }
               invalid={!!errors.groupName}
@@ -338,9 +345,12 @@ export function EditCloudGroupModal(props: ModalProps): React.ReactElement {
               label={
                 <Label
                   htmlFor="groupInterval"
-                  description="How often is the rule evaluated. Applies to every rule within the group."
+                  description={t(
+                    'ablestack-wall.alert.evaluation-interval-description',
+                    'How often is the rule evaluated. Applies to every rule within the group.'
+                  )}
                 >
-                  <Stack gap={0.5}>Evaluation interval</Stack>
+                  <Stack gap={0.5}>{t('ablestack-wall.alert.evaluation-interval', 'Evaluation interval')}</Stack>
                 </Label>
               }
               invalid={Boolean(errors.groupInterval) ? true : undefined}
@@ -367,9 +377,12 @@ export function EditCloudGroupModal(props: ModalProps): React.ReactElement {
             {!hasSomeNoRecordingRules && <div>This group does not contain alert rules.</div>}
             {hasSomeNoRecordingRules && (
               <>
-                <div>List of rules that belong to this group</div>
+                <div>{t('ablestack-wall.alert.rule-list', 'List of rules that belong to this group')}</div>
                 <div className={styles.evalRequiredLabel}>
-                  #Eval column represents the number of evaluations needed before alert starts firing.
+                  {t(
+                    'ablestack-wall.alert.eval-column-description',
+                    '#Eval column represents the number of evaluations needed before alert starts firing.'
+                  )}
                 </div>
                 <RulesForGroupTable rulesWithoutRecordingRules={rulesWithoutRecordingRules} />
               </>
@@ -384,10 +397,10 @@ export function EditCloudGroupModal(props: ModalProps): React.ReactElement {
                   onClick={() => onClose(false)}
                   fill="outline"
                 >
-                  Cancel
+                  {t('ablestack-wall.common.cancel', 'Cancel')}
                 </Button>
                 <Button type="submit" disabled={!isDirty || !isValid || loading}>
-                  {loading ? 'Saving...' : 'Save'}
+                  {loading ? 'Saving...' : t('ablestack-wall.common.save', 'Save')}
                 </Button>
               </Modal.ButtonRow>
             </div>

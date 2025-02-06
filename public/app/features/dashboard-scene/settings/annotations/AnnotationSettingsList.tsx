@@ -44,8 +44,8 @@ export const AnnotationSettingsList = ({ annotations, onNew, onEdit, onMove, onD
           <table role="grid" className="filter-table filter-table--hover">
             <thead>
               <tr>
-                <th>Query name</th>
-                <th>Data source</th>
+                <th>{t('ablestack-wall.dashboard.query-name', 'Query name')}</th>
+                <th>{t('ablestack-wall.administration.general.data-sources', 'Data sources')}</th>
                 <th colSpan={3}></th>
               </tr>
             </thead>
@@ -136,7 +136,7 @@ export const AnnotationSettingsList = ({ annotations, onNew, onEdit, onMove, onD
           data-testid={selectors.pages.Dashboard.Settings.Annotations.List.addAnnotationCTAV2}
           onClick={onNew}
         >
-          New query
+          {t('ablestack-wall.dashboard.new-query', 'New query')}
         </ListNewButton>
       )}
     </Stack>

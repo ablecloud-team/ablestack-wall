@@ -1,6 +1,7 @@
 import { PureComponent } from 'react';
 
 import { LoadingPlaceholder } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { Team } from 'app/types';
 
 export interface Props {
@@ -27,9 +28,9 @@ export class UserTeams extends PureComponent<Props> {
           <thead>
             <tr>
               <th />
-              <th>Name</th>
-              <th>Email</th>
-              <th>Members</th>
+              <th>{t('ablestack-wall.common.name', 'Name')}</th>
+              <th>{t('ablestack-wall.common.email', 'Email')}</th>
+              <th>{t('ablestack-wall.common.members', 'Members')}</th>
             </tr>
           </thead>
           <tbody>

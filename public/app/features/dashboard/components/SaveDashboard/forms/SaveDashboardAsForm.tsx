@@ -3,6 +3,7 @@ import { ChangeEvent } from 'react';
 import { config } from '@grafana/runtime';
 import { Button, Input, Switch, Form, Field, InputControl, Label, TextArea, Stack } from '@grafana/ui';
 import { FolderPicker } from 'app/core/components/Select/FolderPicker';
+import { t } from 'app/core/internationalization';
 import { DashboardModel } from 'app/features/dashboard/state';
 import { validationSrv } from 'app/features/manage-dashboards/services/ValidationSrv';
 
@@ -111,7 +112,7 @@ export const SaveDashboardAsForm = ({
               <Field
                 label={
                   <Stack justifyContent="space-between">
-                    <Label htmlFor="title">Title</Label>
+                    <Label htmlFor="title">{t('ablestack-wall.common.title', 'Title')}</Label>
                     {config.featureToggles.dashgpt && isNew && (
                       <GenAIDashTitleButton onGenerate={(title) => field.onChange(title)} />
                     )}
@@ -139,7 +140,7 @@ export const SaveDashboardAsForm = ({
               <Field
                 label={
                   <Stack justifyContent="space-between">
-                    <Label htmlFor="description">Description</Label>
+                    <Label htmlFor="description">{t('ablestack-wall.common.description', 'Description')}</Label>
                     {config.featureToggles.dashgpt && isNew && (
                       <GenAIDashDescriptionButton onGenerate={(description) => field.onChange(description)} />
                     )}
@@ -159,7 +160,7 @@ export const SaveDashboardAsForm = ({
             control={control}
             name="description"
           />
-          <Field label="Folder">
+          <Field label={t('ablestack-wall.common.folder', 'Folder')}>
             <InputControl
               render={({ field: { ref, ...field } }) => (
                 <FolderPicker
@@ -177,13 +178,13 @@ export const SaveDashboardAsForm = ({
             />
           </Field>
           {!isNew && (
-            <Field label="Copy tags">
+            <Field label={t('ablestack-wall.common.copy-tags', 'copyTags')}>
               <Switch {...register('copyTags')} />
             </Field>
           )}
           <Stack>
             <Button type="button" variant="secondary" onClick={onCancel} fill="outline">
-              Cancel
+              {t('ablestack-wall.common.cancel', 'Cancel')}
             </Button>
             <Button disabled={isLoading} type="submit" aria-label="Save dashboard button">
               {isLoading ? 'Saving...' : 'Save'}

@@ -38,7 +38,7 @@ export const StateBadge = ({ state, health }: StateBadgeProps) => {
       break;
     case PromAlertingRuleState.Firing:
       color = 'error';
-      stateLabel = 'Firing';
+      stateLabel = '알람 경보';
       break;
     case PromAlertingRuleState.Pending:
       color = 'warning';

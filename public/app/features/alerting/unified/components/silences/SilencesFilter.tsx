@@ -5,6 +5,7 @@ import { FormEvent, useState } from 'react';
 import { GrafanaTheme2 } from '@grafana/data';
 import { Button, Field, Icon, Input, Label, Tooltip, useStyles2, Stack } from '@grafana/ui';
 import { useQueryParams } from 'app/core/hooks/useQueryParams';
+import { t } from 'app/core/internationalization';
 
 import { parsePromQLStyleMatcherLoose } from '../../utils/matchers';
 import { getSilenceFiltersFromUrlParams } from '../../utils/misc';
@@ -48,7 +49,7 @@ export const SilencesFilter = () => {
         label={
           <Label>
             <Stack gap={0.5}>
-              <span>Search by matchers</span>
+              <span>{t('ablestack-wall.alert.search-by-matchers', 'Search by matchers')}</span>
               <Tooltip
                 content={
                   <div>
@@ -71,7 +72,7 @@ export const SilencesFilter = () => {
           prefix={<Icon name="search" />}
           onChange={handleQueryStringChange}
           defaultValue={queryString ?? ''}
-          placeholder="Search"
+          placeholder={t('ablestack-wall.common.search', 'Search')}
           data-testid="search-query-input"
         />
       </Field>

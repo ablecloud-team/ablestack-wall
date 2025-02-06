@@ -3,6 +3,7 @@ import { debounce, isEqual } from 'lodash';
 import { useCallback, useEffect, useRef } from 'react';
 
 import { Button, Field, Icon, Input, Label, Stack, Text, Tooltip, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { ContactPointSelector } from 'app/features/alerting/unified/components/notification-policies/ContactPointSelector';
 import { ObjectMatcher, RouteWithID } from 'app/plugins/datasource/alertmanager/types';
 
@@ -68,7 +69,7 @@ const NotificationPoliciesFilter = ({
         label={
           <Label>
             <Stack gap={0.5}>
-              <span>Search by matchers</span>
+              <span>{t('ablestack-wall.alert.search-by-matchers', 'Search by matchers')}</span>
               <Tooltip
                 content={
                   <div>
@@ -88,7 +89,7 @@ const NotificationPoliciesFilter = ({
         <Input
           ref={searchInputRef}
           data-testid="search-query-input"
-          placeholder="Search"
+          placeholder={t('ablestack-wall.common.search', 'Search')}
           width={46}
           prefix={<Icon name="search" />}
           onChange={(event) => {
@@ -97,7 +98,10 @@ const NotificationPoliciesFilter = ({
           defaultValue={queryString}
         />
       </Field>
-      <Field label="Search by contact point" style={{ marginBottom: 0 }}>
+      <Field
+        label={t('ablestack-wall.alert.search-by-contact-point', 'Search by contact point')}
+        style={{ marginBottom: 0 }}
+      >
         <ContactPointSelector
           selectProps={{
             id: 'receiver',

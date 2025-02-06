@@ -14,6 +14,7 @@ import {
   SceneVariableSet,
   VariableValueSelectors,
 } from '@grafana/scenes';
+import { t } from 'app/core/internationalization';
 
 import { config } from '../../../../core/config';
 import { SectionFooter } from '../insights/SectionFooter';
@@ -173,7 +174,11 @@ export function getInsightsScenes() {
     controls: [
       new SceneReactObject({
         component: SectionSubheader,
-        props: { children: <div>Monitor the status of your system.</div> },
+        props: {
+          children: (
+            <div>{t('ablestack-wall.alert.insight-tab-description', 'Monitor the status of your system.')}</div>
+          ),
+        },
       }),
       new SceneControlsSpacer(),
       new SceneTimePicker({}),

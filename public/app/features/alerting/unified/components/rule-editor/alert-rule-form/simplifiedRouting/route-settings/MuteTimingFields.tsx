@@ -1,6 +1,7 @@
 import { useFormContext, Controller } from 'react-hook-form';
 
 import { Field } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import MuteTimingsSelector from 'app/features/alerting/unified/components/alertmanager-entities/MuteTimingsSelector';
 import { BaseAlertmanagerArgs } from 'app/features/alerting/unified/types/hooks';
 import { RuleFormValues } from 'app/features/alerting/unified/types/rule-form';
@@ -15,9 +16,12 @@ export function MuteTimingFields({ alertmanager }: BaseAlertmanagerArgs) {
 
   return (
     <Field
-      label="Mute timings"
+      label={t('ablestack-wall.alert.mute-timings', 'Mute timings')}
       data-testid="am-mute-timing-select"
-      description="Select a mute timing to define when not to send notifications for this alert rule"
+      description={t(
+        'ablestack-wall.alert.select-mute-timings-description',
+        'Select a mute timing to define when not to send notifications for this alert rule'
+      )}
       invalid={!!errors.contactPoints?.[alertmanager]?.muteTimeIntervals}
     >
       <Controller

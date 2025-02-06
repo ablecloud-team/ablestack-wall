@@ -74,8 +74,10 @@ export const MuteTimingsTable = ({ alertManagerSourceName, hideActions }: MuteTi
     <div className={styles.container}>
       <Stack direction="row" alignItems="center">
         <span>
-          Enter specific time intervals when not to send notifications or freeze notifications for recurring periods of
-          time.
+          {t(
+            'ablestack-wall.alert.mute-timings-description',
+            'Enter specific time intervals when not to send notifications or freeze notifications for recurring periods of time.'
+          )}
         </span>
         <Spacer />
         {!hideActions && items.length > 0 && (
@@ -86,7 +88,7 @@ export const MuteTimingsTable = ({ alertManagerSourceName, hideActions }: MuteTi
               variant="primary"
               href={makeAMLink('alerting/routes/mute-timing/new', alertManagerSourceName)}
             >
-              Add mute timing
+              {t('ablestack-wall.alert.mute-timings-add', 'Add mute timing')}
             </LinkButton>
           </Authorize>
         )}
@@ -109,8 +111,8 @@ export const MuteTimingsTable = ({ alertManagerSourceName, hideActions }: MuteTi
         <DynamicTable items={items} cols={columns} pagination={{ itemsPerPage: 25 }} />
       ) : !hideActions ? (
         <EmptyAreaWithCTA
-          text="You haven't created any mute timings yet"
-          buttonLabel="Add mute timing"
+          text={t('ablestack-wall.alert.mute-timings-empty', "You haven't created any mute timings yet")}
+          buttonLabel={t('ablestack-wall.alert.mute-timings-add', 'Add mute timing')}
           buttonIcon="plus"
           buttonSize="lg"
           href={makeAMLink('alerting/routes/mute-timing/new', alertManagerSourceName)}

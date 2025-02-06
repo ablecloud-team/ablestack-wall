@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import { GrafanaTheme2 } from '@grafana/data';
 import { Checkbox, Button, Tag, ModalsController, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import { DecoratedRevisionModel } from '../VersionsEditView';
 
@@ -24,10 +25,10 @@ export const VersionHistoryTable = ({ versions, canCompare, onCheck, onRestore }
         <thead>
           <tr>
             <th className="width-4"></th>
-            <th className="width-4">Version</th>
-            <th className="width-14">Date</th>
-            <th className="width-10">Updated by</th>
-            <th>Notes</th>
+            <th className="width-4">{t('ablestack-wall.common.version', 'Version')}</th>
+            <th className="width-14">{t('ablestack-wall.common.date', 'Date')}</th>
+            <th className="width-10">{t('ablestack-wall.common.updated-by', 'Updated by')}</th>
+            <th>{t('ablestack-wall.common.notes', 'Notes')}</th>
             <th></th>
           </tr>
         </thead>
@@ -67,7 +68,7 @@ export const VersionHistoryTable = ({ versions, canCompare, onCheck, onRestore }
                           });
                         }}
                       >
-                        Restore
+                        {t('ablestack-wall.common.restore', 'Restore')}
                       </Button>
                     )}
                   </ModalsController>

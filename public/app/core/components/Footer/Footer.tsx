@@ -21,21 +21,14 @@ export let getFooterLinks = (): FooterLink[] => {
       id: 'documentation',
       text: t('nav.help/documentation', 'Documentation'),
       icon: 'document-info',
-      url: 'https://grafana.com/docs/grafana/latest/?utm_source=grafana_footer',
+      url: 'https://docs.ablecloud.io/',
     },
     {
       target: '_blank',
       id: 'support',
       text: t('nav.help/support', 'Support'),
       icon: 'question-circle',
-      url: 'https://grafana.com/products/enterprise/?utm_source=grafana_footer',
-    },
-    {
-      target: '_blank',
-      id: 'community',
-      text: t('nav.help/community', 'Community'),
-      icon: 'comments-alt',
-      url: 'https://community.grafana.com/?utm_source=grafana_footer',
+      url: 'https://github.com/ablecloud-team/ablestack-cloud/issues/new',
     },
   ];
 };
@@ -100,7 +93,7 @@ export interface Props {
 }
 
 export const Footer = memo(({ customLinks, hideEdition }: Props) => {
-  const links = (customLinks || getFooterLinks()).concat(getVersionLinks(hideEdition));
+  const links = customLinks || getFooterLinks();
   const styles = useStyles2(getStyles);
 
   return (
@@ -113,6 +106,7 @@ export const Footer = memo(({ customLinks, hideEdition }: Props) => {
             </li>
           ))}
         </ul>
+        <ul className={styles.list}>Copyright (c) 2021-2024, ABLECLOUD.Co.Ltd ABLESTACK Diplo v4.0.0</ul>
       </div>
     </footer>
   );

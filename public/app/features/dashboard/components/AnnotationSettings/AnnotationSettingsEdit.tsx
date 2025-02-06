@@ -28,7 +28,7 @@ import {
 } from '@grafana/ui';
 import { ColorValueEditor } from 'app/core/components/OptionsUI/color';
 import config from 'app/core/config';
-import { Trans } from 'app/core/internationalization';
+import { Trans, t } from 'app/core/internationalization';
 import StandardAnnotationQueryEditor from 'app/features/annotations/components/StandardAnnotationQueryEditor';
 import { AngularEditorLoader } from 'app/features/dashboard-scene/settings/annotations/AngularEditorLoader';
 import { DataSourcePicker } from 'app/features/datasources/components/picker/DataSourcePicker';
@@ -40,7 +40,7 @@ type Props = {
   dashboard: DashboardModel;
 };
 
-export const newAnnotationName = 'New annotation';
+export const newAnnotationName = t('ablestack-wall.dashboard.new-annotation', 'New annotation');
 
 export const AnnotationSettingsEdit = ({ editIdx, dashboard }: Props) => {
   const styles = useStyles2(getStyles);
@@ -198,16 +198,28 @@ export const AnnotationSettingsEdit = ({ editIdx, dashboard }: Props) => {
             </Trans>
           </Alert>
         )}
-        <Field label="Enabled" description="When enabled the annotation query is issued every dashboard refresh">
+        <Field
+          label={t('ablestack-wall.dashboard.enabled', 'Enabled')}
+          description={t(
+            'ablestack-wall.dashboard.enabled-description',
+            'When enabled the annotation query is issued every dashboard refresh'
+          )}
+        >
           <Checkbox name="enable" id="enable" value={annotation.enable} onChange={onChange} />
         </Field>
         <Field
-          label="Hidden"
-          description="Annotation queries can be toggled on or off at the top of the dashboard. With this option checked this toggle will be hidden."
+          label={t('ablestack-wall.dashboard.hidden', 'Hidden')}
+          description={t(
+            'ablestack-wall.dashboard.hidden-description',
+            'Annotation queries can be toggled on or off at the top of the dashboard. With this option checked this toggle will be hidden.'
+          )}
         >
           <Checkbox name="hide" id="hide" value={annotation.hide} onChange={onChange} />
         </Field>
-        <Field label="Color" description="Color to use for the annotation event markers">
+        <Field
+          label={t('ablestack-wall.dashboard.color', 'Color')}
+          description={t('ablestack-wall.dashboard.color-description', 'Color to use for the annotation event markers')}
+        >
           <HorizontalGroup>
             <ColorValueEditor value={annotation?.iconColor} onChange={onColorChange} />
           </HorizontalGroup>
@@ -237,7 +249,7 @@ export const AnnotationSettingsEdit = ({ editIdx, dashboard }: Props) => {
         </Field>
       </FieldSet>
       <FieldSet>
-        <h3 className="page-heading">Query</h3>
+        <h3 className="page-heading">{t('ablestack-wall.dashboard.query', 'Query')}</h3>
         {ds?.annotations && dsi && (
           <StandardAnnotationQueryEditor
             datasource={ds}
@@ -251,7 +263,7 @@ export const AnnotationSettingsEdit = ({ editIdx, dashboard }: Props) => {
       <Stack>
         {!annotation.builtIn && (
           <Button variant="destructive" onClick={onDelete}>
-            Delete
+            {t('ablestack-wall.common.delete', 'Delete')}
           </Button>
         )}
         <Button
@@ -259,10 +271,10 @@ export const AnnotationSettingsEdit = ({ editIdx, dashboard }: Props) => {
           onClick={onPreview}
           data-testid={selectors.pages.Dashboard.Settings.Annotations.NewAnnotation.previewInDashboard}
         >
-          Preview in dashboard
+          {t('ablestack-wall.dashboard.preview-in-dashboard', 'Preview in dashboard')}
         </Button>
         <Button variant="primary" onClick={onApply}>
-          Apply
+          {t('ablestack-wall.common.apply', 'Apply')}
         </Button>
       </Stack>
     </div>

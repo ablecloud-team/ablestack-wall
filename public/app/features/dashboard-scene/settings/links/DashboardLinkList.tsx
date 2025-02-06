@@ -57,8 +57,8 @@ export function DashboardLinkList({
       <table role="grid" className="filter-table filter-table--hover">
         <thead>
           <tr>
-            <th>Type</th>
-            <th>Info</th>
+            <th>{t('ablestack-wall.common.type', 'Type')}</th>
+            <th>{t('ablestack-wall.common.info', 'Info')}</th>
             <th colSpan={3} />
           </tr>
         </thead>
@@ -100,7 +100,7 @@ export function DashboardLinkList({
         </tbody>
       </table>
       <Button className={styles.newLinkButton} icon="plus" onClick={onNew}>
-        New link
+        {t('ablestack-wall.dashboard.new-link', 'New link')}
       </Button>
     </>
   );

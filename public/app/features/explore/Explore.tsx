@@ -30,6 +30,7 @@ import {
 } from '@grafana/ui';
 import { FILTER_FOR_OPERATOR, FILTER_OUT_OPERATOR } from '@grafana/ui/src/components/Table/types';
 import { supportedFeatures } from 'app/core/history/richHistoryStorageProvider';
+import { t } from 'app/core/internationalization';
 import { MIXED_DATASOURCE_NAME } from 'app/plugins/datasource/mixed/MixedDataSource';
 import { StoreState } from 'app/types';
 
@@ -424,7 +425,12 @@ export class Explore extends PureComponent<Props, ExploreState> {
       gap: theme.spacing(1),
     });
     return (
-      <ContentOutlineItem panelId="Logs" title="Logs" icon="gf-logs" className={logsContentOutlineWrapper}>
+      <ContentOutlineItem
+        panelId="Logs"
+        title={t('ablestack-wall.alert.logs', 'Logs')}
+        icon="gf-logs"
+        className={logsContentOutlineWrapper}
+      >
         <LogsContainer
           exploreId={exploreId}
           loadingState={queryResponse.state}

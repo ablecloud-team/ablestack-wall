@@ -24,6 +24,7 @@ import { fetchRoleOptions, updateUserRoles } from 'app/core/components/RolePicke
 import { RolePickerBadges } from 'app/core/components/RolePickerDrawer/RolePickerBadges';
 import { TagBadge } from 'app/core/components/TagFilter/TagBadge';
 import { contextSrv } from 'app/core/core';
+import { t } from 'app/core/internationalization';
 import { AccessControlAction, OrgUser, Role } from 'app/types';
 
 import { OrgRolePicker } from '../OrgRolePicker';
@@ -93,25 +94,25 @@ export const OrgUsersTable = ({
       },
       {
         id: 'login',
-        header: 'Login',
+        header: t('ablestack-wall.common.login', 'Login'),
         cell: ({ cell: { value } }: Cell<'login'>) => <div>{value}</div>,
         sortType: 'string',
       },
       {
         id: 'email',
-        header: 'Email',
+        header: t('ablestack-wall.common.email', 'Email'),
         cell: ({ cell: { value } }: Cell<'email'>) => value,
         sortType: 'string',
       },
       {
         id: 'name',
-        header: 'Name',
+        header: t('ablestack-wall.common.name', 'Name'),
         cell: ({ cell: { value } }: Cell<'name'>) => value,
         sortType: 'string',
       },
       {
         id: 'lastSeenAtAge',
-        header: 'Last active',
+        header: t('ablestack-wall.common.last-active', 'Last active'),
         cell: ({ cell: { value } }: Cell<'lastSeenAtAge'>) => {
           return <>{value && <>{value === '10 years' ? <Text color={'disabled'}>Never</Text> : value}</>}</>;
         },
@@ -119,7 +120,7 @@ export const OrgUsersTable = ({
       },
       {
         id: 'role',
-        header: 'Role',
+        header: t('ablestack-wall.common.role', 'Role'),
         cell: ({ cell: { value }, row: { original } }: Cell<'role'>) => {
           const basicRoleDisabled = getBasicRoleDisabled(original);
           const onUserRolesUpdate = async (newRoles: Role[], userId: number, orgId: number | undefined) => {
@@ -194,7 +195,7 @@ export const OrgUsersTable = ({
       },
       {
         id: 'authLabels',
-        header: 'Origin',
+        header: t('ablestack-wall.common.origin', 'Origin'),
         cell: ({ cell: { value } }: Cell<'authLabels'>) => (
           <>{Array.isArray(value) && value.length > 0 && <TagBadge label={value[0]} removeIcon={false} count={0} />}</>
         ),

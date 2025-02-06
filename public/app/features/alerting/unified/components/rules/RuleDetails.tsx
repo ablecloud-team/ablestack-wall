@@ -2,6 +2,7 @@ import { css } from '@emotion/css';
 
 import { GrafanaTheme2, dateTime, dateTimeFormat } from '@grafana/data';
 import { Tooltip, useStyles2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { Time } from 'app/features/explore/Time';
 import { CombinedRule } from 'app/types/unified-alerting';
 
@@ -53,7 +54,7 @@ export const RuleDetails = ({ rule }: Props) => {
           <RuleDetailsDataSources rulesSource={rulesSource} rule={rule} />
         </div>
       </div>
-      <DetailsField label="Instances" horizontal={true}>
+      <DetailsField label={t('ablestack-wall.common.instances', 'Instances')} horizontal={true}>
         <RuleDetailsMatchingInstances rule={rule} itemsDisplayLimit={INSTANCES_DISPLAY_LIMIT} />
       </DetailsField>
     </div>
@@ -80,19 +81,19 @@ const EvaluationBehaviorSummary = ({ rule }: EvaluationBehaviorSummaryProps) => 
         </DetailsField>
       )}
       {every && (
-        <DetailsField label="Evaluate" horizontal={true}>
+        <DetailsField label={t('ablestack-wall.alert.evaluate', 'Evaluate')} horizontal={true}>
           Every {every}
         </DetailsField>
       )}
 
       {pendingPeriod && (
-        <DetailsField label="Pending period" horizontal={true}>
+        <DetailsField label={t('ablestack-wall.alert.pending-period', 'Pending period')} horizontal={true}>
           {pendingPeriod}
         </DetailsField>
       )}
 
       {lastEvaluation && !isNullDate(lastEvaluation) && (
-        <DetailsField label="Last evaluation" horizontal={true}>
+        <DetailsField label={t('ablestack-wall.alert.last-evaluation', 'Last evaluation')} horizontal={true}>
           <Tooltip
             placement="top"
             content={`${dateTimeFormat(lastEvaluation, { format: 'YYYY-MM-DD HH:mm:ss' })}`}
@@ -104,7 +105,7 @@ const EvaluationBehaviorSummary = ({ rule }: EvaluationBehaviorSummaryProps) => 
       )}
 
       {lastEvaluation && !isNullDate(lastEvaluation) && lastEvaluationDuration !== undefined && (
-        <DetailsField label="Evaluation time" horizontal={true}>
+        <DetailsField label={t('ablestack-wall.alert.evaluation-time', 'Evaluation time')} horizontal={true}>
           <Tooltip placement="top" content={`${lastEvaluationDuration}s`} theme="info">
             <span>{Time({ timeInMs: lastEvaluationDuration * 1000, humanize: true })}</span>
           </Tooltip>

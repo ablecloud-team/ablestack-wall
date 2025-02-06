@@ -1,3 +1,4 @@
+import { t } from 'app/core/internationalization';
 import { NotifierDTO } from 'app/types';
 
 export const grafanaAlertNotifiersMock: NotifierDTO[] = [
@@ -252,8 +253,8 @@ export const grafanaAlertNotifiersMock: NotifierDTO[] = [
       {
         element: 'checkbox',
         inputType: '',
-        label: 'Single email',
-        description: 'Send a single email to all recipients',
+        label: t('ablestack-wall.alert.single-email', 'Single email'),
+        description: t('ablestack-wall.alert.send-single-email', 'Send a single email to all recipients'),
         placeholder: '',
         propertyName: 'singleEmail',
         selectOptions: null,
@@ -269,8 +270,11 @@ export const grafanaAlertNotifiersMock: NotifierDTO[] = [
       {
         element: 'textarea',
         inputType: '',
-        label: 'Addresses',
-        description: 'You can enter multiple email addresses using a ";", "\\n" or  "," separator',
+        label: t('ablestack-wall.common.addresses', 'Addresses'),
+        description: t(
+          'ablestack-wall.alert.email-addresses-info',
+          'You can enter multiple email addresses using a ";", "\n" or "," separator'
+        ),
         placeholder: '',
         propertyName: 'addresses',
         selectOptions: null,
@@ -286,9 +290,11 @@ export const grafanaAlertNotifiersMock: NotifierDTO[] = [
       {
         element: 'textarea',
         inputType: '',
-        label: 'Message',
-        description:
-          'Optional message. You can use templates to customize this field. Using a custom message will replace the default message',
+        label: t('ablestack-wall.common.message', 'Message'),
+        description: t(
+          'ablestack-wall.alert.optional-message-info',
+          'Optional message. You can use templates to customize this field. Using a custom message will replace the default message'
+        ),
         placeholder: '',
         propertyName: 'message',
         selectOptions: null,
@@ -304,8 +310,11 @@ export const grafanaAlertNotifiersMock: NotifierDTO[] = [
       {
         element: 'input',
         inputType: 'text',
-        label: 'Subject',
-        description: 'Optional subject. You can use templates to customize this field',
+        label: t('ablestack-wall.common.subject', 'Subject'),
+        description: t(
+          'ablestack-wall.alert.optional-subject-info',
+          'Optional subject. You can use templates to customize this field'
+        ),
         placeholder: '{{ template "default.title" . }}',
         propertyName: 'subject',
         selectOptions: null,
