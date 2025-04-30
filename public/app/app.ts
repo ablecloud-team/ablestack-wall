@@ -108,6 +108,7 @@ import { createQueryVariableAdapter } from './features/variables/query/adapter';
 import { createSystemVariableAdapter } from './features/variables/system/adapter';
 import { createTextBoxVariableAdapter } from './features/variables/textbox/adapter';
 import { configureStore } from './store/configureStore';
+import {KioskMode} from "./types";
 
 // add move to lodash for backward compatabilty with plugins
 // @ts-ignore
@@ -237,13 +238,40 @@ export class GrafanaApp {
 
       // initialize chrome service
       const queryParams = locationService.getSearchObject();
+      const kioskValue = queryParams.kiosk !== undefined ? queryParams.kiosk : '1';
+
       const chromeService = new AppChromeService();
       const keybindingsService = new KeybindingSrv(locationService, chromeService);
       const newAssetsChecker = new NewFrontendAssetsChecker();
       newAssetsChecker.start();
 
       // Read initial kiosk mode from url at app startup
-      chromeService.setKioskModeFromUrl(queryParams.kiosk);
+      // chromeService.setKioskModeFromUrl(queryParams.kiosk);
+      chromeService.setKioskModeFromUrl(kioskValue);
+      // 앱 초기화할 때 실행
+      setupMobileLongPress(chromeService);
+
+      // 모바일 long press로 메뉴 복구 기능 추가
+      function setupMobileLongPress(chromeService: AppChromeService) {
+        let touchTimer: NodeJS.Timeout;
+
+        const handleTouchStart = () => {
+          touchTimer = setTimeout(() => {
+            chromeService.setChromeless(false);
+            chromeService.setKioskMode(null);
+            chromeService.emitUpdated();
+          }, 3000);
+        };
+
+        const handleTouchEnd = () => {
+          clearTimeout(touchTimer);
+        };
+
+        document.addEventListener('touchstart', handleTouchStart);
+        document.addEventListener('touchend', handleTouchEnd);
+      }
+
+
 
       // Clean up old search local storage values
       try {

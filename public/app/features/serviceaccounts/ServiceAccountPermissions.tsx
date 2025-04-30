@@ -1,4 +1,5 @@
 import { Permissions } from 'app/core/components/AccessControl';
+import { t } from 'app/core/internationalization';
 import { contextSrv } from 'app/core/services/context_srv';
 
 import { AccessControlAction, ServiceAccountDTO } from '../../types';
@@ -16,8 +17,8 @@ export const ServiceAccountPermissions = (props: ServiceAccountPermissionsProps)
   return (
     <Permissions
       title="Permissions"
-      addPermissionTitle="Add permission"
-      buttonLabel="Add permission"
+      addPermissionTitle={t('ablestack-wall.administration.service-and-access.add-permission', 'Add permission')}
+      buttonLabel={t('ablestack-wall.administration.service-and-access.add-permission', 'Add permission')}
       resource="serviceaccounts"
       resourceId={props.serviceAccount.id}
       canSetPermissions={canSetPermissions}

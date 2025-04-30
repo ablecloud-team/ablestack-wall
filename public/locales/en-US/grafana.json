@@ -3098,7 +3098,13 @@
       "username": "Username",
       "password": "Password",
       "reset": "Reset",
-      "warning": "Warning"
+      "warning": "Warning",
+      "information": "Information",
+      "name": "Name",
+      "creation-date": "Creation date",
+      "expires": "Expires",
+      "created": "Created",
+      "last-used-at": "Last used at"
     },
     "login": {
       "reset-password": "Reset password",
@@ -3211,7 +3217,15 @@
       "builder-mode-message": "Builder mode does not display changes made in code. The query builder will display the last changes you made in builder mode.",
       "copy-code-to-clipboard": "Do you want to copy your code to the clipboard?",
       "discard-code-switch": "Discard code and switch",
-      "copy-code-switch": "Copy code and switch"
+      "copy-code-switch": "Copy code and switch",
+      "autofit": "Autofit",
+      "panel-heights-will-be-adjusted-to-fit-screen-size": "Panel heights will be adjusted to fit screen size",
+      "display-dashboard-controls": "Display dashboard controls",
+      "customize-dashboard-elements-visibility": "Customize dashboard elements visibility",
+      "time-and-refresh": "Time and refresh",
+      "variables": "Variables",
+      "dashboard-links": "Dashboard links",
+      "start": "Start"
     },
     "explore": {
       "explore-metrics-info": "Explore your Prometheus-compatible metrics without writing a query",
@@ -3468,7 +3482,10 @@
       "expired-silences": "Expired silences",
       "edit-silence": "Edit silence",
       "recreate-existing-silence-description": "Recreate existing silence to stop notifications from a particular alert rule",
-      "instance-labels": "Instance labels"
+      "instance-labels": "Instance labels",
+      "predefined": "Predefined",
+      "custom": "Custom",
+      "no-rules-created": "You haven't created any rules yet"
     },
     "connections": {
       "add-datasource": "Add data source",
@@ -3552,7 +3569,26 @@
         "delete-user-body": "Are you sure you want to delete this user?",
         "disable-user-body": "Are you sure you want to delete this user?",
         "add-user-organization": "Add user to organization",
-        "force-logout-all-devices": "Force logout from all devices"
+        "force-logout-all-devices": "Force logout from all devices",
+        "user-information": "User information",
+        "manage-service-account-settings": "Manage settings for an individual service account",
+        "delete-service-account": "Delete service account",
+        "enable-service-account": "Enable service account",
+        "disable-service-account": "Disable service account",
+        "confirm-delete-service-account": "Are you sure you want to delete this service account?",
+        "add-permission": "Add permission",
+        "add-service-account-token": "Add service account token",
+        "name-to-easily-identify-token": "Name to easily identify the token",
+        "expiration": "Expiration",
+        "expiration-date": "Expiration date",
+        "no-expiration": "No expiration",
+        "set-expiration-date": "Set expiration date",
+        "generate-token": "Generate token",
+        "service-account-token-created": "Service account token created",
+        "copy-token-warning": "Copy the token now as you will not be able to see it again. Losing a token requires creating a new one.",
+        "copy-clipboard": "Copy clipboard",
+        "copy-to-clipboard-and-close": "Copy to clipboard and close",
+        "confirm-disable": "Are you sure you want to disable"
       },
       "manage-auth": "Manage your auth settings and configure single sign-on.",
       "manage-auth-findout": "Manage your auth settings and configure single sign-on. Find out more in our"

@@ -1,19 +1,17 @@
 import { partial } from 'lodash';
-import { type ReactElement, useEffect, useState } from 'react';
-import { DeepMap, FieldError, FieldErrors, useForm, Controller } from 'react-hook-form';
+import { ReactElement, useEffect, useState } from 'react';
+import { Controller, DeepMap, FieldError, FieldErrors, useForm } from 'react-hook-form';
 
-import { locationUtil, SelectableValue } from '@grafana/data';
-import { config, locationService, reportInteraction } from '@grafana/runtime';
+import { SelectableValue, TimeRange } from '@grafana/data';
+import { reportInteraction } from '@grafana/runtime';
+import { Panel } from '@grafana/schema';
 import { Alert, Button, Field, Modal, RadioButtonGroup } from '@grafana/ui';
 import { DashboardPicker } from 'app/core/components/Select/DashboardPicker';
+import { contextSrv } from 'app/core/core';
 import { t } from 'app/core/internationalization';
-import { contextSrv } from 'app/core/services/context_srv';
-import { removeDashboardToFetchFromLocalStorage } from 'app/features/dashboard/state/initDashboard';
-import { AccessControlAction, useSelector } from 'app/types';
+import { AccessControlAction } from 'app/types';
 
-import { getExploreItemSelector } from '../../state/selectors';
-
-import { setDashboardInLocalStorage, AddToDashboardError } from './addToDashboard';
+import { addToDashboard, SubmissionError } from './addToDashboard';
 
 enum SaveTarget {
   NewDashboard = 'new-dashboard',
@@ -23,6 +21,7 @@ enum SaveTarget {
 interface SaveTargetDTO {
   saveTarget: SaveTarget;
 }
+
 interface SaveToNewDashboardDTO extends SaveTargetDTO {
   saveTarget: SaveTarget.NewDashboard;
 }
@@ -34,36 +33,21 @@ interface SaveToExistingDashboard extends SaveTargetDTO {
 
 type FormDTO = SaveToNewDashboardDTO | SaveToExistingDashboard;
 
-function assertIsSaveToExistingDashboardError(
-  errors: FieldErrors<FormDTO>
-): asserts errors is DeepMap<SaveToExistingDashboard, FieldError> {
-  // the shape of the errors object is always compatible with the type above, but we need to
-  // explicitly assert its type so that TS can narrow down FormDTO to SaveToExistingDashboard
-  // when we use it in the form.
-}
-
-function getDashboardURL(dashboardUid?: string) {
-  return dashboardUid ? `d/${dashboardUid}` : 'dashboard/new';
-}
-
-enum GenericError {
-  UNKNOWN = 'unknown-error',
-  NAVIGATION = 'navigation-error',
-}
-
-interface SubmissionError {
-  error: AddToDashboardError | GenericError;
-  message: string;
-}
-
-interface Props {
+export interface Props<TOptions = undefined> {
   onClose: () => void;
-  exploreId: string;
+  buildPanel: (options: TOptions) => Panel;
+  timeRange?: TimeRange;
+  options: TOptions;
+  children?: React.ReactNode;
 }
 
-export function AddToDashboardForm(props: Props): ReactElement {
-  const { exploreId, onClose } = props;
-  const exploreItem = useSelector(getExploreItemSelector(exploreId))!;
+export function AddToDashboardForm<TOptions = undefined>({
+  onClose,
+  buildPanel,
+  timeRange,
+  options,
+  children,
+}: Props<TOptions>): ReactElement {
   const [submissionError, setSubmissionError] = useState<SubmissionError | undefined>();
   const {
     handleSubmit,
@@ -78,12 +62,14 @@ export function AddToDashboardForm(props: Props): ReactElement {
   const canWriteDashboard = contextSrv.hasPermission(AccessControlAction.DashboardsWrite);
 
   const saveTargets: Array<SelectableValue<SaveTarget>> = [];
+
   if (canCreateDashboard) {
     saveTargets.push({
       label: t('ablestack-wall.dashboard.new-dashboard', 'New dashboard'),
       value: SaveTarget.NewDashboard,
     });
   }
+
   if (canWriteDashboard) {
     saveTargets.push({
       label: t('ablestack-wall.dashboard.existing-dashboard', 'Existing dashboard'),
@@ -93,60 +79,24 @@ export function AddToDashboardForm(props: Props): ReactElement {
 
   const saveTarget = saveTargets.length > 1 ? watch('saveTarget') : saveTargets[0].value;
 
-  const onSubmit = async (openInNewTab: boolean, data: FormDTO) => {
+  const onSubmit = (openInNewTab: boolean, data: FormDTO) => {
     setSubmissionError(undefined);
+
     const dashboardUid = data.saveTarget === SaveTarget.ExistingDashboard ? data.dashboardUid : undefined;
+    const panel = buildPanel(options);
 
     reportInteraction('e_2_d_submit', {
       newTab: openInNewTab,
       saveTarget: data.saveTarget,
-      queries: exploreItem.queries.length,
+      queries: panel.targets,
     });
 
-    const { from, to } = exploreItem.range.raw;
-
-    try {
-      await setDashboardInLocalStorage({
-        dashboardUid,
-        datasource: exploreItem.datasourceInstance?.getRef(),
-        queries: exploreItem.queries,
-        queryResponse: exploreItem.queryResponse,
-        panelState: exploreItem?.panelsState,
-        time: {
-          from: typeof from === 'string' ? from : from.toISOString(),
-          to: typeof to === 'string' ? to : to.toISOString(),
-        },
-      });
-    } catch (error) {
-      switch (error) {
-        case AddToDashboardError.FETCH_DASHBOARD:
-          setSubmissionError({ error, message: 'Could not fetch dashboard information. Please try again.' });
-          break;
-        case AddToDashboardError.SET_DASHBOARD_LS:
-          setSubmissionError({ error, message: 'Could not add panel to dashboard. Please try again.' });
-          break;
-        default:
-          setSubmissionError({ error: GenericError.UNKNOWN, message: 'Something went wrong. Please try again.' });
-      }
+    const error = addToDashboard({ dashboardUid, panel, openInNewTab, timeRange });
+    if (error) {
+      setSubmissionError(error);
       return;
     }
 
-    const dashboardURL = getDashboardURL(dashboardUid);
-    if (!openInNewTab) {
-      onClose();
-      locationService.push(locationUtil.stripBaseFromUrl(dashboardURL));
-      return;
-    }
-
-    const didTabOpen = !!global.open(config.appUrl + dashboardURL, '_blank');
-    if (!didTabOpen) {
-      setSubmissionError({
-        error: GenericError.NAVIGATION,
-        message: 'Could not navigate to the selected dashboard. Please try again.',
-      });
-      removeDashboardToFetchFromLocalStorage();
-      return;
-    }
     onClose();
   };
 
@@ -156,6 +106,9 @@ export function AddToDashboardForm(props: Props): ReactElement {
 
   return (
     <form>
+      {/* For custom form options */}
+      {children}
+
       {saveTargets.length > 1 && (
         <Controller
           control={control}
@@ -223,4 +176,12 @@ export function AddToDashboardForm(props: Props): ReactElement {
       </Modal.ButtonRow>
     </form>
   );
+}
+
+function assertIsSaveToExistingDashboardError(
+  errors: FieldErrors<FormDTO>
+): asserts errors is DeepMap<SaveToExistingDashboard, FieldError> {
+  // the shape of the errors object is always compatible with the type above, but we need to
+  // explicitly assert its type so that TS can narrow down FormDTO to SaveToExistingDashboard
+  // when we use it in the form.
 }

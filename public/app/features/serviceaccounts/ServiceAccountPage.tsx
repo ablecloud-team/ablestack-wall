@@ -6,6 +6,7 @@ import { getTimeZone, NavModelItem } from '@grafana/data';
 import { Button, ConfirmModal, IconButton, Stack } from '@grafana/ui';
 import { Page } from 'app/core/components/Page/Page';
 import { contextSrv } from 'app/core/core';
+import { t } from 'app/core/internationalization';
 import { AccessControlAction, ApiKey, ServiceAccountDTO, StoreState } from 'app/types';
 
 import { ServiceAccountPermissions } from './ServiceAccountPermissions';
@@ -83,7 +84,10 @@ export const ServiceAccountPageUnconnected = ({
   const pageNav: NavModelItem = {
     text: serviceAccount.name,
     img: serviceAccount.avatarUrl,
-    subTitle: 'Manage settings for an individual service account.',
+    subTitle: t(
+      'ablestack-wall.administration.service-and-access.manage-service-account-settings',
+      'Manage settings for an individual service account.'
+    ),
   };
 
   useEffect(() => {
@@ -144,7 +148,7 @@ export const ServiceAccountPageUnconnected = ({
                 onClick={showDeleteServiceAccountModal(true)}
                 disabled={!contextSrv.hasPermission(AccessControlAction.ServiceAccountsDelete)}
               >
-                Delete service account
+                {t('ablestack-wall.administration.service-and-access.delete-service-account', 'Delete service account')}
               </Button>
               {serviceAccount.isDisabled ? (
                 <Button
@@ -153,7 +157,10 @@ export const ServiceAccountPageUnconnected = ({
                   onClick={handleServiceAccountEnable}
                   disabled={!ableToWrite}
                 >
-                  Enable service account
+                  {t(
+                    'ablestack-wall.administration.service-and-access.enable-service-account',
+                    'Enable service account'
+                  )}
                 </Button>
               ) : (
                 <Button
@@ -162,7 +169,10 @@ export const ServiceAccountPageUnconnected = ({
                   onClick={showDisableServiceAccountModal(true)}
                   disabled={!ableToWrite}
                 >
-                  Disable service account
+                  {t(
+                    'ablestack-wall.administration.service-and-access.disable-service-account',
+                    'Disable service account'
+                  )}
                 </Button>
               )}
             </Stack>
@@ -181,10 +191,13 @@ export const ServiceAccountPageUnconnected = ({
             <ServiceAccountProfile serviceAccount={serviceAccount} timeZone={timezone} onChange={onProfileChange} />
           )}
           <Stack justifyContent="space-between" height="auto">
-            <h3>Tokens</h3>
+            <h3>{t('ablestack-wall.common.tokens', 'Tokens')}</h3>
             {!serviceAccount.isExternal && (
               <Button onClick={() => setIsTokenModalOpen(true)} disabled={tokenActionsDisabled}>
-                Add service account token
+                {t(
+                  'ablestack-wall.administration.service-and-access.add-service-account-token',
+                  'Add service account token'
+                )}
               </Button>
             )}
           </Stack>
@@ -203,17 +216,32 @@ export const ServiceAccountPageUnconnected = ({
 
         <ConfirmModal
           isOpen={isDeleteModalOpen}
-          title="Delete service account"
-          body="Are you sure you want to delete this service account?"
-          confirmText="Delete service account"
+          title={t('ablestack-wall.administration.service-and-access.delete-service-account', 'Delete service account')}
+          body={t(
+            'ablestack-wall.administration.service-and-access.confirm-delete-service-account',
+            'Are you sure you want to delete this service account?'
+          )}
+          confirmText={t(
+            'ablestack-wall.administration.service-and-access.delete-service-account',
+            'Delete service account'
+          )}
           onConfirm={handleServiceAccountDelete}
           onDismiss={showDeleteServiceAccountModal(false)}
         />
         <ConfirmModal
           isOpen={isDisableModalOpen}
-          title="Disable service account"
-          body="Are you sure you want to disable this service account?"
-          confirmText="Disable service account"
+          title={t(
+            'ablestack-wall.administration.service-and-access.disable-service-account',
+            'Disable service account'
+          )}
+          body={t(
+            'ablestack-wall.administration.service-and-access.confirm-delete-service-account',
+            'Are you sure you want to delete this service account?'
+          )}
+          confirmText={t(
+            'ablestack-wall.administration.service-and-access.disable-service-account',
+            'Disable service account'
+          )}
           onConfirm={handleServiceAccountDisable}
           onDismiss={showDisableServiceAccountModal(false)}
         />

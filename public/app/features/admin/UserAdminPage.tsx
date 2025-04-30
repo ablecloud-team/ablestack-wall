@@ -123,7 +123,7 @@ export const UserAdminPage = ({
     text: user?.login ?? '',
     icon: 'shield',
     subTitle: t(
-      'ablestack-wall.service-and-access.manage-settings-individual-user-subtitle',
+      'ablestack-wall.administration.service-and-access.manage-settings-individual-user-subtitle',
       'Manage settings for an individual user'
     ),
   };

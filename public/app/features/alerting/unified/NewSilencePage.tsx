@@ -8,6 +8,8 @@ import {
 import { MATCHER_ALERT_RULE_UID } from 'app/features/alerting/unified/utils/constants';
 import { parseQueryParamMatchers } from 'app/features/alerting/unified/utils/matchers';
 
+import { t } from '../../../core/internationalization';
+
 import { AlertmanagerPageWrapper } from './components/AlertingPageWrapper';
 import { GrafanaAlertmanagerDeliveryWarning } from './components/GrafanaAlertmanagerDeliveryWarning';
 import { SilencesEditor } from './components/silences/SilencesEditor';
@@ -39,8 +41,11 @@ const SilencesEditorComponent = () => {
 function NewSilencePage() {
   const pageNav = {
     id: 'silence-new',
-    text: 'Silence alert rule',
-    subTitle: 'Configure silences to stop notifications from a particular alert rule',
+    text: t('ablestack-wall.alert.silence-alert-rule', 'Silence alert rule'),
+    subTitle: t(
+      'ablestack-wall.alert.silence-alert-rule-subtitle',
+      'Configure silences to stop notifications from a particular alert rule.'
+    ),
   };
   return (
     <AlertmanagerPageWrapper navId="silences" pageNav={pageNav} accessType="instance">

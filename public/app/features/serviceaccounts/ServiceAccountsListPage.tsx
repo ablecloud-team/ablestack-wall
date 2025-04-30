@@ -280,9 +280,18 @@ export const ServiceAccountsListPageUnconnected = ({
             />
             <ConfirmModal
               isOpen={isDisableModalOpen}
-              title="Disable service account"
-              body={`Are you sure you want to disable '${currentServiceAccount.name}'?`}
-              confirmText="Disable service account"
+              title={t(
+                'ablestack-wall.administration.service-and-access.disable-service-account',
+                'Disable service account'
+              )}
+              body={t(
+                'ablestack-wall.administration.service-and-access.confirm-disable',
+                "Are you sure you want to disable '${currentServiceAccount.name}'?"
+              )}
+              confirmText={t(
+                'ablestack-wall.administration.service-and-access.disable-service-account',
+                'Disable service account'
+              )}
               onConfirm={onDisable}
               onDismiss={onDisableModalClose}
             />

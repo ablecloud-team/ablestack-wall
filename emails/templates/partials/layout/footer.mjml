@@ -1,5 +1,5 @@
 <mj-column background-color="transparent">
   <mj-text align="center">
-    &copy; {{ now | date "2006" }} Grafana Labs. Sent by <a href="{{ .AppUrl }}">Grafana v{{ .BuildVersion }}</a>.
+    &copy; {{ now | date "2006" }} ABLESTACK WALL. Sent by <a href="{{ .AppUrl }}">WALL</a>.
   </mj-text>
 </mj-column>

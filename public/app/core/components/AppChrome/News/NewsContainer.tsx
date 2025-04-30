@@ -3,7 +3,7 @@ import { useToggle } from 'react-use';
 
 import { GrafanaTheme2 } from '@grafana/data';
 import { selectors } from '@grafana/e2e-selectors';
-import { IconButton, Drawer, ToolbarButton, useStyles2, Text } from '@grafana/ui';
+import { IconButton, Drawer, ToolbarButton, useStyles2 } from '@grafana/ui';
 import { t } from 'app/core/internationalization';
 import { DEFAULT_FEED_URL } from 'app/plugins/panel/news/constants';
 
@@ -24,16 +24,6 @@ export function NewsContainer({ className }: NewsContainerProps) {
         <Drawer
           title={
             <div className={styles.title}>
-              <Text element="h2">{t('news.title', 'Latest from the blog')}</Text>
-              <a
-                href="https://grafana.com/blog/"
-                target="_blank"
-                rel="noreferrer"
-                title="Go to Grafana labs blog"
-                className={styles.grot}
-              >
-                <img src="public/img/grot-news.svg" alt="Grot reading news" />
-              </a>
               <div className={styles.actions}>
                 <IconButton
                   name="times"

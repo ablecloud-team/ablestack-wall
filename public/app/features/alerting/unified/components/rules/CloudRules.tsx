@@ -85,7 +85,7 @@ export const CloudRules = ({ namespaces, expandAll }: Props) => {
 
       {!hasDataSourcesConfigured && <p>There are no Prometheus or Loki data sources configured.</p>}
       {hasDataSourcesConfigured && !hasDataSourcesLoading && !hasNamespaces && (
-        <p>{t('ablestack-wall.no-rules-found', 'No rules found.')}</p>
+        <p>{t('ablestack-wall.alert.no-rules-found', 'No rules found.')}</p>
       )}
       {!hasSomeResults && hasDataSourcesLoading && <Spinner size="xl" className={styles.spinner} />}
 

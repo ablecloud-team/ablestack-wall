@@ -400,7 +400,7 @@ export function EditCloudGroupModal(props: ModalProps): React.ReactElement {
                   {t('ablestack-wall.common.cancel', 'Cancel')}
                 </Button>
                 <Button type="submit" disabled={!isDirty || !isValid || loading}>
-                  {loading ? 'Saving...' : t('ablestack-wall.common.save', 'Save')}
+                  {loading ? t('ablestack-wall.common.saving', 'Saving...') : t('ablestack-wall.common.save', 'Save')}
                 </Button>
               </Modal.ButtonRow>
             </div>

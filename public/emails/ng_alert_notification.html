@@ -189,7 +189,7 @@
                     <tr>
                       <td align="left" class="txt" style="font-size:0px;padding:0;word-break:break-word;">
                         <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;">
-                          <h2>📁 {{ .GroupLabels.grafana_folder }} &rsaquo; {{ .GroupLabels.alertname }}</h2>
+                          <h2>📁 {{ .GroupLabels.grafana_folder }} &rsaquo; Wall</h2>
                         </div>
                       </td>
                     </tr>
@@ -201,7 +201,7 @@
                           <mj-raw>
                             {{ range .GroupLabels.SortedPairs }}
                           </mj-raw>
-                          {{ .Name }}={{ .Value }}
+                          {{ .Name }}=Wall
                           <mj-raw>
                             {{ end }}
                           </mj-raw>
@@ -573,7 +573,7 @@
                                       <td>
                                         <strong>{{ .Name }}</strong>
                                       </td>
-                                      <td>{{ .Value }}</td>
+                                      <td>Wall</td>
                                     </tr>
                                     <mj-raw>{{ end }}</mj-raw>
                                   </table>
@@ -594,7 +594,7 @@
                                       <td>
                                         <strong>{{ .Name }}</strong>
                                       </td>
-                                      <td>{{ .Value }}</td>
+                                      <td>Wall</td>
                                     </tr>
                                     <mj-raw>{{ end }}</mj-raw>
                                     <mj-raw>{{ end }}</mj-raw>
@@ -1064,7 +1064,7 @@
                                       <td>
                                         <strong>{{ .Name }}</strong>
                                       </td>
-                                      <td>{{ .Value }}</td>
+                                      <td>Wall</td>
                                     </tr>
                                     <mj-raw>{{ end }}</mj-raw>
                                   </table>
@@ -1085,7 +1085,7 @@
                                       <td>
                                         <strong>{{ .Name }}</strong>
                                       </td>
-                                      <td>{{ .Value }}</td>
+                                      <td>Wall</td>
                                     </tr>
                                     <mj-raw>{{ end }}</mj-raw>
                                     <mj-raw>{{ end }}</mj-raw>
@@ -1260,7 +1260,7 @@
                   <tbody>
                     <tr>
                       <td align="center" class="txt" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                        <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: center; color: #000000;">&copy; {{ now | date "2006" }} Grafana Labs. Sent by <a href="{{ .AppUrl }}" style="color: #6E9FFF;">Grafana v{{ .BuildVersion }}</a>.</div>
+                        <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: center; color: #000000;">&copy; {{ now | date "2006" }} ABLESTACK Wall. Sent by <a href="{{ .AppUrl }}" style="color: #6E9FFF;">Wall</a>.</div>
                       </td>
                     </tr>
                   </tbody>

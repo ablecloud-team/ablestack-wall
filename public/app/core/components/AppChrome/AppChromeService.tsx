@@ -250,6 +250,22 @@ export class AppChromeService {
 
     return null;
   }
+
+  setChromeless(value: boolean) {
+    this.state.next({
+      ...this.state.value,
+      chromeless: value,
+    });
+  }
+  emitUpdated() {
+    this.state.next(this.state.value);
+  }
+  setKioskMode(mode: KioskMode | null) {
+    this.state.next({
+      ...this.state.value,
+      kioskMode: mode,
+    });
+  }
 }
 
 /**

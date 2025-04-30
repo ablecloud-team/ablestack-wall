@@ -187,7 +187,7 @@ export const SaveDashboardAsForm = ({
               {t('ablestack-wall.common.cancel', 'Cancel')}
             </Button>
             <Button disabled={isLoading} type="submit" aria-label="Save dashboard button">
-              {isLoading ? 'Saving...' : 'Save'}
+              {isLoading ? t('ablestack-wall.common.saving', 'Saving...') : t('ablestack-wall.common.save', 'Save')}
             </Button>
           </Stack>
         </>

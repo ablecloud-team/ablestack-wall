@@ -40,7 +40,7 @@ export function UserPermissions({ isGrafanaAdmin, isExternalUser, lockMessage, o
 
   return (
     <div>
-      <h3 className="page-heading">{t('ablestack-wall.common-permissions', 'Permissions')}</h3>
+      <h3 className="page-heading">{t('ablestack-wall.common.permissions', 'Permissions')}</h3>
       <table className="filter-table form-inline">
         <tbody>
           <tr>

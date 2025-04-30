@@ -725,29 +725,30 @@ func (hs *HTTPServer) addGettingStartedPanelToHomeDashboard(c *contextmodel.ReqC
 	defer span.End()
 	c.Req = c.Req.WithContext(ctx)
 
-	// We only add this getting started panel for Admins who have not dismissed it,
-	// and if a custom default home dashboard hasn't been configured
-	if !c.HasUserRole(org.RoleAdmin) ||
-		c.HasHelpFlag(user.HelpFlagGettingStartedPanelDismissed) ||
-		hs.Cfg.DefaultHomeDashboardPath != "" {
-		return
-	}
-
-	panels := dash.Get("panels").MustArray()
-
-	newpanel := simplejson.NewFromAny(map[string]any{
-		"type": "gettingstarted",
-		"id":   123123,
-		"gridPos": map[string]any{
-			"x": 0,
-			"y": 3,
-			"w": 24,
-			"h": 9,
-		},
-	})
-
-	panels = append(panels, newpanel)
-	dash.Set("panels", panels)
+	//// We only add this getting started panel for Admins who have not dismissed it,
+	//// and if a custom default home dashboard hasn't been configured
+	//if !c.HasUserRole(org.RoleAdmin) ||
+	//	c.HasHelpFlag(user.HelpFlagGettingStartedPanelDismissed) ||
+	//	hs.Cfg.DefaultHomeDashboardPath != "" {
+	//	return
+	//}
+	//
+	//panels := dash.Get("panels").MustArray()
+	//
+	//newpanel := simplejson.NewFromAny(map[string]any{
+	//	"type": "gettingstarted",
+	//	"id":   123123,
+	//	"gridPos": map[string]any{
+	//		"x": 0,
+	//		"y": 3,
+	//		"w": 24,
+	//		"h": 9,
+	//	},
+	//})
+	//
+	//panels = append(panels, newpanel)
+	//dash.Set("panels", panels)
+	return
 }
 
 // swagger:route GET /dashboards/id/{DashboardID}/versions dashboard_versions getDashboardVersionsByID

@@ -2,6 +2,7 @@ import { css, cx } from '@emotion/css';
 
 import { dateTimeFormat, GrafanaTheme2, TimeZone } from '@grafana/data';
 import { DeleteButton, Icon, Tooltip, useStyles2, useTheme2 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 import { ApiKey } from 'app/types';
 
 interface Props {
@@ -19,10 +20,10 @@ export const ServiceAccountTokensTable = ({ tokens, timeZone, tokenActionsDisabl
     <table className={cx(styles.section, 'filter-table')}>
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Expires</th>
-          <th>Created</th>
-          <th>Last used at</th>
+          <th>{t('ablestack-wall.common.name', 'Name')}</th>
+          <th>{t('ablestack-wall.common.expires', 'Expires')}</th>
+          <th>{t('ablestack-wall.common.created', 'Created')}</th>
+          <th>{t('ablestack-wall.common.last-used-at', 'Last used at')}</th>
           <th />
           <th />
         </tr>

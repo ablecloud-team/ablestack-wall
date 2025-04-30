@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { SelectableValue, UrlQueryMap, urlUtil } from '@grafana/data';
 import { config, locationService } from '@grafana/runtime';
 import { Box, Button, Checkbox, Field, FieldSet, Modal, RadioButtonGroup, Stack } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 import { Playlist, PlaylistMode } from './types';
 
@@ -54,31 +55,40 @@ export const StartModal = ({ playlist, onDismiss }: Props) => {
         </Field>
         <Field>
           <Checkbox
-            label="Autofit"
-            description="Panel heights will be adjusted to fit screen size"
+            label={t('ablestack-wall.alert.autofit', 'Autofit')}
+            description={t(
+              'ablestack-wall.alert.panel-heights-will-be-adjusted-to-fit-screen-size',
+              'Panel heights will be adjusted to fit screen size'
+            )}
             name="autofix"
             value={autoFit}
             onChange={(e) => setAutofit(e.currentTarget.checked)}
           />
         </Field>
         {config.featureToggles.dashboardScene && (
-          <Field label="Display dashboard controls" description="Customize dashboard elements visibility">
+          <Field
+            label={t('ablestack-wall.alert.display-dashboard-controls', 'Display dashboard controls')}
+            description={t(
+              'ablestack-wall.alert.customize-dashboard-elements-visibility',
+              'Customize dashboard elements visibility'
+            )}
+          >
             <Box marginTop={2} marginBottom={2}>
               <Stack direction="column" alignItems="start" justifyContent="left" gap={2}>
                 <Checkbox
-                  label="Time and refresh"
+                  label={t('ablestack-wall.alert.time-and-refresh', 'Time and refresh')}
                   name="displayTimePicker"
                   value={displayTimePicker}
                   onChange={(e) => setDisplayTimePicker(e.currentTarget.checked)}
                 />
                 <Checkbox
-                  label="Variables"
+                  label={t('ablestack-wall.alert.variables', 'Variables')}
                   name="displayVariableControls"
                   value={displayVariables}
                   onChange={(e) => setDisplayVariables(e.currentTarget.checked)}
                 />
                 <Checkbox
-                  label="Dashboard links"
+                  label={t('ablestack-wall.alert.dashboard-links', 'Dashboard links')}
                   name="displayLinks"
                   value={displayLinks}
                   onChange={(e) => setDisplayLinks(e.currentTarget.checked)}
@@ -90,7 +100,7 @@ export const StartModal = ({ playlist, onDismiss }: Props) => {
       </FieldSet>
       <Modal.ButtonRow>
         <Button variant="primary" onClick={onStart}>
-          Start {playlist.name}
+          {t('ablestack-wall.alert.start', 'Start')} {playlist.name}
         </Button>
       </Modal.ButtonRow>
     </Modal>

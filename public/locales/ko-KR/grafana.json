@@ -289,7 +289,7 @@
   "annotations": {
     "empty-state": {
       "button-title": "주석 쿼리 추가",
-      "info-box-content": "<0>주석은 이벤트 데이터를 그래프에 통합하는 방법을 제공합니다. 모든 그래프 패널에 수직선과 아이콘으로 표시됩니다. 주석 아이콘 위에 마우스를 올리면 이벤트 텍스트와 태그를 볼 수 있습니다. CTRL 또는 CMD를 누른 상태로 그래프를 클릭(또는 영역을 드래그)하여 Grafana에서 직접 주석 이벤트를 추가할 수 있습니다. 이러한 이벤트는 Grafana의 주석 데이터베이스에 저장됩니다.</0>",
+      "info-box-content": "<0>주석은 이벤트 데이터를 그래프에 통합하는 방법을 제공합니다. 모든 그래프 패널에 수직선과 아이콘으로 표시됩니다. 주석 아이콘 위에 마우스를 올리면 이벤트 텍스트와 태그를 볼 수 있습니다. CTRL 또는 CMD를 누른 상태로 그래프를 클릭(또는 영역을 드래그)하여 Wall에서 직접 주석 이벤트를 추가할 수 있습니다. 이러한 이벤트는 Wall의 주석 데이터베이스에 저장됩니다.</0>",
       "info-box-content-2": "자세한 내용은 <2>주석 문서</2>를 참조하세요.",
       "title": "추가된 사용자 정의 주석 쿼리가 없습니다"
     }
@@ -1613,7 +1613,7 @@
       "title": "사용자 및 액세스"
     },
     "config-general": {
-      "subtitle": "그라파나 전역 기본 환경설정 및 설정 관리",
+      "subtitle": "Wall 전역 기본 환경설정 및 설정 관리",
       "title": "일반"
     },
     "config-plugins": {
@@ -2910,7 +2910,13 @@
       "username": "사용자 이름",
       "password": "비밀번호",
       "reset": "초기화",
-      "warning": "경고"
+      "warning": "경고",
+      "information": "정보",
+      "name": "이름",
+      "creation-date": "생성 날짜",
+      "expires": "만료됨",
+      "created": "생성됨",
+      "last-used-at": "마지막 사용 일시"
     },
     "login": {
       "reset-password": "비밀번호 초기화",
@@ -3025,7 +3031,15 @@
       "builder-mode-message": "빌더 모드는 코드에서 변경한 내용을 표시하지 않습니다. 쿼리 빌더는 빌더 모드에서 마지막으로 변경한 내용을 표시합니다.",
       "copy-code-to-clipboard": "코드를 클립보드에 복사하시겠습니까?",
       "discard-code-switch": "코드를 버리고 전환합니다.",
-      "copy-code-switch": "코드를 복사하고 전환합니다."
+      "copy-code-switch": "코드를 복사하고 전환합니다.",
+      "autofit": "자동 맞춤",
+      "panel-heights-will-be-adjusted-to-fit-screen-size": "패널 높이가 화면 크기에 맞게 조정됩니다.",
+      "display-dashboard-controls": "대시보드 컨트롤 표시",
+      "customize-dashboard-elements-visibility": "대시보드 요소 가시성 사용자 지정",
+      "time-and-refresh": "시간 및 새로 고침",
+      "variables": "변수",
+      "dashboard-links": "대시보드 링크",
+      "start": "시작"
     },
     "explore": {
       "explore-metrics-info": "쿼리를 작성하지 않고 Prometheus 호환 메트릭을 탐색하세요",
@@ -3239,7 +3253,7 @@
       "disable-resolved-message": "경고 상태가 해제될 때 전송되는 [OK] 해제 메시지를 비활성화합니다.",
       "test-contact-point": "콘택트 포인트 테스트",
       "notification-message": "알림 메시지",
-      "test-notification-message": "미리 정의된 경고를 사용하여 테스트 알림을 보냅니다. 사용자 정의 템플릿이나 메시지를 정의한 경우, 더 나은 결과를 위해 위에서 <strong>사용자 정의</strong> 알림 메시지로 전환하세요.",
+      "test-notification-message": "미리 정의된 경고를 사용하여 테스트 알림을 보냅니다. 사용자 정의 템플릿이나 메시지를 정의한 경우, 더 나은 결과를 위해 위에서 사용자 정의 알림 메시지로 전환하세요.",
       "send-test-notification": "테스트 알림 보내기",
       "add-more": "더 추가하기",
       "edit-notification-policy": "알림 정책 편집",
@@ -3281,7 +3295,10 @@
       "expired-silences": "만료된 사일런스",
       "edit-silence": "사일런스 편집",
       "recreate-existing-silence-description": "특정 알림 규칙에서 알림을 중지하기 위해 기존 사일런스를 재생성",
-      "instance-labels": "인스턴스 레이블"
+      "instance-labels": "인스턴스 레이블",
+      "predefined": "사전 정의됨",
+      "custom": "사용자 정의",
+      "no-rules-created": "아직 생성된 규칙이 없습니다"
     },
     "connections": {
       "add-datasource": "데이터 소스 추가",
@@ -3365,7 +3382,26 @@
         "delete-user-body": "이 사용자를 삭제하시겠습니까?",
         "disable-user-body": "이 사용자를 비활성화하시겠습니까?",
         "add-user-organization": "조직에 사용자 추가",
-        "force-logout-all-devices": "모든 디바이스에서 강제 로그아웃"
+        "force-logout-all-devices": "모든 디바이스에서 강제 로그아웃",
+        "user-information": "사용자 정보",
+        "manage-service-account-settings": "개별 서비스 계정의 설정 관리",
+        "delete-service-account": "서비스 계정 삭제",
+        "enable-service-account": "서비스 계정 활성화",
+        "disable-service-account": "서비스 계정 비활성화",
+        "confirm-delete-service-account": "이 서비스 계정을 삭제하시겠습니까?",
+        "add-permission": "권한 추가",
+        "add-service-account-token": "서비스 계정 토큰 추가",
+        "name-to-easily-identify-token": "토큰을 쉽게 식별할 이름",
+        "expiration": "만료",
+        "expiration-date": "만료 날짜",
+        "no-expiration": "만료 없음",
+        "set-expiration-date": "만료 날짜 설정",
+        "generate-token": "토큰 생성",
+        "service-account-token-created": "서비스 계정 토큰 생성됨",
+        "copy-token-warning": "지금 토큰을 복사하세요. 다시 볼 수 없습니다. 토큰을 분실하면 새로 생성해야 합니다.",
+        "copy-clipboard": "클립보드 복사",
+        "copy-to-clipboard-and-close": "클립보드에 복사 후 닫기",
+        "confirm-disable": "비활성화하시겠습니까?"
       },
       "manage-auth": "인증 설정을 관리하고 단일 로그인을 구성합니다.",
       "manage-auth-findout": "인증 설정을 관리하고 단일 로그인을 구성합니다. 자세한 내용은 다음 문서를 참조하세요."

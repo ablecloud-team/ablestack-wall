@@ -14,10 +14,14 @@ import {
   RadioButtonGroup,
   useStyles2,
 } from '@grafana/ui';
+import { t } from 'app/core/internationalization';
 
 const EXPIRATION_OPTIONS = [
-  { label: 'No expiration', value: false },
-  { label: 'Set expiration date', value: true },
+  { label: t('ablestack-wall.administration.service-and-access.no-expiration', 'No expiration'), value: false },
+  {
+    label: t('ablestack-wall.administration.service-and-access.set-expiration-date', 'Set expiration date'),
+    value: true,
+  },
 ];
 
 export type ServiceAccountToken = {
@@ -81,15 +85,23 @@ export const CreateTokenModal = ({ isOpen, token, serviceAccountLogin, onCreateT
     onClose();
   };
 
-  const modalTitle = !token ? 'Add service account token' : 'Service account token created';
+  const modalTitle = !token
+    ? t('ablestack-wall.administration.service-and-access.add-service-account-token', 'Add service account token')
+    : t(
+        'ablestack-wall.administration.service-and-access.service-account-token-created',
+        'Service account token created'
+      );
 
   return (
     <Modal isOpen={isOpen} title={modalTitle} onDismiss={onCloseInternal} className={styles.modal}>
       {!token ? (
         <div>
           <Field
-            label="Display name"
-            description="Name to easily identify the token"
+            label={t('ablestack-wall.common.display-name', 'Display name')}
+            description={t(
+              'ablestack-wall.administration.service-and-access.name-to-easily-identify-token',
+              'Name to easily identify the token'
+            )}
             // for now this is required
             // need to make this optional in backend as well
             required={true}
@@ -103,7 +115,7 @@ export const CreateTokenModal = ({ isOpen, token, serviceAccountLogin, onCreateT
               }}
             />
           </Field>
-          <Field label="Expiration">
+          <Field label={t('ablestack-wall.administration.service-and-access.expiration', 'Expiration')}>
             <RadioButtonGroup
               options={EXPIRATION_OPTIONS}
               value={isWithExpirationDate}
@@ -112,7 +124,7 @@ export const CreateTokenModal = ({ isOpen, token, serviceAccountLogin, onCreateT
             />
           </Field>
           {isWithExpirationDate && (
-            <Field label="Expiration date">
+            <Field label={t('ablestack-wall.administration.service-and-access.expiration-date', 'Expiration date')}>
               <DatePickerWithInput
                 onChange={onExpirationDateChange}
                 value={newTokenExpirationDate}
@@ -124,15 +136,18 @@ export const CreateTokenModal = ({ isOpen, token, serviceAccountLogin, onCreateT
           )}
           <Modal.ButtonRow>
             <Button onClick={onGenerateToken} disabled={isWithExpirationDate && !isExpirationDateValid}>
-              Generate token
+              {t('ablestack-wall.administration.service-and-access.generate-token', 'Generate token')}
             </Button>
           </Modal.ButtonRow>
         </div>
       ) : (
         <>
           <Field
-            label="Token"
-            description="Copy the token now as you will not be able to see it again. Losing a token requires creating a new one."
+            label={t('ablestack-wall.common.tokens', 'Tokens')}
+            description={t(
+              'ablestack-wall.administration.service-and-access.copy-token-warning',
+              'Copy the token now as you will not be able to see it again. Losing a token requires creating a new one.'
+            )}
           >
             <div className={styles.modalTokenRow}>
               <Input name="tokenValue" value={token} readOnly />
@@ -143,16 +158,19 @@ export const CreateTokenModal = ({ isOpen, token, serviceAccountLogin, onCreateT
                 icon="copy"
                 getText={() => token}
               >
-                Copy clipboard
+                {t('ablestack-wall.administration.service-and-access.copy-clipboard', 'Copy clipboard')}
               </ClipboardButton>
             </div>
           </Field>
           <Modal.ButtonRow>
             <ClipboardButton variant="primary" getText={() => token} onClipboardCopy={onCloseInternal}>
-              Copy to clipboard and close
+              {t(
+                'ablestack-wall.administration.service-and-access.copy-to-clipboard-and-close',
+                'Copy to clipboard and close'
+              )}
             </ClipboardButton>
             <Button variant="secondary" onClick={onCloseInternal}>
-              Close
+              {t('ablestack-wall.common.close', 'Close')}
             </Button>
           </Modal.ButtonRow>
         </>

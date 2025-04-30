@@ -9,7 +9,7 @@ interface Props {
   onEditConfiguration: (dataSourceName: string) => void;
 }
 
-const BUILTIN_ALERTMANAGER_NAME = 'Grafana built-in';
+const BUILTIN_ALERTMANAGER_NAME = 'Wall built-in';
 
 export default function InternalAlertmanager({ onEditConfiguration }: Props) {
   const { configuration, enableAlertmanager, disableAlertmanager, forwardingDisabled } = useSettings();

@@ -1,5 +1,5 @@
 import { EmptyState, LinkButton, Stack, TextLink } from '@grafana/ui';
-import { Trans } from 'app/core/internationalization';
+import { t, Trans } from 'app/core/internationalization';
 
 import { useRulesAccess } from '../../utils/accessControlHooks';
 
@@ -10,7 +10,7 @@ export const NoRulesSplash = () => {
   return (
     <div>
       <EmptyState
-        message="You haven't created any rules yet"
+        message={t('ablestack-wall.alert.no-rules-created', "You haven't created any rules yet")}
         variant="call-to-action"
         button={
           canCreateAnything ? (

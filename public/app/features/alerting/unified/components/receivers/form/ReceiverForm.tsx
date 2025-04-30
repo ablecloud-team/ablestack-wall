@@ -222,7 +222,7 @@ export function ReceiverForm<R extends ChannelValues>({
               <>
                 {isSubmitting && (
                   <Button disabled={true} icon="spinner" variant="primary">
-                    Saving...
+                    {t('ablestack-wall.common.saving', 'Saving...')}
                   </Button>
                 )}
                 {!isSubmitting && (

@@ -3,6 +3,7 @@ import { css } from '@emotion/css';
 import { dateTimeFormat, GrafanaTheme2, TimeZone } from '@grafana/data';
 import { Button, DeleteButton, Icon, Stack, Tooltip, useTheme2 } from '@grafana/ui';
 import { contextSrv } from 'app/core/core';
+import { t } from 'app/core/internationalization';
 import { AccessControlAction } from 'app/types';
 
 import { ApiKey } from '../../types';
@@ -22,10 +23,10 @@ export const ApiKeysTable = ({ apiKeys, timeZone, onDelete, onMigrate }: Props) 
     <table className="filter-table">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Role</th>
-          <th>Expires</th>
-          <th>Last used at</th>
+          <th>{t('ablestack-wall.common.name', 'Name')}</th>
+          <th>{t('ablestack-wall.common.role', 'Role')}</th>
+          <th>{t('ablestack-wall.common.expires', 'Expires')}</th>
+          <th>{t('ablestack-wall.common.last-used-at', 'Last used at')}</th>
           <th style={{ width: '34px' }} />
         </tr>
       </thead>
