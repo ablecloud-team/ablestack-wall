@@ -1,18 +1,18 @@
 {{- define "__default_message" -}}
-You have {{ len .Alerts.Firing }} firing alert(s), and {{ len .Alerts.Resolved }} resolved alert(s) for {{ .GroupLabels }}
+총 {{ len .Alerts.Firing }}건의 경고 발생, {{ len .Alerts.Resolved }}건의 경고 해제됨 (분류: {{ .GroupLabels }})
 
 {{ if .Alerts.Firing -}}
-({{ len .Alerts.Firing }}) FIRING
------------
+({{ len .Alerts.Firing }}) 경고 발생
+-------------------------
 {{ template "__default_alerts_summarize" .Alerts.Firing }}
 {{- end }}
 
 {{- if .Alerts.Resolved }}
-({{ len .Alerts.Resolved }}) RESOLVED
--------------
+({{ len .Alerts.Resolved }}) 경고 해제됨
+-------------------------
 {{ template "__default_alerts_summarize" .Alerts.Resolved }}
 {{- end }}
-Go to the Alerts page: {{ .AlertPageUrl }}
+알림 페이지로 이동: {{ .AlertPageUrl }}
 {{- end -}}
 
 {{- define "__default_alerts_summarize" -}}
@@ -25,28 +25,28 @@ Go to the Alerts page: {{ .AlertPageUrl }}
 {{- define "__default_alert_labels" -}}
 {{- $labels := .Labels -}}
 {{- if index $labels "alertname" }}
-Alertname: {{ index .Labels "alertname" -}}
+경고 이름: {{ index .Labels "alertname" -}}
 {{ $labels = $labels.Remove (toStrings (list "alertname")) }}
 {{- end }}
-Labels: {{ template "__default_sorted_pairs" $labels }}
+레이블 정보: {{ template "__default_sorted_pairs" $labels }}
 {{- end -}}
 
 {{- define "__default_alert_annotations" -}}
 {{- $annotations := .Annotations -}}
 {{- if index $annotations "summary" }}
-Summary: {{ index .Annotations "summary" -}}
+요약: {{ index $annotations "summary" -}}
 {{- $annotations = $annotations.Remove (toStrings (list "summary")) }}
 {{- end -}}
 {{- if index $annotations "description" }}
-Description: {{ index $annotations "description" -}}
+설명: {{ index $annotations "description" -}}
 {{- $annotations = $annotations.Remove (toStrings (list "description")) }}
 {{- end -}}
 {{- if index $annotations "runbook_url" }}
-Runbook: {{ index $annotations "runbook_url" -}}
+런북 보기: {{ index $annotations "runbook_url" -}}
 {{- $annotations = $annotations.Remove (toStrings (list "runbook_url")) }}
 {{- end -}}
 {{- if $annotations }}
-Annotations: {{ template "__default_sorted_pairs" $annotations }}
+주석 정보: {{ template "__default_sorted_pairs" $annotations }}
 {{- end -}}
 {{- end -}}
 
@@ -63,4 +63,4 @@ Annotations: {{ template "__default_sorted_pairs" $annotations }}
 {{- end }}
 
 
-Sent by Grafana v{{.BuildVersion}} (c) {{now | date "2006"}} Grafana Labs
+ABLESTACK Wall 에서 전송됨 (c) {{now | date "2006"}}

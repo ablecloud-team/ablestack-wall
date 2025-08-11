@@ -125,7 +125,7 @@
     <mj-raw>
       {{ if $numberOfFiringInstance }}
     </mj-raw>
-    <strong>{{ $numberOfFiringInstance }} firing</strong> alert {{ $numberOfFiringInstance| plural "instance" "instances" }}
+    <strong>{{ $numberOfFiringInstance }} 경고 알림</strong> alert {{ $numberOfFiringInstance| plural "instance" "instances" }}
     <mj-raw>
       {{ end }}
     </mj-raw>
@@ -159,7 +159,7 @@
                           <tbody>
                             <tr>
                               <td style="width:200px;">
-                                <img height="auto" src="https://grafana.com/static/assets/img/logo_new_transparent_light_400x100.png" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="200">
+                                <img height="auto" src="https://raw.githubusercontent.com/ablecloud-team/ablestack-cloud/refs/heads/ablestack-diplo/ui/public/assets/white-logo-ablestack.png" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="200">
                               </td>
                             </tr>
                           </tbody>
@@ -189,7 +189,7 @@
                     <tr>
                       <td align="left" class="txt" style="font-size:0px;padding:0;word-break:break-word;">
                         <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;">
-                          <h2>📁 {{ .GroupLabels.grafana_folder }} &rsaquo; Wall</h2>
+                          <h2>📁 {{ .GroupLabels.grafana_folder }} &rsaquo; {{ .GroupLabels.alertname }} </h2>
                         </div>
                       </td>
                     </tr>
@@ -197,12 +197,13 @@
                     <tr>
                       <td align="left" class="txt" style="font-size:0px;padding:0;word-break:break-word;">
                         <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;">
-                          <h2> 📁 Grouped by&nbsp; </h2>
+                          <h2>📁 그룹 기준</h2>
                           <mj-raw>
                             {{ range .GroupLabels.SortedPairs }}
-                          </mj-raw>
-                          {{ .Name }}=Wall
-                          <mj-raw>
+                            {{- if eq .Name "alertname" -}}• 경고 이름: {{ .Value }}<br>
+                            {{- else if eq .Name "instance" -}}• 인스턴스: {{ .Value }}<br>
+                            {{- else -}}• {{ .Name }}: {{ .Value }}<br>
+                            {{- end }}
                             {{ end }}
                           </mj-raw>
                         </div>
@@ -279,7 +280,7 @@
                     <tr>
                       <td align="left" class="txt" style="font-size:0px;padding:0;word-break:break-word;">
                         <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;">
-                          <h3>🔥 {{ .Alerts.Firing | len }} firing instances</h3>
+                          <h3>🔥 {{ .Alerts.Firing | len }} 건의 경고 발생</h3>
                         </div>
                       </td>
                     </tr>
@@ -332,7 +333,7 @@
                             <tbody>
                               <tr>
                                 <td align="center" class="txt" style="font-size:0px;padding:0;word-break:break-word;">
-                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: center; color: #000000;"><strong>{{ .Labels.alertname }}</strong></div>
+                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: center; color: #000000;"><strong>경고 이름: {{ .Labels.alertname }}</strong></div>
                                 </td>
                               </tr>
                             </tbody>
@@ -350,7 +351,7 @@
                                     <tbody>
                                       <tr>
                                         <td align="center" bgcolor="#3D71D9" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:5px 12px;background:#3D71D9;" valign="middle">
-                                          <a href="{{ .GeneratorURL }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> View alert </a>
+                                          <a href="{{ .GeneratorURL }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> 경고 보기 </a>
                                         </td>
                                       </tr>
                                     </tbody>
@@ -453,7 +454,7 @@
                               {{ if .Annotations.summary }}
                               <tr>
                                 <td align="left" class="txt" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;"><strong>Summary</strong></div>
+                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;"><strong>요약</strong></div>
                                 </td>
                               </tr>
                               <tr>
@@ -528,10 +529,20 @@
                                     <tbody>
                                       <tr>
                                         <td align="left" class="txt" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                          <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;">
+                                          <table style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; color: #000000;">
                                             <mj-raw>{{ range $refID, $value := .Values }}</mj-raw>
-                                            {{ $refID }}={{ $value }}&nbsp; <mj-raw>{{ end }}</mj-raw>
-                                          </div>
+                                            <tr>
+                                              <td style="padding: 4px 8px;"><strong>{{ $refID }}</strong></td>
+                                              <td style="padding: 4px 8px;">
+                                                {{- if (or (eq (printf "%T" $value) "float64") (eq (printf "%T" $value) "float32")) -}}
+                                                {{ printf "%.2f" $value }}
+                                                {{- else -}}
+                                                {{ $value }}
+                                                {{- end -}}
+                                              </td>
+                                            </tr>
+                                            <mj-raw>{{ end }}</mj-raw>
+                                          </table>
                                         </td>
                                       </tr>
                                     </tbody>
@@ -562,7 +573,7 @@
                               {{ if .Labels.SortedPairs }}
                               <tr>
                                 <td align="left" class="txt" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;"><strong>Labels</strong></div>
+                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;"><strong>레이블</strong></div>
                                 </td>
                               </tr>
                               <tr>
@@ -571,9 +582,21 @@
                                     <mj-raw>{{ range .Labels.SortedPairs }}</mj-raw>
                                     <tr>
                                       <td>
-                                        <strong>{{ .Name }}</strong>
+                                        <strong>
+                                          {{- if eq .Name "alertname" -}}경고 이름:
+                                          {{- else if eq .Name "grafana_folder" -}}경고 분류:
+                                          {{- else if eq .Name "instance" -}}인스턴스 주소:
+                                          {{- else if eq .Name "job" -}}작업 대상:
+                                          {{- else if eq .Name "kind" -}}대상 종류:
+                                          {{- else if eq .Name "nodename" -}}노드 이름:
+                                          {{- else if eq .Name "datasource_uid" -}}데이터 소스 UID:
+                                          {{- else if eq .Name "ref_id" -}}쿼리 ID:
+                                          {{- else if eq .Name "rulename" -}}규칙 이름:
+                                          {{- else -}}{{ .Name }}:
+                                          {{- end -}}
+                                        </strong>
                                       </td>
-                                      <td>Wall</td>
+                                      <td>{{ .Value }}</td>
                                     </tr>
                                     <mj-raw>{{ end }}</mj-raw>
                                   </table>
@@ -582,7 +605,7 @@
                               {{ end }}{{ if (without .Annotations.SortedPairs.Names "description" "summary") }}
                               <tr>
                                 <td align="left" class="txt" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;"><strong>Annotations</strong></div>
+                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;"><strong>주석</strong></div>
                                 </td>
                               </tr>
                               <tr>
@@ -592,9 +615,21 @@
                                     <mj-raw>{{ if and (ne .Name "description") (ne .Name "summary") }}</mj-raw>
                                     <tr>
                                       <td>
-                                        <strong>{{ .Name }}</strong>
+                                        <strong>
+                                          {{- if eq .Name "alertname" -}}경고 이름:
+                                          {{- else if eq .Name "grafana_folder" -}}경고 분류:
+                                          {{- else if eq .Name "instance" -}}인스턴스 주소:
+                                          {{- else if eq .Name "job" -}}작업 대상:
+                                          {{- else if eq .Name "kind" -}}대상 종류:
+                                          {{- else if eq .Name "nodename" -}}노드 이름:
+                                          {{- else if eq .Name "datasource_uid" -}}데이터 소스 UID:
+                                          {{- else if eq .Name "ref_id" -}}쿼리 ID:
+                                          {{- else if eq .Name "rulename" -}}규칙 이름:
+                                          {{- else -}}{{ .Name }}:
+                                          {{- end -}}
+                                        </strong>
                                       </td>
-                                      <td>Wall</td>
+                                      <td>{{ .Value }}</td>
                                     </tr>
                                     <mj-raw>{{ end }}</mj-raw>
                                     <mj-raw>{{ end }}</mj-raw>
@@ -629,7 +664,7 @@
                                     <tbody>
                                       <tr>
                                         <td align="center" bgcolor="#3D71D9" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:5px 12px;background:#3D71D9;" valign="middle">
-                                          <a href="{{ .SilenceURL }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> Silence </a>
+                                          <a href="{{ .SilenceURL }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> 사일런스 </a>
                                         </td>
                                       </tr>
                                     </tbody>
@@ -651,7 +686,7 @@
                                     <tbody>
                                       <tr>
                                         <td align="center" bgcolor="#3D71D9" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:5px 12px;background:#3D71D9;" valign="middle">
-                                          <a href="{{ .Annotations.runbook_url }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> View runbook </a>
+                                          <a href="{{ .Annotations.runbook_url }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> Runbook 보기 </a>
                                         </td>
                                       </tr>
                                     </tbody>
@@ -673,7 +708,7 @@
                                     <tbody>
                                       <tr>
                                         <td align="center" bgcolor="#3D71D9" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:5px 12px;background:#3D71D9;" valign="middle">
-                                          <a href="{{ .DashboardURL }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> View dashboard </a>
+                                          <a href="{{ .DashboardURL }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> 대시보드 보기 </a>
                                         </td>
                                       </tr>
                                     </tbody>
@@ -695,7 +730,7 @@
                                     <tbody>
                                       <tr>
                                         <td align="center" bgcolor="#3D71D9" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:5px 12px;background:#3D71D9;" valign="middle">
-                                          <a href="{{ .PanelURL }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> View panel </a>
+                                          <a href="{{ .PanelURL }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> 패널 보기 </a>
                                         </td>
                                       </tr>
                                     </tbody>
@@ -725,7 +760,9 @@
                             <tbody>
                               <tr>
                                 <td align="left" class="txt" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #91929e;">Observed <strong>{{ ago .StartsAt }}</strong> before this notification was delivered, at <strong>{{ .StartsAt }}</strong></div>
+                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #91929e;">
+                                    이 알림은 <strong>{{ ago .StartsAt }}</strong> 전에 감지되었으며, 감지 시각은 <strong>{{ .StartsAt.Format "2006-01-02 15:04:05.000 -0700 MST" }}</strong>입니다.
+                                  </div>
                                 </td>
                               </tr>
                             </tbody>
@@ -770,7 +807,7 @@
                     <tr>
                       <td align="left" class="txt" style="font-size:0px;padding:0;word-break:break-word;">
                         <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;">
-                          <h3>✅ {{ .Alerts.Resolved | len }} resolved instances</h3>
+                          <h3>✅ {{ .Alerts.Resolved | len }} 건의 해결된 인스턴스</h3>
                         </div>
                       </td>
                     </tr>
@@ -823,7 +860,7 @@
                             <tbody>
                               <tr>
                                 <td align="center" class="txt" style="font-size:0px;padding:0;word-break:break-word;">
-                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: center; color: #000000;"><strong>{{ .Labels.alertname }}</strong></div>
+                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: center; color: #000000;"><strong>경고 이름: {{ .Labels.alertname }}</strong></div>
                                 </td>
                               </tr>
                             </tbody>
@@ -841,7 +878,7 @@
                                     <tbody>
                                       <tr>
                                         <td align="center" bgcolor="#3D71D9" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:5px 12px;background:#3D71D9;" valign="middle">
-                                          <a href="{{ .GeneratorURL }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> View alert </a>
+                                          <a href="{{ .GeneratorURL }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> 경고 보기 </a>
                                         </td>
                                       </tr>
                                     </tbody>
@@ -944,7 +981,7 @@
                               {{ if .Annotations.summary }}
                               <tr>
                                 <td align="left" class="txt" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;"><strong>Summary</strong></div>
+                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;"><strong>요약</strong></div>
                                 </td>
                               </tr>
                               <tr>
@@ -1019,10 +1056,20 @@
                                     <tbody>
                                       <tr>
                                         <td align="left" class="txt" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                          <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;">
+                                          <table style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; color: #000000;">
                                             <mj-raw>{{ range $refID, $value := .Values }}</mj-raw>
-                                            {{ $refID }}={{ $value }}&nbsp; <mj-raw>{{ end }}</mj-raw>
-                                          </div>
+                                            <tr>
+                                              <td style="padding: 4px 8px;"><strong>{{ $refID }}</strong></td>
+                                              <td style="padding: 4px 8px;">
+                                                {{- if (or (eq (printf "%T" $value) "float64") (eq (printf "%T" $value) "float32")) -}}
+                                                {{ printf "%.2f" $value }}
+                                                {{- else -}}
+                                                {{ $value }}
+                                                {{- end -}}
+                                              </td>
+                                            </tr>
+                                            <mj-raw>{{ end }}</mj-raw>
+                                          </table>
                                         </td>
                                       </tr>
                                     </tbody>
@@ -1053,7 +1100,7 @@
                               {{ if .Labels.SortedPairs }}
                               <tr>
                                 <td align="left" class="txt" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;"><strong>Labels</strong></div>
+                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;"><strong>레이블</strong></div>
                                 </td>
                               </tr>
                               <tr>
@@ -1062,9 +1109,21 @@
                                     <mj-raw>{{ range .Labels.SortedPairs }}</mj-raw>
                                     <tr>
                                       <td>
-                                        <strong>{{ .Name }}</strong>
+                                        <strong>
+                                          {{- if eq .Name "alertname" -}}경고 이름:
+                                          {{- else if eq .Name "grafana_folder" -}}경고 분류:
+                                          {{- else if eq .Name "instance" -}}인스턴스 주소:
+                                          {{- else if eq .Name "job" -}}작업 대상:
+                                          {{- else if eq .Name "kind" -}}대상 종류:
+                                          {{- else if eq .Name "nodename" -}}노드 이름:
+                                          {{- else if eq .Name "datasource_uid" -}}데이터 소스 UID:
+                                          {{- else if eq .Name "ref_id" -}}쿼리 ID:
+                                          {{- else if eq .Name "rulename" -}}규칙 이름:
+                                          {{- else -}}{{ .Name }}:
+                                          {{- end -}}
+                                        </strong>
                                       </td>
-                                      <td>Wall</td>
+                                      <td>{{ .Value }}</td>
                                     </tr>
                                     <mj-raw>{{ end }}</mj-raw>
                                   </table>
@@ -1073,7 +1132,7 @@
                               {{ end }}{{ if (without .Annotations.SortedPairs.Names "description" "summary") }}
                               <tr>
                                 <td align="left" class="txt" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;"><strong>Annotations</strong></div>
+                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #000000;"><strong>주석</strong></div>
                                 </td>
                               </tr>
                               <tr>
@@ -1083,9 +1142,21 @@
                                     <mj-raw>{{ if and (ne .Name "description") (ne .Name "summary") }}</mj-raw>
                                     <tr>
                                       <td>
-                                        <strong>{{ .Name }}</strong>
+                                        <strong>
+                                          {{- if eq .Name "alertname" -}}경고 이름:
+                                          {{- else if eq .Name "grafana_folder" -}}경고 분류:
+                                          {{- else if eq .Name "instance" -}}인스턴스 주소:
+                                          {{- else if eq .Name "job" -}}작업 대상:
+                                          {{- else if eq .Name "kind" -}}대상 종류:
+                                          {{- else if eq .Name "nodename" -}}노드 이름:
+                                          {{- else if eq .Name "datasource_uid" -}}데이터 소스 UID:
+                                          {{- else if eq .Name "ref_id" -}}쿼리 ID:
+                                          {{- else if eq .Name "rulename" -}}규칙 이름:
+                                          {{- else -}}{{ .Name }}:
+                                          {{- end -}}
+                                        </strong>
                                       </td>
-                                      <td>Wall</td>
+                                      <td>{{ .Value }}</td>
                                     </tr>
                                     <mj-raw>{{ end }}</mj-raw>
                                     <mj-raw>{{ end }}</mj-raw>
@@ -1120,7 +1191,7 @@
                                     <tbody>
                                       <tr>
                                         <td align="center" bgcolor="#3D71D9" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:5px 12px;background:#3D71D9;" valign="middle">
-                                          <a href="{{ .SilenceURL }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> Silence </a>
+                                          <a href="{{ .SilenceURL }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> 사일런스 </a>
                                         </td>
                                       </tr>
                                     </tbody>
@@ -1142,7 +1213,7 @@
                                     <tbody>
                                       <tr>
                                         <td align="center" bgcolor="#3D71D9" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:5px 12px;background:#3D71D9;" valign="middle">
-                                          <a href="{{ .Annotations.runbook_url }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> View runbook </a>
+                                          <a href="{{ .Annotations.runbook_url }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> Runbook 보기 </a>
                                         </td>
                                       </tr>
                                     </tbody>
@@ -1164,7 +1235,7 @@
                                     <tbody>
                                       <tr>
                                         <td align="center" bgcolor="#3D71D9" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:5px 12px;background:#3D71D9;" valign="middle">
-                                          <a href="{{ .DashboardURL }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> View dashboard </a>
+                                          <a href="{{ .DashboardURL }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> 대시보드 보기 </a>
                                         </td>
                                       </tr>
                                     </tbody>
@@ -1186,7 +1257,7 @@
                                     <tbody>
                                       <tr>
                                         <td align="center" bgcolor="#3D71D9" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:5px 12px;background:#3D71D9;" valign="middle">
-                                          <a href="{{ .PanelURL }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> View panel </a>
+                                          <a href="{{ .PanelURL }}" rel="noopener" style="display: inline-block; background: #3D71D9; color: #ffffff; font-family: Inter, Helvetica, Arial; font-size: 13px; font-weight: normal; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 5px 12px; mso-padding-alt: 0px; border-radius: 3px;" target="_blank"> 패널 보기 </a>
                                         </td>
                                       </tr>
                                     </tbody>
@@ -1216,7 +1287,9 @@
                             <tbody>
                               <tr>
                                 <td align="left" class="txt" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #91929e;">Observed <strong>{{ ago .StartsAt }}</strong> before this notification was delivered, at <strong>{{ .StartsAt }}</strong></div>
+                                  <div style="font-family: Inter, Helvetica, Arial; font-size: 13px; line-height: 150%; text-align: left; color: #91929e;">
+                                    이 알림은 <strong>{{ ago .StartsAt }}</strong> 전에 감지되었으며, 감지 시각은 <strong>{{ .StartsAt.Format "2006-01-02 15:04:05.000 -0700 MST" }}</strong>입니다.
+                                  </div>
                                 </td>
                               </tr>
                             </tbody>
