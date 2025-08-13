@@ -3,7 +3,9 @@ package authnimpl
 import (
 	"context"
 	"errors"
+	"fmt"
 	"net/http"
+	"net/url"
 	"strconv"
 	"strings"
 
@@ -241,13 +243,19 @@ func (s *Service) Login(ctx context.Context, client string, r *authn.Request) (i
 		s.log.FromContext(ctx).Debug("Failed to parse ip from address", "client", c.Name(), "id", id.ID, "addr", addr, "error", err)
 	}
 
+	var sessionToken *auth.UserToken
+	var sessionTokenErr error
 	externalSession := s.resolveExternalSessionFromIdentity(ctx, id, userID)
+	if externalSession != nil && externalSession.IDToken != "" {
+		sessionToken, sessionTokenErr = s.sessionService.CreateToken(ctx, &auth.CreateTokenCommand{User: &user.User{ID: userID}, ClientIP: ip, UserAgent: r.HTTPRequest.UserAgent(), ExternalSession: externalSession, IdToken: externalSession.IDToken})
+	} else {
+		sessionToken, sessionTokenErr = s.sessionService.CreateToken(ctx, &auth.CreateTokenCommand{User: &user.User{ID: userID}, ClientIP: ip, UserAgent: r.HTTPRequest.UserAgent(), ExternalSession: externalSession})
+	}
 
-	sessionToken, err := s.sessionService.CreateToken(ctx, &auth.CreateTokenCommand{User: &user.User{ID: userID}, ClientIP: ip, UserAgent: r.HTTPRequest.UserAgent(), ExternalSession: externalSession})
-	if err != nil {
+	if sessionTokenErr != nil {
 		s.metrics.failedLogin.WithLabelValues(client).Inc()
-		s.log.FromContext(ctx).Error("Failed to create session", "client", client, "id", id.ID, "err", err)
-		return nil, err
+		s.log.FromContext(ctx).Error("Failed to create session", "client", client, "id", id.ID, "err", sessionTokenErr)
+		return nil, sessionTokenErr
 	}
 
 	s.metrics.successfulLogin.WithLabelValues(client).Inc()
@@ -325,6 +333,19 @@ func (s *Service) Logout(ctx context.Context, user identity.Requester, sessionTo
 		clientRedirect, ok := logoutClient.Logout(ctx, user)
 		if !ok {
 			goto Default
+		}
+
+		if s.cfg.SignoutRedirectUrl != "" {
+			rawRedirect := s.cfg.AppURL + "login?disableAutoLogin=true"
+			idToken := sessionToken.IdToken
+
+			logoutURL := fmt.Sprintf(
+				"%s?post_logout_redirect_uri=%s&id_token_hint=%s",
+				s.cfg.SignoutUrl,
+				url.QueryEscape(rawRedirect),
+				idToken,
+			)
+			clientRedirect.URL = logoutURL
 		}
 
 		redirect = clientRedirect
