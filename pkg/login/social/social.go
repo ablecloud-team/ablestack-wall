@@ -77,6 +77,7 @@ type OAuthInfo struct {
 	OrgMapping              []string          `mapstructure:"org_mapping"`
 	Scopes                  []string          `mapstructure:"scopes" toml:"scopes"`
 	SignoutRedirectUrl      string            `mapstructure:"signout_redirect_url" toml:"signout_redirect_url"`
+	SignoutUrl              string            `mapstructure:"signout_url" toml:"signout_url"`
 	SkipOrgRoleSync         bool              `mapstructure:"skip_org_role_sync" toml:"skip_org_role_sync"`
 	TeamIdsAttributePath    string            `mapstructure:"team_ids_attribute_path" toml:"team_ids_attribute_path"`
 	TeamsUrl                string            `mapstructure:"teams_url" toml:"teams_url"`

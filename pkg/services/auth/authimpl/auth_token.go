@@ -94,6 +94,7 @@ func (s *UserAuthTokenService) CreateToken(ctx context.Context, cmd *auth.Create
 		SeenAt:        0,
 		RevokedAt:     0,
 		AuthTokenSeen: false,
+		// IdToken:       cmd.IdToken,
 	}
 
 	err = s.sqlStore.InTransaction(ctx, func(ctx context.Context) error {
@@ -122,6 +123,10 @@ func (s *UserAuthTokenService) CreateToken(ctx context.Context, cmd *auth.Create
 
 	var userToken auth.UserToken
 	err = userAuthToken.toUserToken(&userToken)
+
+	if cmd.IdToken != "" {
+		userToken.IdToken = cmd.IdToken
+	}
 
 	return &userToken, err
 }

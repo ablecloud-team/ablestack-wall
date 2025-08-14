@@ -242,6 +242,7 @@ type Cfg struct {
 	AdminEmail                    string
 	DisableLoginForm              bool
 	SignoutRedirectUrl            string
+	SignoutUrl                    string
 	IDResponseHeaderEnabled       bool
 	IDResponseHeaderPrefix        string
 	IDResponseHeaderNamespaces    map[string]struct{}
@@ -1629,6 +1630,7 @@ func readAuthSettings(iniFile *ini.File, cfg *Cfg) (err error) {
 	cfg.OAuthCookieMaxAge = auth.Key("oauth_state_cookie_max_age").MustInt(600)
 	cfg.OAuthRefreshTokenServerLockMinWaitMs = auth.Key("oauth_refresh_token_server_lock_min_wait_ms").MustInt64(1000)
 	cfg.SignoutRedirectUrl = valueAsString(auth, "signout_redirect_url", "")
+	cfg.SignoutUrl = valueAsString(auth, "signout_url", "")
 
 	// Deprecated
 	cfg.OAuthSkipOrgRoleUpdateSync = false
