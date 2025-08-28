@@ -21,7 +21,7 @@ type userAuthToken struct {
 	RevokedAt         int64
 	UnhashedToken     string `xorm:"-"`
 	ExternalSessionId int64
-	IdToken           string `xorm:"-"`
+	IdToken           string
 }
 
 func userAuthTokenFromUserToken(ut *auth.UserToken) (*userAuthToken, error) {
