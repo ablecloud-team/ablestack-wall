@@ -49,6 +49,14 @@ type User struct {
 	LastSeenAt time.Time
 }
 
+type UserAuth struct {
+	ID         int64     `xorm:"pk autoincr 'id'" json:"id"`
+	UserID     int64     `xorm:"user_id" json:"user_id"`
+	AuthModule string    `xorm:"auth_module" json:"auth_module"`
+	AuthID     string    `xorm:"auth_id" json:"auth_id"`
+	Created    time.Time `xorm:"created" json:"created"`
+}
+
 type CreateUserCommand struct {
 	UID              string
 	Email            string
@@ -91,6 +99,13 @@ type UpdateUserCommand struct {
 	// If OrgID is included update current org for user
 	OrgID      *int64      `json:"-"`
 	HelpFlags1 *HelpFlags1 `json:"-"`
+}
+
+type UpdateAuthModuleCommand struct {
+	UserID     int64     `json:"user_id"`
+	AuthModule string    `json:"auth_module"`
+	AuthID     string    `json:"auth_id"`
+	Created    time.Time `xorm:"created" json:"created"`
 }
 
 type UpdateUserLastSeenAtCommand struct {

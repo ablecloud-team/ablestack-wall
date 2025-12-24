@@ -424,6 +424,52 @@ func (hs *HTTPServer) AdminRevokeUserAuthToken(c *contextmodel.ReqContext) respo
 	return hs.revokeUserAuthTokenInternal(c, userID, cmd)
 }
 
+// swagger:route PUT /admin/users/{user_id}/permissions admin_users AdminAddUserOAuth
+//
+// # User OAuth mapping added
+//
+// Only works with Basic Authentication (username and password). See introduction for an explanation.
+// If you are running Grafana Enterprise and have Fine-grained access control enabled, you need to have a permission with action `users.permissions:update` and scope `global.users:*`.
+//
+// Responses:
+// 200: okResponse
+// 400: badRequestError
+// 401: unauthorisedError
+// 403: forbiddenError
+// 500: internalServerError
+func (hs *HTTPServer) AdminAddUserOAuth(c *contextmodel.ReqContext) response.Response {
+	form := dtos.AdminAddUserOAuthForm{}
+	if err := web.Bind(c.Req, &form); err != nil {
+		return response.Error(http.StatusBadRequest, "bad request data", err)
+	}
+	userID, err := strconv.ParseInt(web.Params(c.Req)[":id"], 10, 64)
+	if err != nil {
+		return response.Error(http.StatusBadRequest, "id is invalid", err)
+	}
+
+	if authInfo, err := hs.authInfoService.GetAuthInfo(c.Req.Context(), &login.GetAuthInfoQuery{UserId: userID}); err == nil && authInfo != nil {
+		oauthInfo := hs.SocialService.GetOAuthInfoProvider(authInfo.AuthModule)
+		if login.IsGrafanaAdminExternallySynced(hs.Cfg, oauthInfo, authInfo.AuthModule) {
+			return response.Error(http.StatusForbidden, "Cannot change Grafana Admin role for externally synced user", nil)
+		}
+	}
+
+	err = hs.userService.UpdateAuthModule(c.Req.Context(), &user.UpdateAuthModuleCommand{
+		UserID:     userID,
+		AuthModule: form.AuthModule,
+		AuthID:     form.AuthID,
+	})
+	if err != nil {
+		if errors.Is(err, user.ErrLastGrafanaAdmin) {
+			return response.Error(http.StatusBadRequest, user.ErrLastGrafanaAdmin.Error(), nil)
+		}
+
+		return response.Error(http.StatusInternalServerError, "Failed to create user OAuth mapping", err)
+	}
+
+	return response.Success("User OAuth mapping added")
+}
+
 // swagger:parameters adminUpdateUserPassword
 type AdminUpdateUserPasswordParams struct {
 	// in:body
