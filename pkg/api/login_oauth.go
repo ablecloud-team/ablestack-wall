@@ -2,7 +2,6 @@ package api
 
 import (
 	// "github.com/grafana/grafana/pkg/apimachinery/errutil"
-	"strings"
 
 	"github.com/grafana/grafana/pkg/infra/metrics"
 	"github.com/grafana/grafana/pkg/middleware/cookies"
@@ -49,14 +48,14 @@ func (hs *HTTPServer) OAuthLogin(reqCtx *contextmodel.ReqContext) {
 			cookies.WriteCookie(reqCtx.Resp, OauthPKCECookieName, pkce, hs.Cfg.OAuthCookieMaxAge, hs.CookieOptionsFromCfg)
 		}
 
-		autoLogin := reqCtx.Query("autologin")
-		if autoLogin == "true" {
-			if strings.Contains(redirect.URL, "?") {
-				redirect.URL += "&prompt=none"
-			} else {
-				redirect.URL += "?prompt=none"
-			}
-		}
+		// autoLogin := reqCtx.Query("autologin")
+		// if autoLogin == "true" {
+		// 	if strings.Contains(redirect.URL, "?") {
+		// 		redirect.URL += "&prompt=none"
+		// 	} else {
+		// 		redirect.URL += "?prompt=none"
+		// 	}
+		// }
 		reqCtx.Redirect(redirect.URL)
 		return
 	}

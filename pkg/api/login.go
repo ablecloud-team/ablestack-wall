@@ -181,7 +181,7 @@ func (hs *HTTPServer) tryAutoLogin(c *contextmodel.ReqContext) bool {
 
 	for providerName, provider := range oauthInfos {
 		if provider.AutoLogin || hs.Cfg.OAuthAutoLogin {
-			redirectUrl := hs.Cfg.AppSubURL + "/login/" + providerName + "?autologin=true"
+			redirectUrl := hs.Cfg.AppSubURL + "/login/" + providerName
 			if hs.Features.IsEnabledGlobally(featuremgmt.FlagUseSessionStorageForRedirection) {
 				redirectUrl += hs.getRedirectToForAutoLogin(c)
 			}
