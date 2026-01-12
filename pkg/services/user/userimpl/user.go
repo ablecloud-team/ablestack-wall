@@ -291,22 +291,6 @@ func (s *Service) Update(ctx context.Context, cmd *user.UpdateUserCommand) error
 	return s.store.Update(ctx, cmd)
 }
 
-func (s *Service) UpdateAuthModule(ctx context.Context, cmd *user.UpdateAuthModuleCommand) error {
-	ctx, span := s.tracer.Start(ctx, "user.UpdateAuthModule", trace.WithAttributes(
-		attribute.Int64("userID", cmd.UserID),
-	))
-	defer span.End()
-
-	_, err := s.store.GetByID(ctx, cmd.UserID)
-	if err != nil {
-		return err
-	}
-
-	cmd.Created = time.Now().UTC()
-
-	return s.store.UpdateAuthModule(ctx, cmd)
-}
-
 func (s *Service) UpdateLastSeenAt(ctx context.Context, cmd *user.UpdateUserLastSeenAtCommand) error {
 	ctx, span := s.tracer.Start(ctx, "user.UpdateLastSeen", trace.WithAttributes(
 		attribute.Int64("userID", cmd.UserID),

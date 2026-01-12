@@ -26,7 +26,6 @@ type store interface {
 	Delete(context.Context, int64) error
 	LoginConflict(ctx context.Context, login, email string) error
 	Update(context.Context, *user.UpdateUserCommand) error
-	UpdateAuthModule(context.Context, *user.UpdateAuthModuleCommand) error
 	UpdateLastSeenAt(context.Context, *user.UpdateUserLastSeenAtCommand) error
 	GetSignedInUser(context.Context, *user.GetSignedInUserQuery) (*user.SignedInUser, error)
 	GetProfile(context.Context, *user.GetUserProfileQuery) (*user.UserProfileDTO, error)
@@ -276,43 +275,6 @@ func (ss *sqlStore) Update(ctx context.Context, cmd *user.UpdateUserCommand) err
 			Name:      usr.Name,
 			Login:     usr.Login,
 			Email:     usr.Email,
-		})
-
-		return nil
-	})
-}
-
-func (ss *sqlStore) UpdateAuthModule(ctx context.Context, cmd *user.UpdateAuthModuleCommand) error {
-	// enforcement of lowercase due to forcement of caseinsensitive login
-	return ss.db.WithTransactionalDbSession(ctx, func(sess *db.Session) error {
-		usr := user.UserAuth{
-			UserID:     cmd.UserID,
-			AuthModule: cmd.AuthModule,
-			AuthID:     cmd.AuthID,
-			Created:    time.Now(),
-		}
-
-		// 기존 레코드 조회 (서비스 계정 필터 제거)
-		q := sess.ID(cmd.UserID)
-
-		rows, err := q.Update(&usr)
-		if err != nil {
-			return err
-		}
-
-		// 존재하지 않으면 Insert
-		if rows == 0 {
-			if _, err := sess.Insert(&usr); err != nil {
-				return err
-			}
-		}
-
-		// 이벤트 publish
-		sess.PublishAfterCommit(&events.UserAuthUpdated{
-			Timestamp:  usr.Created,
-			UserID:     usr.UserID,
-			AuthModule: usr.AuthModule,
-			AuthID:     usr.AuthID,
 		})
 
 		return nil

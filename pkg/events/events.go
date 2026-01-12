@@ -47,13 +47,6 @@ type UserUpdated struct {
 	Email     string    `json:"email"`
 }
 
-type UserAuthUpdated struct {
-	Timestamp  time.Time `json:"timestamp"`
-	UserID     int64     `json:"user_id"`
-	AuthModule string    `json:"auth_module"`
-	AuthID     string    `json:"auth_id"`
-}
-
 type DataSourceDeleted struct {
 	Timestamp time.Time `json:"timestamp"`
 	Name      string    `json:"name"`

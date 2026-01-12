@@ -71,7 +71,6 @@ type CreateTokenCommand struct {
 	ClientIP        net.IP
 	UserAgent       string
 	ExternalSession *ExternalSession
-	IdToken         string
 }
 
 // UserTokenService are used for generating and validating user tokens

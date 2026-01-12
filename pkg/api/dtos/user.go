@@ -46,9 +46,3 @@ type UserLookupDTO struct {
 	Login     string `json:"login"`
 	AvatarURL string `json:"avatarUrl"`
 }
-
-type AdminAddUserOAuthForm struct {
-	UserID     int64  `json:"user_id"`
-	AuthModule string `json:"auth_module"`
-	AuthID     string `json:"auth_id"`
-}
