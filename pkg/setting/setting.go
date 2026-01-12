@@ -175,12 +175,12 @@ type Cfg struct {
 	// CSPReportEnabled toggles Content Security Policy Report Only support.
 	CSPReportOnlyEnabled bool
 	// CSPReportOnlyTemplate contains the Content Security Policy Report Only template.
-	CSPReportOnlyTemplate           string
-	AngularSupportEnabled           bool
-	EnableFrontendSandboxForPlugins []string
-	DisableGravatar                 bool
-	DataProxyWhiteList              map[string]bool
-	ActionsAllowPostURL             string
+	CSPReportOnlyTemplate            string
+	AngularSupportEnabled            bool
+	DisableFrontendSandboxForPlugins []string
+	DisableGravatar                  bool
+	DataProxyWhiteList               map[string]bool
+	ActionsAllowPostURL              string
 
 	TempDataLifetime time.Duration
 
@@ -242,7 +242,6 @@ type Cfg struct {
 	AdminEmail                    string
 	DisableLoginForm              bool
 	SignoutRedirectUrl            string
-	SignoutUrl                    string
 	IDResponseHeaderEnabled       bool
 	IDResponseHeaderPrefix        string
 	IDResponseHeaderNamespaces    map[string]struct{}
@@ -533,7 +532,6 @@ type Cfg struct {
 
 	// Unified Storage
 	UnifiedStorage map[string]UnifiedStorageConfig
-	IndexPath      string
 }
 
 type UnifiedStorageConfig struct {
@@ -1340,9 +1338,8 @@ func (cfg *Cfg) parseINIFile(iniFile *ini.File) error {
 	cfg.ScopesListScopesURL = scopesSection.Key("list_scopes_endpoint").MustString("")
 	cfg.ScopesListDashboardsURL = scopesSection.Key("list_dashboards_endpoint").MustString("")
 
-	// unified storage config
+	// read unifed storage config
 	cfg.setUnifiedStorageConfig()
-	cfg.setIndexPath()
 
 	return nil
 }
@@ -1558,10 +1555,10 @@ func readSecuritySettings(iniFile *ini.File, cfg *Cfg) error {
 	cfg.CSPReportOnlyEnabled = security.Key("content_security_policy_report_only").MustBool(false)
 	cfg.CSPReportOnlyTemplate = security.Key("content_security_policy_report_only_template").MustString("")
 
-	enableFrontendSandboxForPlugins := security.Key("enable_frontend_sandbox_for_plugins").MustString("")
-	for _, plug := range strings.Split(enableFrontendSandboxForPlugins, ",") {
+	disableFrontendSandboxForPlugins := security.Key("disable_frontend_sandbox_for_plugins").MustString("")
+	for _, plug := range strings.Split(disableFrontendSandboxForPlugins, ",") {
 		plug = strings.TrimSpace(plug)
-		cfg.EnableFrontendSandboxForPlugins = append(cfg.EnableFrontendSandboxForPlugins, plug)
+		cfg.DisableFrontendSandboxForPlugins = append(cfg.DisableFrontendSandboxForPlugins, plug)
 	}
 
 	if cfg.CSPEnabled && cfg.CSPTemplate == "" {
@@ -1630,7 +1627,6 @@ func readAuthSettings(iniFile *ini.File, cfg *Cfg) (err error) {
 	cfg.OAuthCookieMaxAge = auth.Key("oauth_state_cookie_max_age").MustInt(600)
 	cfg.OAuthRefreshTokenServerLockMinWaitMs = auth.Key("oauth_refresh_token_server_lock_min_wait_ms").MustInt64(1000)
 	cfg.SignoutRedirectUrl = valueAsString(auth, "signout_redirect_url", "")
-	cfg.SignoutUrl = valueAsString(auth, "signout_url", "")
 
 	// Deprecated
 	cfg.OAuthSkipOrgRoleUpdateSync = false

@@ -36,7 +36,6 @@ type UserToken struct {
 	UpdatedAt         int64
 	RevokedAt         int64
 	UnhashedToken     string
-	IdToken           string
 }
 
 const UrgentRotateTime = 1 * time.Minute
